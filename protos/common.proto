@@ -1,0 +1,807 @@
+syntax = "proto3";
+
+package protocols.common;
+option csharp_namespace = "Saturn.Backends.Protocols.Common";
+
+// item       : 'azure_cosmos' database item message 
+// document   : 'elasticsearch' document message
+// parameter  : 'mssql' document message
+
+enum COMMON_STATUS_KIND
+{
+    COMMON_STATUS_KIND_DEFAULT              = 0;
+    COMMON_STATUS_KIND_FAILED               = 1;
+    COMMON_STATUS_KIND_FAILED_DATABASE      = 2;
+    COMMON_STATUS_KIND_FAILED_PROTOBUF      = 3;
+    COMMON_STATUS_KIND_FAILED_ENCELADUS     = 4;
+    COMMON_STATUS_KIND_FAILED_DUPLICATED    = 5;
+    COMMON_STATUS_KIND_FAILED_DEPRECATED    = 6;
+    COMMON_STATUS_KIND_FAILED_REFRESH       = 7;
+    COMMON_STATUS_KIND_FAILED_PERMISSION    = 8;
+    COMMON_STATUS_KIND_FAILED_OVERWRITE     = 9;
+    
+    COMMON_STATUS_KIND_DB_RESTRICT          = 100;
+
+    COMMON_STATUS_KIND_SUCCESS              = 200;
+    COMMON_STATUS_KIND_NO_CONTENT           = 204;
+    COMMON_STATUS_KIND_UNAUTHORIZED         = 401;
+    COMMON_STATUS_KIND_UNSUPPORTED          = 415;
+}
+
+enum MEMBER_KIND
+{
+    MEMBER_KIND_DEFAULT = 0;
+    MEMBER_KIND_NORMAL  = 1;
+    MEMBER_KIND_ADMIN   = 2;
+    MEMBER_KIND_MANAGER = 3;
+    MEMBER_KIND_TEST    = 4;
+}
+
+enum MEMBER_PERMISSION_KIND
+{
+    MEMBER_PERMISSION_KIND_DEFAULT          = 0;
+
+    MEMBER_PERMISSION_KIND_SCENE_SELECT     = 1;
+    MEMBER_PERMISSION_KIND_SCENE_UPDATE     = 2;
+    MEMBER_PERMISSION_KIND_SCENE_DELETE     = 3;
+
+    MEMBER_PERMISSION_KIND_CONNECT_SELECT   = 4;
+    MEMBER_PERMISSION_KIND_CONNECT_UPDATE   = 5;
+    MEMBER_PERMISSION_KIND_CONNECT_DELETE   = 6;
+
+    MEMBER_PERMISSION_KIND_MEMBER_SELECT    = 7;
+    MEMBER_PERMISSION_KIND_MEMBER_UPDATE    = 8;
+    MEMBER_PERMISSION_KIND_MEMBER_DELETE    = 9;
+    MEMBER_PERMISSION_KIND_MONITOR          = 10;
+}
+
+enum MEMBER_REGISTER_KIND
+{
+    MEMBER_REGISTER_KIND_DEFAULT        = 0;
+    MEMBER_REGISTER_KIND_REGISTERED     = 1;
+    MEMBER_REGISTER_KIND_COMPLETED      = 2;
+    MEMBER_REGISTER_KIND_FAILED_DENY    = 3;
+    MEMBER_REGISTER_KIND_FAILED_WAIT    = 4;
+    MEMBER_REGISTER_KIND_RESET_PASSWORD = 5;
+}
+
+enum MEMBER_RECORD_KIND 
+{
+    MEMBER_RECORD_KIND_DEFAULT                  = 0;
+
+    MEMBER_RECORD_KIND_MEMBER_CREATED               = 10;
+    MEMBER_RECORD_KIND_MEMBER_PERMISSION_UPDATED    = 11;
+
+    // 
+    MEMBER_RECORD_KIND_DEPARTMENT_CREATED           = 20;
+    MEMBER_RECORD_KIND_DEPARTMENT_UPDATED           = 21;
+    MEMBER_RECORD_KIND_DEPARTMENT_DELETED           = 22;
+
+    MEMBER_RECORD_KIND_DEPARTMENT_NODE_UPDATED      = 31;
+    
+    MEMBER_RECORD_KIND_SCENE_CREATED                = 100;
+    MEMBER_RECORD_KIND_SCENE_UPDATED                = 101;
+    MEMBER_RECORD_KIND_SCENE_DELETED                = 102;
+
+    MEMBER_RECORD_KIND_CONNECTOR_CONFIRM            = 200;
+    MEMBER_RECORD_KIND_CONNECTOR_DENY               = 201;
+    MEMBER_RECORD_KIND_CONNECTOR_DELETED            = 202;
+
+    MEMBER_RECORD_KIND_CONNECTOR_EMERGENCY_START    = 203;
+    MEMBER_RECORD_KIND_CONNECTOR_EMERGENCY_END      = 204;
+
+    MEMBER_RECORD_KIND_CONNECTOR_SCHEDULE_CREATED   = 300;
+    MEMBER_RECORD_KIND_CONNECTOR_SCHEDULE_DELETED   = 302;
+
+    MEMBER_RECORD_KIND_CONNECTOR_SCENE_ADDED        = 310;
+    MEMBER_RECORD_KIND_CONNECTOR_SCENE_DELETED      = 311;
+
+    MEMBER_RECORD_KIND_CONNECTOR_EMERGENCY_SCENE_CREATED      = 312;
+    MEMBER_RECORD_KIND_CONNECTOR_EMERGENCY_SCENE_DELETED      = 313;
+
+    MEMBER_RECORD_KIND_CONNECTOR_DEPARTMENT_ADDED   = 321;
+    MEMBER_RECORD_KIND_CONNECTOR_DEPARTMENT_DELETED = 322;
+
+    // 스케줄 
+    MEMBER_RECORD_KIND_SCHEDULE_CREATED             = 400;
+    MEMBER_RECORD_KIND_SCHEDULE_UPDATED             = 401;
+    MEMBER_RECORD_KIND_SCHEDULE_DELETED             = 402;
+
+    // 스케줄 씬
+    MEMBER_RECORD_KIND_SCHEDULE_SCENE_CREATED       = 410;
+    MEMBER_RECORD_KIND_SCHEDULE_SCENE_UPDATED       = 411;
+    MEMBER_RECORD_KIND_SCHEDULE_SCENE_DELETED       = 412;
+
+    // 리소스 폴더
+    MEMBER_RECORD_KIND_RESOURCE_FOLDER_CREATED      = 420;
+    MEMBER_RECORD_KIND_RESOURCE_FOLDER_UPDATED      = 421;
+    MEMBER_RECORD_KIND_RESOURCE_FOLDER_DELETED      = 422;
+
+    // 씬 폴더
+    MEMBER_RECORD_KIND_SCENE_FOLDER_CREATED         = 430;
+    MEMBER_RECORD_KIND_SCENE_FOLDER_UPDATED         = 431;
+    MEMBER_RECORD_KIND_SCENE_FOLDER_DELETED         = 432;
+
+}
+
+// 씬 컴포넌트 타입
+enum SCENE_COMPONENTS_KIND
+{
+    SCENE_COMPONENTS_KIND_DEFAULT       = 0;    // 
+    SCENE_COMPONENTS_KIND_SCENE         = 1;    // 
+    SCENE_COMPONENTS_KIND_COMMON        = 2;    // 
+    SCENE_COMPONENTS_KIND_BUTTON        = 3;
+    SCENE_COMPONENTS_KIND_VIDEO         = 4;
+    SCENE_COMPONENTS_KIND_IMAGE         = 5;
+    SCENE_COMPONENTS_KIND_SUBTITLE      = 6;    // deprecated
+    SCENE_COMPONENTS_KIND_PDF           = 7;
+    SCENE_COMPONENTS_KIND_MAP           = 8;
+    SCENE_COMPONENTS_KIND_WEATHER       = 9;
+    SCENE_COMPONENTS_KIND_CLOCK         = 10;
+    SCENE_COMPONENTS_KIND_WEB           = 11;
+    SCENE_COMPONENTS_KIND_SLIDE_IMAGE   = 12;
+    SCENE_COMPONENTS_KIND_SLIDE_VIDEO   = 13;
+    SCENE_COMPONENTS_KIND_TEXT          = 14;
+}
+
+enum SCENE_RESOURCE_KIND 
+{
+    SCENE_RESOURCE_KIND_DEFAULT     = 0;
+    SCENE_RESOURCE_KIND_IMAGE       = 1;
+    SCENE_RESOURCE_KIND_VIDEO       = 2;
+    SCENE_RESOURCE_KIND_SUBTITLE    = 3;
+    SCENE_RESOURCE_KIND_PDF         = 4;
+    SCENE_RESOURCE_KIND_MAP         = 5;
+    SCENE_RESOURCE_KIND_SCENE       = 6;
+
+    SCENE_RESOURCE_KIND_SCREENCAPTURE       = 7;
+}
+
+enum CONNECTOR_REGISTER_KIND
+{
+    CONNECTOR_REGISTER_KIND_DEFAULT     = 0;
+    CONNECTOR_REGISTER_KIND_REGISTERED  = 1;
+    CONNECTOR_REGISTER_KIND_COMFIRM     = 2;
+    CONNECTOR_REGISTER_KIND_DENY        = 3;
+}
+
+enum DEPARTMENT_FOLDER_KIND 
+{
+    DEPARTMENT_FOLDER_KIND_DEFAULT  = 0;
+    DEPARTMENT_FOLDER_KIND_RESOURCE = 1;
+    DEPARTMENT_FOLDER_KIND_SCENE    = 2;
+}
+
+enum TEXT_ALIGN_KIND 
+{
+    TEXT_ALIGN_KIND_DEFAULT = 0;
+    TEXT_ALIGN_KIND_VERTICAL_START      = 1;
+    TEXT_ALIGN_KIND_VERTICAL_CENTER     = 2;
+    TEXT_ALIGN_KIND_VERTICAL_END        = 3;
+    TEXT_ALIGN_KIND_HORIZONTAL_START    = 4;
+    TEXT_ALIGN_KIND_HORIZONTAL_CENTER   = 5;
+    TEXT_ALIGN_KIND_HORIZONTAL_END      = 6;
+}
+
+message ScenePartCommon 
+{
+    message Position 
+    {
+        int64 x = 1;
+        int64 y = 2;
+    }
+
+    message Size 
+    {
+        int64 width = 1;
+        int64 height = 2;
+    }
+    string                  id          = 1;
+    SCENE_COMPONENTS_KIND   kind        = 2;
+    Position                position    = 3;
+    Size                    size        = 4;
+    string                  background  = 5;
+    int32                   zIndex      = 6;
+    string                  name        = 7;
+}
+
+message ScenePart 
+{
+    ScenePartCommon         common      = 1;
+    ScenePartButton         button      = 2;
+    ScenePartImage          image       = 3;
+    ScenePartVideo          video       = 4;
+    ScenePartDocument       document    = 5;
+    ScenePartSubtitle       subtitle    = 6;
+    
+    ScenePartCoordinate     coordinate  = 7;
+    ScenePartWeather        weather     = 8;
+    ScenePartWeb            web         = 9;
+    ScenePartClock          clock       = 10;
+    ScenePartSlideImage     slideImage  = 11;
+}
+
+message ScenePartText 
+{
+    string              text            = 1;
+    string              textColor       = 2;   
+    int32               textSize        = 3;
+    bool                bold            = 4;
+    bool                italic          = 5;
+    TEXT_ALIGN_KIND     verticalKind    = 6;
+    TEXT_ALIGN_KIND     horizontalKind  = 7;
+}
+
+message ScenePartImage
+{
+    Resource                resource    = 1;
+    ScenePartText           text        = 2;
+}
+
+message ScenePartButton
+{
+    ScenePartText       text        = 1;
+    Resource            resource    = 2;
+    int64               sceneId     = 3;
+}
+
+message ScenePartVideo 
+{
+    Resource    resource    = 1;
+    bool        repeated    = 2;
+    bool        played      = 3;
+    int64       sceneId     = 4;
+}
+
+message ScenePartDocument
+{
+    Resource    resource    = 1;
+}
+
+message ScenePartSubtitle
+{
+    enum SUBTITLE_ANIMATION_KIND 
+    {
+        SUBTITLE_ANIMATION_KIND_DEFAULT         = 0;
+        SUBTITLE_ANIMATION_KIND_LEFT_TO_RIGHT   = 1;
+        SUBTITLE_ANIMATION_KIND_RIGHT_TO_LEFT   = 2;
+        SUBTITLE_ANIMATION_KIND_WRAP            = 3;
+    }
+
+    enum RSS_CONTENT_KIND 
+    {
+        RSS_CONTENT_KIND_DEFAULT        = 0;
+        RSS_CONTENT_KIND_TITLE          = 1;
+        RSS_CONTENT_KIND_DESCRIPTION    = 2;
+    }
+
+    message Rss 
+    {
+        string                      address         = 1;
+        repeated RSS_CONTENT_KIND   contentKinds    = 2;
+    }
+
+    ScenePartText           text                = 1;
+    int32                   seconds             = 2;
+
+    Resource                resource            = 3;
+    bool                    repeated            = 4;
+
+    SUBTITLE_ANIMATION_KIND animationKind       = 5;
+
+    Rss                     rss                 = 6;
+}
+
+message ScenePartCoordinate 
+{
+    ScenePartText               text                    = 1;
+    Resource                    resource                = 2;
+    Resource                    coordinateRresource     = 3;
+
+    Resource                    sourceResource          = 4;
+    ScenePartCommon.Size        sourceSize              = 5; 
+    ScenePartCommon.Position    sourcePosition          = 6;
+    Resource                    destinationResource     = 7;
+    ScenePartCommon.Size        destinationSize         = 8; 
+    ScenePartCommon.Position    destinationPosition     = 9;
+    string                      scenePartImageId        = 10;
+    int32                       groupId                 = 11;
+}
+
+message ScenePartWeather
+{
+    ScenePartText text = 1;
+}
+
+message ScenePartClock
+{
+    ScenePartText       text        = 1;
+    Resource            resource    = 2;
+    ScenePartText       dateText    = 3;
+    string              dateFormat  = 4;    // 날짜 포맷
+    string              textFormat  = 5;    // 시간 포맷
+    bool                useDate     = 6;
+    bool                useWeek     = 7;
+}
+
+message ScenePartWeb
+{
+    string url = 1;
+}
+
+message ScenePartSlideImage
+{
+    message SlideImage
+    {
+        Resource    resource = 1;
+        int32       seconds  = 2;
+    }
+
+    repeated SlideImage slideImages = 1;
+}
+
+message Resource 
+{
+    int64               resourceId                  = 1;
+    SCENE_RESOURCE_KIND kind                        = 2;
+    string              location                    = 3;
+    string              folderName                  = 4;
+    string              name                        = 5;
+    string              hash                        = 6;
+    int64               size                        = 7;
+    PreviewResource     previewResource             = 8;
+    int64               departmentResourceFolderId  = 9;
+    int64               created                     = 10;
+    int64               updated                     = 11;
+    int64               duration                    = 12;
+}
+
+message PreviewResource
+{
+    int64   previewResourceId   = 1;
+    string  location            = 2;
+}
+
+
+message SceneBlueprint
+{
+    int64                   id              = 1;
+    string                  name            = 2;
+    ScenePartCommon         canvas          = 3;
+    repeated ScenePart      parts           = 4;
+    DispatchScene           dispatchScene   = 5;
+}
+
+message DispatchScene
+{
+    bool        isUsed      = 1;
+    bool        isTouched   = 2;
+    int32       seconds     = 3;
+    int64       sceneId     = 4;
+}
+
+message SceneBase 
+{
+  int64             sceneId                 = 1;
+  string            name                    = 2;
+  Resource          resource                = 3;
+  int64             createdSeconds          = 4;
+  int64             width                   = 5;
+  int64             height                  = 6;
+  int64             departmentSceneFolderId = 7;
+  bool              isValified              = 8;
+  int64             updatedSeconds          = 9;
+}
+
+message Scene
+{
+    SceneBase                       base                = 1;
+    repeated SceneResourceBase      sceneResourceBases  = 2;
+    repeated SceneConnection        sceneConnections    = 3;
+}
+
+message SceneConnection
+{
+    int64       sceneConnectionId       = 1;
+    int64       sceneId                 = 2;
+    SceneBase   connectedSceneBase      = 3;
+}
+
+message SceneResourceBase
+{
+    int64       sceneResourceId     = 1;
+    int64       sceneId             = 2;
+    Resource    resource            = 3;
+}
+
+message SceneResource
+{
+    SceneResourceBase   base        = 1;
+}
+
+// from Scenes.proto
+/////////////////////////////////////////////////////////////////////////////////
+
+
+message CommonStatus
+{
+   COMMON_STATUS_KIND status = 1;
+}
+
+message MoonVersion 
+{
+    message AssemVersion
+    {
+        string name     = 1;
+        string version  = 2;
+    }
+    string          serviceName         = 1;
+    string          osVersion           = 2;    // Get the operationg system version.
+    string          runtimeVersion      = 3;    // Get the common language runtime version.
+    AssemVersion    assemVersion        = 4;    //
+    int64           elapsedMilliSeconds = 5;    // elapsedMilliSeconds 
+}
+
+// messages start
+message GetVersionResponse
+{
+    CommonStatus            common      = 1;
+    repeated MoonVersion    versions    = 2;
+}
+
+// messages end
+
+
+// structure
+message MemberBase
+{
+    int64                               id                      = 1;
+    string                              uuid                    = 2;
+    string                              email                   = 3;
+    MEMBER_KIND                         memberKind              = 4;
+    MEMBER_REGISTER_KIND                registerKind            = 5;
+    int64                               createdSeconds          = 6;
+    int64                               lastConnectedSeconds    = 7;
+}
+
+message Member 
+{
+    MemberBase                          base                = 1;  
+    repeated DepartmentBase             departmentBases     = 2;
+    repeated MEMBER_PERMISSION_KIND     permissions         = 3;
+}
+
+message DepartmentBase 
+{
+    int64                           id                  = 1;
+    string                          name                = 2;
+    int64                           createdSeconds      = 3;
+}
+
+
+message Department
+{
+    DepartmentBase                  base                = 1;
+    repeated MemberBase             memberBases         = 2;
+    repeated ConnectorBase          connectorBases      = 3;
+    repeated DepartmentLowerBase    departmentLowers    = 4;
+}
+
+message DepartmentLowerBase
+{
+    int64               id                  = 1;
+    DepartmentBase      lowerDepartmentBase = 2;
+    int64               createdSeconds      = 3;
+}
+
+message DepartmentNodeBase 
+{
+    int64           id                      = 1;
+    int64           order                   = 2;
+    int64           parentDepartmentNodeId  = 3;
+}
+
+message DepartmentNode
+{
+    DepartmentNodeBase  base        = 1;    
+    Department          department  = 2;
+}
+
+message ConnectorBase 
+{
+    int64                   connectorId     = 1;
+    string                  name            = 2;
+    string                  deviceId        = 3;
+    int64                   createdSeconds  = 4;
+    CONNECTOR_REGISTER_KIND kind            = 5;
+    int64                   updatedSeconds  = 6;
+    Resource                resource        = 7;
+
+    int64                   emergencySceneId = 8;
+    bool                    isEmergency      = 9;
+}
+
+message Connector 
+{
+    ConnectorBase                   base            = 1;
+    DepartmentBase                  departmentBase  = 2;
+    Scene                           scene           = 3;
+    repeated ConnectorScheduleScene schedules       = 4;
+    Scene                           emergencyScene  = 5; 
+}
+
+message ConnectorDepartmentBase
+{
+    ConnectorBase   connectorBase   = 1;
+    DepartmentBase  departmentBase  = 2;
+}
+
+message MemberPermission
+{
+    int64                   id          = 1;
+    MemberBase              memberBase  = 2;
+    MEMBER_PERMISSION_KIND  permission  = 3;
+}
+
+message MemberDepartment
+{
+    int64               id              = 1;
+    MemberBase          memberBase      = 2;
+    DepartmentBase      departmentBase  = 3;
+}
+
+message MemberRecordBlueprint 
+{
+    message MemberSceneRecord 
+    {
+        int64   sceneId     = 1;
+        string  sceneName   = 2;
+    }
+
+    message MemberScheduleRecord
+    {
+        int64   scheduleId      = 1;
+        string  scheduleName    = 2;
+    }
+
+    message MemberScheduleSceneRecord
+    {
+        int64   scheduleSceneId     = 1;
+        string  scheduleSceneName   = 2;
+    }
+
+    message MemberConnectorKindRecord
+    {
+        int64                   connectorId         = 1;
+        string                  connectorName       = 2;
+        CONNECTOR_REGISTER_KIND oldKind             = 3;
+        CONNECTOR_REGISTER_KIND kind                = 4;
+    }
+
+    message MemberConnectorRecord
+    {
+        int64   connectorId      = 1;
+        string  connectorName    = 2;
+    }
+
+    message MemberConnectorEmergencyRecord
+    {
+        int64                   connectorId         = 1;
+        string                  connectorName       = 2;
+        bool                    oldEmergency        = 3;
+        bool                    newEmergency        = 4;
+    }
+
+    message MemberConnectorScheduleRecord
+    {
+        int64   connectorId                 = 1;
+        string  connectorName               = 2;
+        int64   connectorScheduleSceneId    = 3;
+        string  sceneScheduleName           = 4;
+    }
+
+    message MemberConnectorSceneRecord
+    {
+        int64       connectorId     = 1;
+        string      connectorName   = 2;
+
+        int64       sceneId         = 3;
+        string      sceneName       = 4;
+    }
+
+    message MemberConnectorEmergencySceneRecord
+    {
+        int64       connectorId     = 1;
+        string      connectorName   = 2;
+
+        int64       sceneId         = 3;
+        string      sceneName       = 4;
+    }
+
+    message MemberConnectorDepartmentRecord
+    {
+        int64       connectorId     = 1;
+        string      connectorName   = 2;
+
+        int64       departmentId    = 3;
+        string      departmentName  = 4;
+    }
+
+    message MemberDepartmentRecord 
+    {
+        int64   departmentId        = 1;
+        string  departmentName      = 2;
+        string  newDepartmentName   = 3;
+    }
+
+    message MemberDepartmentNodeRecord 
+    {
+        int64   parentDepartmentId          = 1;
+        string  parentDepartmentName        = 2;
+        int64   newParentDepartmentId       = 3;
+        string  newParentDepartmentName     = 4;
+    }
+
+    message MemberDepartmentResourceFolderRecord 
+    {
+        int64   departmentId                    = 1;
+        string  departmentName                  = 2;
+        int64   departmentResourceFolderId      = 3;
+        string  departmentResourceFolderName    = 4;
+        string  newDepartmentResourceFolderName = 5;
+    }
+    
+    message MemberDepartmentSceneFolderRecord 
+    {
+        int64   departmentId                    = 1;
+        string  departmentName                  = 2;
+        int64   departmentSceneFolderId         = 3;
+        string  departmentSceneFolderName       = 4;
+        string  newDepartmentSceneFolderName    = 5;
+    }
+
+
+
+    MEMBER_RECORD_KIND                      kind                            = 1;  
+    MemberSceneRecord                       sceneRecord                     = 2;
+    MemberConnectorRecord                   connectorRecord                 = 3;
+    MemberConnectorScheduleRecord           connectorScheduleRecord         = 4;
+    MemberConnectorKindRecord               connectorKindRecord             = 5;
+    MemberConnectorSceneRecord              connectorSceneRecord            = 6; 
+    MemberConnectorDepartmentRecord         connectorDepartmentRecord       = 7; 
+        
+    MemberScheduleRecord                    scheduleReocrd                  = 8;
+    MemberScheduleSceneRecord               scheduleSceneRecord             = 9;
+        
+    MemberDepartmentRecord                  departmentRecord                = 10;
+    MemberDepartmentNodeRecord              departmentNodeRecord            = 11;
+
+    MemberDepartmentResourceFolderRecord    departmentResourceFolderRecord  = 12;
+    MemberDepartmentSceneFolderRecord       departmentSceneFolderRecord     = 13;
+    
+    MemberConnectorEmergencyRecord          connectorEmergencyRecord        = 14;
+    MemberConnectorEmergencySceneRecord     connectorEmergencySceneRecord   = 15;
+}
+
+message MemberRecord 
+{
+    int64                   memberRecordId      = 1;
+    MemberBase              memberBase          = 2;
+    MEMBER_RECORD_KIND      kind                = 3;
+    MemberRecordBlueprint   blueprint           = 4;
+    int64                   behaviorSeconds     = 5;
+}
+
+
+message Schedule
+{
+    
+    message DayOfWeek 
+    {
+        int32   startHour         = 1;    // 시작 시간
+        int32   startMinute       = 2;    // 시작 분
+
+        int32   endHour           = 3;    // 종료 시간
+        int32   endMinute         = 4;    // 종료 분
+        bool    isAllDay          = 5;    // 하루 종일
+        bool    disabled          = 6;    // 사용 안함     
+    }
+
+    message Week 
+    {
+        DayOfWeek mon                 = 1;    // 월
+        DayOfWeek tue                 = 2;    // 화
+        DayOfWeek wed                 = 3;    // 수 
+        DayOfWeek thu                 = 4;    // 목
+        DayOfWeek fri                 = 5;    // 금
+        DayOfWeek sat                 = 6;   // 토
+        DayOfWeek sun                 = 7;   // 일
+    }
+
+    int64   scheduleId          = 1;
+    string  name                = 2;
+    int64   startDateSeconds    = 3;    // 시작 날짜
+    int64   endDateSeconds      = 4;    // 종료 날짜
+    bool    useDate             = 5;    // 날짜 사용
+    Week    week                = 6;    // 일주일
+
+    int64   createdSeconds      = 7;
+    int64   updatedSeconds      = 8;
+}
+
+message ScheduleScene
+{
+    int64           scheduleSceneId     = 1;
+    string          name                = 2;
+    Schedule        schedule            = 3;
+    SceneBase       sceneBase           = 4;
+    int64           created             = 5;
+    int64           updated             = 6;
+}
+
+message ConnectorScheduleScene
+{
+    int64           connectorScheduleSceneId    = 1;
+    ScheduleScene   scheduleScene               = 2;
+    int64           created                     = 3;
+    int64           updated                     = 4;
+}
+
+message Paginator 
+{
+    int32 itemsCount = 1;   // 모든 아이템 갯수
+    int32 pagesCount = 2;   // 모든 페이지의 갯수
+    int32 pagesIndex = 3;   // 현재 페이지 인덱스
+}
+
+message Weather
+{
+    int32 skyCode       = 1; // 1: 맑음, 3: 구르많음, 4: 흐림
+    int32 ptyCode       = 2; // 0: 없음, 1: 비, 2: 비/눈, 3:눈, 4: 소나기
+    int32 temperature   = 3;
+}
+
+message DepartmentResourceFolder
+{
+    int64   departmentFolderId                  = 1;
+    string  name                                = 2;
+    int64   departmentId                        = 3;
+    int64   parentDepartmentResourceFolderId    = 4;
+    int64   createdSeconds                      = 5;
+    int64   size                                = 6;
+    // resources 
+}
+
+message DepartmentSceneFolder 
+{
+    int64   departmentFolderId                  = 1;
+    string  name                                = 2;
+    int64   departmentId                        = 3;
+    int64   parentDepartmentSceneFolderId       = 4;
+    int64   createdSeconds                      = 5;
+    int64   size                                = 6;
+    // scenes 
+}
+
+message Feed 
+{
+    message FeedItem 
+    {
+        string  title               = 1;
+        string  description         = 2;
+        int64   pubDateSeconds      = 3;
+        int64   lastUpdateSeconds   = 4; 
+        string  link                = 5;
+    }
+
+    string title                = 1;
+    string link                 = 2;
+    string description          = 3;
+    string language             = 4; 
+    string copyright            = 5;
+    int64 lastBuildDateSeconds  = 6;
+
+    repeated FeedItem items     = 7;
+}
+
+// VERSION : v1.0.20201204.01

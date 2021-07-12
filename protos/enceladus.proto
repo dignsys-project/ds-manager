@@ -1,0 +1,36 @@
+syntax = "proto3";
+
+import "common.proto";
+
+package protocols.enceladus;
+option csharp_namespace = "Saturn.Backends.Protocols.Enceladus";
+
+message PostResourceResponse 
+{
+    common.CommonStatus     common      = 1;
+    common.Resource          resource    = 2;
+}
+
+
+message PostPreviewResourceRequest
+{
+    string encodedImage = 1;
+}
+
+message PostPreviewResourceResponse
+{
+    common.CommonStatus     common          = 1;
+    common.PreviewResource   previewResource = 2;
+}
+
+
+message PostAdminRequest
+{
+  string id       = 1;
+  string password = 2;
+}
+
+message PostAdminResponse
+{
+    common.CommonStatus common = 1;
+}

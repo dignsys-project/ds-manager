@@ -1,0 +1,875 @@
+syntax = "proto3";
+
+import "common.proto";
+
+package protocols.prometheus;
+option csharp_namespace = "Saturn.Backends.Protocols.Prometheus";
+
+
+message GetVersionRequiredResponse
+{
+  common.CommonStatus common    = 1;
+  common.MoonVersion  version   = 2;
+  bool                haveAdmin = 3;
+}
+
+// REQUEST GET member/
+// MESSAGE 
+// RESPONSE GetMemberRequest
+message GetMemberResponse 
+{
+  common.CommonStatus           common      = 1;
+  repeated common.MemberBase    memberBases = 2;
+}
+
+message GetMemberByIdResponse
+{
+  common.CommonStatus common = 1;
+  common.Member       member = 2;
+}
+
+message PutMemberResponse
+{
+    common.CommonStatus common              = 1;
+    common.Member       member              = 2;
+    string              EnceladusAddress    = 3;
+}
+
+message DeleteMemberResponse
+{
+  common.CommonStatus common = 1;
+}
+
+//////////////////////////////////////////////////
+//
+// REQUEST  : POST member/{MEMBER_Id}/kind/{MEMBER_KIND}
+// MESSAGE  : PutMemberKindRequest
+// RESPONSE : PutMemberKindResponse
+message PutMemberKindResponse
+{
+    common.CommonStatus common                  = 1;
+    common.MemberBase   memberBase              = 2;
+}
+
+
+//////////////////////////////////////////////////
+// obsolete
+// POST         member/permission
+// REQUEST  :   PostMemberPermissionRequest
+// MESSAGE  : 
+// RESPONSE :   PostMemberPermissionResponse
+message PostMemberPermissionRequest 
+{
+    common.MEMBER_PERMISSION_KIND permission  = 1;
+}
+
+message PostMemberPermissionResponse 
+{
+    common.CommonStatus     common    = 1;
+    common.Member           member    = 2;
+}
+
+//////////////////////////////////////////////////
+// POST         member/{DEST_MEMBER_ID}/permission
+// REQUEST  :   PutMemberPermissionRequest
+// MESSAGE  : 
+// RESPONSE :   PutMemberPermissionResponse
+message PutMemberPermissionRequest
+{
+    repeated common.MEMBER_PERMISSION_KIND permissions = 1;
+}
+
+message PutMemberPermissionResponse
+{
+    common.CommonStatus     common    = 1;
+    common.Member           member    = 2;
+}
+
+// obsolete
+// DELETE member/permission
+// REQUEST : DeleteMemberPermissionRequest
+// MESSAGE 
+// RESPONSE : DeleteMemberPermissionResponse
+message DeleteMemberPermissionRequest
+{
+  int64 memberId            = 1;
+  int64 memberPermissionId  = 2;
+}
+
+message DeleteMemberPermissionResponse
+{
+  common.CommonStatus common = 1;
+  common.Member       member = 2;
+}
+
+
+// REQUEST GET : /account
+message GetAccountResponse
+{
+    common.CommonStatus                     common          = 1;
+    common.MEMBER_KIND                      kind            = 2;
+    repeated common.MEMBER_PERMISSION_KIND  permissions     = 3;
+    repeated int64                          departmentIds   = 4;
+}
+
+// <AllowAnonymous>
+// REQUEST : POST /account
+// 
+// RESPONSE : MESSAGE PostAccountResponse
+message PostAccountRequest
+{
+  string              email       = 1;
+  string              password    = 2;
+  common.MEMBER_KIND  memberKind  = 3; // for
+}
+
+message PostAccountResponse
+{
+  common.CommonStatus common        = 1;
+}
+
+message PutAccountRequest
+{
+  string email    = 1;
+  string password = 2;
+}
+
+message PutAccountResponse
+{
+  common.CommonStatus common  = 1;
+  string              token   = 2;
+}
+
+
+message GetDepartmentByIdResponse 
+{
+  common.CommonStatus   common        = 1;
+  common.Department     department    = 2;
+}
+
+// PUT department/
+// REQUEST : PutDepartmentRequest
+// MESSAGE
+// RESPONSE : PutDepartmentResponse
+message PutDepartmentRequest
+{
+  common.Department department = 1;
+}
+
+message PutDepartmentResponse
+{
+  common.CommonStatus common      = 1;
+  common.Department   department  = 2;
+}
+
+
+// GET department/node
+// REQUEST : department/node
+// MESSAGE
+// RESPONSE : GetDepartmentNodeResponse
+message GetDepartmentNodeResponse
+{
+  common.CommonStatus             common  = 1;
+  repeated common.DepartmentNode  nodes   = 2;
+}
+
+
+// POST     : department/node
+// REQUEST  : PostDepartmentNodeRequest
+// MESSAGE
+// RESPONSE : PostDepartmentNodeResponse
+message PostDepartmentNodeRequest
+{
+  int64   parentDepartmentNodeId  = 1;
+  int64   order                   = 2;
+  string  departmentName          = 3;
+}
+
+message PostDepartmentNodeResponse
+{
+  common.CommonStatus   common  = 1;
+  common.DepartmentNode node    = 2;
+}
+
+// PUT department/node/{DEPARTMENT_NODE_ID}
+// REQUEST : PutDepartmentNodeRequest
+// MESSAGE
+// RESPONSE : PutDepartmentNodeResponse
+message PutDepartmentNodeRequest
+{
+  int64   parentDepartmentNodeId  = 1;
+}
+
+message PutDepartmentNodeResponse
+{
+  common.CommonStatus   common  = 1;
+  common.DepartmentNode node    = 2;
+}
+
+// DELETE department/node/{DEPARTMENT_NODE_ID}
+// REQUEST : 
+// MESSAGE
+// RESPONSE : DeleteDepartmentNodeResponse
+message DeleteDepartmentNodeResponse
+{
+  common.CommonStatus common = 1;
+}
+
+
+
+// REQUEST GET : member/record?from={FROM_INDEX}&size={SIZE_INDEX}
+// RESPONSE : 
+
+message GetMemberRecordResponse
+{
+  common.CommonStatus             common          = 1;
+  repeated common.MemberRecord    memberRecords   = 2;
+  int32                           itemsCount      = 3;
+}
+
+// REQUEST GET : member/{MEMBER_ID}/record?from={FROM_INDEX}&size={SIZE_INDEX}
+message GetMemberRecordByMemberIdResponse
+{
+  common.CommonStatus             common          = 1;
+  repeated common.MemberRecord    memberRecords   = 2;
+  int32                           itemsCount      = 3;
+}
+
+
+// REQUEST GET : scene 
+// REQUEST : scene?from=0&size=10
+message GetSceneResponse
+{
+  common.CommonStatus         common      = 1;
+  repeated common.SceneBase   sceneBases  = 2;
+  int32                       itemsCount  = 3;
+}
+
+// REQUEST GET : scene 
+// REQUEST : scene/{SCENE_ID}
+// RESPONSE : GetSceneByIdResponse
+message GetSceneByIdResponse 
+{
+  common.CommonStatus   common  = 1;
+  common.Scene           scene   = 2;
+}
+
+message GetSceneByIdBlueprintResponse 
+{
+  common.CommonStatus     common    = 1;
+  common.Scene            scene     = 2;
+  common.SceneBlueprint   blueprint = 3;
+}
+
+// REQUEST POST : scene
+// MESSAGE  : PostSceneRequest
+// RESPONSE : PostSceneResponse
+message PostSceneRequest
+{
+  string                  name              = 1;
+  common.SceneBlueprint   sceneBlueprint    = 2;
+  common.PreviewResource  previewResource   = 3;
+  bool                    isTemporary       = 4;
+}
+
+message PostSceneResponse 
+{
+  common.CommonStatus     common          = 1;
+  common.Scene            scene           = 2;
+  common.SceneBase        overwriteScene  = 3; // if common.CommonStatus == COMMON_STATUS_KIND_FAILED_OVERWRITE
+}
+
+
+// METHOD   PUT : scene
+// REQUEST  : PutSceneRequest
+// RESPONSE : PutSceneResponse
+message PutSceneRequest
+{
+  int64                   sceneId           = 1;
+  string                  name              = 2;
+  common.SceneBlueprint   sceneBlueprint    = 3;
+  common.PreviewResource  previewResource   = 4;
+}
+
+message PutSceneResponse 
+{
+  common.CommonStatus     common  = 1;
+  common.Scene            scene   = 2;
+}
+
+// METHOD   DELETE : scene
+// REQUEST  : DeleteSceneRequest
+// RESPONSE : DeleteSceneResponse
+message DeleteSceneResponse
+{
+  common.CommonStatus     common  = 1;
+}
+//////////////////////////////////////////////////////////////////////
+// ROUTE : department/member
+message GetDepartmentMemberResponse
+{
+  common.CommonStatus           common      = 1;
+  common.Department             department  = 2;
+  repeated common.MemberBase    memberBases = 3;
+}
+
+// REQUEST  : department/connector/lowers/{DEPARTMENT_ID}
+// 
+// RESPONSE : GetDepartmentConnectorLowersResponse
+message GetDepartmentConnectorLowersResponse
+{
+  common.CommonStatus                         common                    = 1;
+  repeated common.ConnectorDepartmentBase     connectorDepartmentBases  = 2;
+}
+
+message PostDepartmentMemberRequest
+{
+  int64 departmentId  = 1;
+  int64 memberId      = 2;
+}
+
+message PostDepartmentMemberResponse
+{
+  common.CommonStatus           common      = 1;
+  common.Department             department  = 2;
+  repeated common.MemberBase    memberBases = 3;
+}
+
+message DeleteDepartmentMemberRequest
+{
+  int64 deparmentId = 1;
+  int64 memberId    = 2;
+}
+
+message DeleteDepartmentMemberResponse
+{
+  common.CommonStatus           common      = 1;
+  common.Department             department  = 2;
+  repeated common.MemberBase    memberBases = 3;
+}
+
+
+// REQUEST GET : department/connector
+// REQUEST : department/connector/{departmentId}
+message GetDepartmentConnectorsResponse
+{
+  common.CommonStatus             common          = 1;
+  common.Department               department      = 2;
+  repeated common.ConnectorBase   connectorBases  = 3;
+}
+
+message PostDepartmentConnectorRequest
+{
+  int64 departmentId = 1;
+  int64 connectorId  = 2;
+}
+
+message PostDepartmentConnectorResponse
+{
+  common.CommonStatus             common          = 1;
+  common.Department               department      = 2;
+  repeated common.ConnectorBase   connectorBases  = 3;
+}
+
+message DeleteDepartmentConnectorResponse
+{
+  common.CommonStatus             common          = 1;
+  common.Department               department      = 2;
+  repeated common.ConnectorBase   connectorBases  = 3;
+}
+
+// REQUEST GET : connector 
+// MESSAGE : GetConnectRequest
+message GetConnectorResponse 
+{
+    common.CommonStatus     common      = 1;
+    common.Connector        connector   = 2;
+}
+
+message GetConnectorsResponse 
+{
+    common.CommonStatus                   common          = 1;
+    repeated common.ConnectorBase         connectorBases  = 2;
+}
+
+
+message PostConnectorByIdResponse
+{
+  common.CommonStatus       common      = 1;
+  common.Connector          connector   = 2;
+}
+
+
+message PostConnectorRequest
+{
+    string name         = 1;
+    string deviceId     = 2;
+}
+
+message PostConnectorResponse
+{
+    enum POST_KIND
+    {
+      POST_KIND_DEFAULT           = 0;
+      POST_KIND_CREATED           = 1;
+      POST_KIND_DUPLICATED_NAME   = 2;
+      POST_KIND_DUPLICATED_DEVICE = 3;
+    }
+
+    common.CommonStatus common      = 1;
+    POST_KIND           kind        = 2;
+    common.Connector    connector   = 3;
+}
+
+message PutConnectorNameRequest
+{
+  string name = 1;
+}
+
+message PutConnectorNameResponse
+{
+  common.CommonStatus common      = 1;
+  common.Connector    connector   = 2;
+}
+
+message PutConnectorRequest
+{
+  common.CONNECTOR_REGISTER_KIND  kind        = 1;
+}
+
+message PutConnectorResponse
+{
+  common.CommonStatus common      = 1;
+  common.Connector    connector   = 2;
+}
+
+message DeleteConnectorResponse
+{
+  common.CommonStatus common = 1;
+}
+
+
+// REQUEST : PUT connector/{CONNECTOR_ID}/scene/{SCENE_ID}
+message PutConnectorSceneResponse
+{
+  common.CommonStatus common = 1;
+  common.Scene        scene = 2;
+}
+
+message DeleteConnectorSceneResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// REQUEST : PUT connector/{CONNECTOR_ID}/scene/{SCENE_ID}/emergency
+// 
+// RESPONSE : PutConnectorSceneEmergencyResponse
+message PutConnectorSceneEmergencyResponse
+{
+  common.CommonStatus common = 1;
+  common.Scene        scene  = 2;
+}
+
+message DeleteConnectorSceneEmergencyResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// REQUEST : PUT connector/{CONNECTOR_ID}/emergency 
+message PutConnectorEmergencyRequest
+{
+  int64 connectorId = 1;
+  bool  isEmergency = 2; 
+}
+
+message PutConnectorEmergencyResponse
+{
+  common.CommonStatus common      = 1;
+}
+
+// REQUEST : PUT connector/{CONNECTOR_ID}/emergency/{SCENE_ID}
+message PutConnectorEmergencySceneRequest 
+{
+  int64 sceneId     = 1;
+  bool  isEmergency = 2;
+}
+
+message PutConnectorEmergencySceneResponse
+{
+  common.CommonStatus   common        = 1;
+  common.ConnectorBase  connectorBase = 2;
+}
+
+
+// GET schedule?from={FROM_INDEX}&size={ITEM_COUNTS}
+message GetScheduleResponse
+{
+  common.CommonStatus       common      = 1;
+  repeated common.Schedule  schedules   = 2;
+  common.Paginator          paginator   = 3;
+}
+
+// GET schedule/{Schedule_Id}
+message GetScheduleByIdResponse
+{
+  common.CommonStatus common    = 1;
+  common.Schedule     schedule  = 2;
+}
+
+// POST schedule
+// REQUEST  : PostScheduleRequest
+// RESPONSE : PostScheduleResponse
+message PostScheduleRequest
+{
+  common.Schedule schedule  = 1;
+}
+
+message PostScheduleResponse
+{
+  common.CommonStatus common    = 1;
+  common.Schedule     schedule  = 2;
+}
+
+// POST schedule/{scheduleId}/scene
+// REQUEST  : PostScheduleSceneRequest
+// RESPONSE : PostScheduleSceneResponse
+message PostScheduleSceneRequest
+{
+  string            name      = 1;
+  int64             sceneId   = 2;
+}
+
+message PostScheduleSceneResponse
+{
+  common.CommonStatus       common          = 1;
+  common.ScheduleScene      scheduleScene   = 2;
+}
+
+// PUT schdule/{Schedule_Id}
+message PutScheduleRequest
+{
+  common.Schedule schedule = 1;
+}
+
+message PutScheduleResponse
+{
+  common.CommonStatus common    = 1;
+  common.Schedule     schedule  = 2;
+}
+
+// DELETE schedule/{ScheduleId}
+message DeleteScheduleResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// for schedule/scene 
+
+// GET schedule/scene?from={FROM_INDEX}&size={ITEM_COUNTS}
+message GetScheduleSceneResponse
+{
+  common.CommonStatus             common            = 1;
+  repeated common.ScheduleScene   scheduleScenes    = 2;
+  common.Paginator                paginator         = 3;
+}
+
+// GET schedule/scene/{Schedule_Id}
+message GetScheduleSceneByIdResponse
+{
+  common.CommonStatus       common          = 1;
+  common.ScheduleScene      scheduleScene   = 2;
+}
+
+
+
+// PUT schdule/scene/{ScheduleSceneId}
+message PutScheduleSceneRequest
+{
+  string          name        = 1;
+  int64           scheduleId  = 2;
+  int64           sceneId     = 3;       
+}
+
+message PutScheduleSceneResponse
+{
+  common.CommonStatus       common          = 1;
+  common.ScheduleScene      scheduleScene   = 2;
+}
+
+// DELETE schedule/scene/{ScheduleSceneId}
+message DeleteScheduleSceneResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// POST connector/{Connector_Id}/schedule
+// request  PostConnectorScheduleRequest
+// response PostConnectorScheduleResponse
+message PostConnectorScheduleRequest
+{
+  int64 scheduleSceneId = 1;
+}
+
+message PostConnectorScheduleResponse
+{
+  common.CommonStatus             common                  = 1;
+  common.ConnectorScheduleScene   connectorScheduleScene  = 2;
+}
+
+// PUT connector/{Connector_Id}/schedule/{Connector_Scene_Schedule_Id}
+// request  PutConnectorScheduleRequest
+// response PutConnectorScheduleResponse
+message PutConnectorScheduleRequest
+{
+  common.SceneBase  sceneBase = 1;
+  common.Schedule   schedule  = 2;
+}
+
+message PutConnectorScheduleResponse
+{
+  common.CommonStatus             common                  = 1;
+  common.ConnectorScheduleScene   connectorScheduleScene  = 2;
+}
+
+// DELETE connector/{Connector_Id}/schedule/{Connector_Scene_Schedule_Id}
+message DeleteConnectorScheduleResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// weather?nx={NX}&ny={NY}
+message GetWeatherResponse 
+{
+  common.CommonStatus   common          = 1;
+  common.Weather        weather         = 2;
+  int64                 dateTimeSeconds = 3;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// GET department/{DEPARTMENT_ID}/rf
+message GetDepartmentResourceFolderResponse
+{
+  message Item 
+  {
+      common.DepartmentNodeBase                 departmentNodeBase  = 1;
+      common.DepartmentBase                     departmentBase      = 2;
+      repeated common.DepartmentResourceFolder  resourceFolders     = 3;
+  }
+
+  common.CommonStatus common  = 1;
+  repeated Item       items   = 2;
+}
+
+// POST department/{DEPARTMENT_ID}/rf
+message PostDepartmentResourceFolderRequest
+{
+  string    name                              = 1;
+  int64     parentDepartmentResourceFolderId  = 2;
+}
+
+message PostDepartmentResourceFolderResponse
+{
+  common.CommonStatus               common                    = 1;
+  common.DepartmentResourceFolder   departmentResourceFolder  = 2;
+}
+
+// PUT department/{DEPARTMENT_ID}/rf/{DEPARTMENT_RESOURCE_FOLDER_ID}
+message PutDepartmentResourceFolderRequest
+{
+    repeated int64 resourceIds  = 1;
+}
+
+message PutDepartmentResourceFolderResponse
+{
+  common.CommonStatus   common        = 1;
+  repeated int64        resourceIds   = 2;
+}
+
+// PATCH department/{DEPARTMENT_ID}/rf/{DEPARTMENT_RESOURCE_FOLDER_ID}
+message PatchDepartmentResourceFolderRequest
+{
+  string name = 1;
+}
+
+message PatchDepartmentResourceFolderResponse
+{
+  common.CommonStatus                 common                    = 1;
+  common.DepartmentResourceFolder     departmentResourceFolder  = 2;
+}
+
+// DELETE department/{DEPARTMENT_ID}/rf/{DEPARTMENT_RESOURCE_FOLDER_ID}
+message DeleteDepartmentResourceFolderResponse
+{
+  common.CommonStatus common = 1;
+}
+
+// DELETE department/{DEPARTMENT_ID}/rf/{DEPARTMENT_RESOURCE_FOLDER_ID}/resource/{RESOURCE_ID}
+message DeleteDepartmentResourceFolderResourceResponse
+{
+  common.CommonStatus common = 1;
+}
+
+/////////////////////////////////////////////////////////////////////////////
+// GET department/{DEPARTMENT_ID}/sf
+message GetDepartmentSceneFolderResponse
+{
+  message Item 
+  {
+      common.DepartmentNodeBase                 departmentNodeBase  = 1;
+      common.DepartmentBase                     departmentBase      = 2;
+      repeated common.DepartmentSceneFolder     sceneFolders        = 3;
+  }
+
+  common.CommonStatus common  = 1;
+  repeated Item       items   = 2;
+}
+
+// POST department/{DEPARTMENT_ID}/sf
+message PostDepartmentSceneFolderRequest
+{
+  string    name                           = 1;
+  int64     parentDepartmentSceneFolderId  = 2;
+}
+
+message PostDepartmentSceneFolderResponse
+{
+  common.CommonStatus             common                = 1;
+  common.DepartmentSceneFolder    departmentSceneFolder = 2;
+}
+
+// PUT department/{DEPARTMENT_ID}/sf/{DEPARTMENT_SCENE_FOLDER_ID}
+message PutDepartmentSceneFolderRequest
+{
+    repeated int64 sceneIds  = 1;
+}
+
+message PutDepartmentSceneFolderResponse
+{
+  common.CommonStatus   common    = 1;
+  repeated int64        sceneIds  = 2;
+}
+
+message PatchDepartmentSceneFolderRequest
+{
+  string name = 1;
+}
+
+message PatchDepartmentSceneFolderResponse
+{
+  common.CommonStatus             common                = 1;
+  common.DepartmentSceneFolder    departmentSceneFolder = 2;
+}
+
+// DELETE department/{DEPARTMENT_ID}/rf/{DEPARTMENT_SCENE_FOLDER_ID}
+message DeleteDepartmentSceneFolderResponse
+{
+  common.CommonStatus common = 1;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////
+// REQUEST  : GET scene/folder/{DEPARTMENT_SCENE_FOLDER_ID}/scenes
+// QUERY    : ?from=0&size=10
+// RESPONSE : GetSceneFolderScenesResponse
+message GetSceneFolderScenesResponse
+{
+  common.CommonStatus         common      = 1;
+  repeated common.SceneBase   sceneBases  = 2;
+  int32                       itemsCount  = 3;
+}
+
+
+////////////////////////////////////////////////////////////////////////
+message GetResourceFolderResourcesResponse
+{
+  common.CommonStatus         common    = 1;
+  repeated common.Resource    resources = 2;
+  int32                       itemCount = 3;
+}
+
+message GetSubtitleRssResponse
+{
+  common.CommonStatus common  = 1;
+  common.Feed         feed    = 2; 
+}
+
+// REQUEST GET scene/{connectedSceneId}/navigation
+message GetSceneNavigationResponse 
+{
+  common.CommonStatus           common              = 1;
+  common.Scene                  scene               = 2;
+  repeated common.SceneBase     sourceSceneBases    = 3; 
+}
+
+
+// CONTROLLER : ValidateController
+// REQUEST : GET validate/scene?from=0&size=10
+message GetValidateSceneResponse
+{
+  common.CommonStatus         common      = 1;
+  repeated common.SceneBase   sceneBases  = 2;
+  int32                       itemsCount  = 3;
+}
+
+// CONTROLLER : ValidateController
+// REQUEST : validate/resource?from=0&size=10
+message GetValidateResourceResponse
+{
+  common.CommonStatus         common      = 1;
+  repeated common.Resource    resources   = 2;
+  int32                       itemsCount  = 3;
+}
+
+// CONTROLLER : ValidateController.GetResourceById
+// URI        : validate/resource/{RESOURCE_ID}
+// REQUEST    : 
+// RESPONSE   : GetValidateResourceByResourceIdResponse
+message GetValidateResourceByResourceIdResponse
+{
+  common.CommonStatus           common      = 1;
+  common.Resource               resource    = 2;
+  repeated common.SceneBase     sceneBases  = 3; 
+  int32                         itemCount   = 4; 
+}
+
+// CONTROLLER : ResourceController.UpdateResource
+message PutResourceResponse 
+{
+    common.CommonStatus   common    = 1;
+    common.Resource       resource  = 2; 
+}
+
+// CONTROLLER : ResourceController.GetItemByResourceId 
+// URI        : GET resource/{DEPARTMENT_ID}/{DEPARTMENT_RESOURCE_FOLDER_ID}/{RESOURCE_ID}
+message GetResourceResponse
+{
+    common.CommonStatus   common      = 1;
+    common.Resource       resource    = 2;
+}
+
+// CONTROLLER : ResourceController.GetItems
+// URI        : GET resource/folder/{DEPARTMENT_RESOURCE_FOLDER_ID}/resource?from={FROM_INDEX}&size={SIZE}&kind={SCENE_RESOURCE_KIND}
+// request    : 
+// response   : GetResourcesResponse
+message GetResourcesResponse 
+{
+    common.CommonStatus             common          = 1;
+    repeated common.Resource        resources       = 2;
+    int32                           pagesCount      = 3;
+    int32                           itemsCount      = 4;
+}
+
+// CONTROLLER : SceneV2Controller.GetSceneBlueprint
+// URI        : GET scene/v2/{SCENE_ID}/blueprint
+message GetSceneByIdBlueprintV2Response 
+{
+  common.CommonStatus           common      = 1;
+  common.SceneBlueprint         blueprint   = 2;
+  common.SceneBase              sceneBase   = 3;
+  repeated common.SceneBase     sceneBases  = 4;
+  repeated common.Resource      resources   = 5;
+}
+
+// VERSION : v1.0.20201204.02
