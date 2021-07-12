@@ -1,0 +1,71 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29920.165
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus", "Prometheus\Prometheus.csproj", "{35096C6D-170F-4559-B8BE-9F1ED6A82FD0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "protos", "protos", "{568640A8-0096-4460-BD0D-AA9E844A82BC}"
+	ProjectSection(SolutionItems) = preProject
+		protos\common.proto = protos\common.proto
+		protos\enceladus.proto = protos\enceladus.proto
+		protos\prometheus.proto = protos\prometheus.proto
+		protos\README.md = protos\README.md
+		protos\scene.proto = protos\scene.proto
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saturn.Backends.Protocols", "Saturn.Backends.Protocols\Saturn.Backends.Protocols.csproj", "{8DC8A02F-74E8-4EA6-847B-D066909E3512}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7E917D69-4838-4463-933B-B74C97D392BC}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		.gitmodules = .gitmodules
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saturn.Backends.Commons", "Saturn.Backends.Commons\Saturn.Backends.Commons.csproj", "{92ACA3A5-9CCA-45B3-B7A0-F2EDF734D019}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Saturn.Backends.Services", "Saturn.Backends.Services\Saturn.Backends.Services.csproj", "{335FD89D-9323-4A27-B99C-8B9CD71C50DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus.Models", "Prometheus.Models\Prometheus.Models.csproj", "{4A85A956-5D5B-4EBB-88E0-F0FE7A4E6156}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Prometheus.Databases", "Prometheus.Databases\Prometheus.Databases.csproj", "{FEB9A33F-84B7-4257-BB89-F6023CB67D55}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35096C6D-170F-4559-B8BE-9F1ED6A82FD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35096C6D-170F-4559-B8BE-9F1ED6A82FD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35096C6D-170F-4559-B8BE-9F1ED6A82FD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35096C6D-170F-4559-B8BE-9F1ED6A82FD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8DC8A02F-74E8-4EA6-847B-D066909E3512}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8DC8A02F-74E8-4EA6-847B-D066909E3512}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8DC8A02F-74E8-4EA6-847B-D066909E3512}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8DC8A02F-74E8-4EA6-847B-D066909E3512}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92ACA3A5-9CCA-45B3-B7A0-F2EDF734D019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92ACA3A5-9CCA-45B3-B7A0-F2EDF734D019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92ACA3A5-9CCA-45B3-B7A0-F2EDF734D019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92ACA3A5-9CCA-45B3-B7A0-F2EDF734D019}.Release|Any CPU.Build.0 = Release|Any CPU
+		{335FD89D-9323-4A27-B99C-8B9CD71C50DB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{335FD89D-9323-4A27-B99C-8B9CD71C50DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{335FD89D-9323-4A27-B99C-8B9CD71C50DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{335FD89D-9323-4A27-B99C-8B9CD71C50DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4A85A956-5D5B-4EBB-88E0-F0FE7A4E6156}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4A85A956-5D5B-4EBB-88E0-F0FE7A4E6156}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4A85A956-5D5B-4EBB-88E0-F0FE7A4E6156}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4A85A956-5D5B-4EBB-88E0-F0FE7A4E6156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEB9A33F-84B7-4257-BB89-F6023CB67D55}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEB9A33F-84B7-4257-BB89-F6023CB67D55}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEB9A33F-84B7-4257-BB89-F6023CB67D55}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEB9A33F-84B7-4257-BB89-F6023CB67D55}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B70EE031-52D8-4E0A-8FB3-29001CDDEE1B}
+	EndGlobalSection
+EndGlobal

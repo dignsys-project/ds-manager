@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1"/>
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2"/>
+    <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.5.0"/>
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.2"/>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3"/>
+    <PackageReference Include="SixLabors.ImageSharp" Version="1.0.0-rc0001"/>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0"/>
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.0.1"/>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Saturn.Backends.Protocols\Saturn.Backends.Protocols.csproj"/>
+    <ProjectReference Include="..\Saturn.Backends.Commons\Saturn.Backends.Commons.csproj"/>
+    <ProjectReference Include="..\Saturn.Backends.Services\Saturn.Backends.Services.csproj"/>
+    <ProjectReference Include="..\Prometheus.Databases\Prometheus.Databases.csproj"/>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Prometheus.Models\Prometheus.Models.csproj"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="3.1.2"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.2"/>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.2"/>
+    <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.19"/>
+  </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+</Project>
