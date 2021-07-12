@@ -1,0 +1,36 @@
+.scene {
+  position: relative;
+  width: 200px;
+  height: 125px;
+
+  cursor: pointer;
+  &__preview {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    transition: all 0.3s;
+
+    &_hover {
+      filter: opacity(0.1);
+    }
+  }
+
+  &__name {
+    width: 200px;
+    padding: 1rem 1rem 0.5rem 1rem;
+    background-color: black;
+    color: white;
+    box-sizing: border-box;
+  }
+
+  &__menus {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

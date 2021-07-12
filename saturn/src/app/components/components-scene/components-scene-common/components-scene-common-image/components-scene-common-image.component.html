@@ -1,0 +1,10 @@
+<div
+  class="container"
+  [ngClass]="{ anim_source: isSourceAnim, anim_coordinate: isCoordinateAnim }"
+>
+  <img
+    class="container__background"
+    *ngIf="haveResource"
+    [src]="getResourceLocation()"
+  />
+</div>

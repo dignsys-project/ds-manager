@@ -1,0 +1,48 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 container-table"
+>
+  <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="service_name">
+    <th mat-header-cell *matHeaderCellDef>Service</th>
+    <td mat-cell *matCellDef="let element">{{ element.serviceName }}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="os">
+    <th mat-header-cell *matHeaderCellDef fxHide.lt-sm>OS</th>
+    <td mat-cell *matCellDef="let element" fxHide.lt-sm>{{ element.os }}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="runtime">
+    <th mat-header-cell *matHeaderCellDef>Runtime</th>
+    <td mat-cell *matCellDef="let element">{{ element.runtime }}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="assem_name">
+    <th mat-header-cell *matHeaderCellDef fxHide.lt-md>Assem</th>
+    <td mat-cell *matCellDef="let element" fxHide.lt-md>
+      {{ element.assem.name }}
+    </td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="assem_version">
+    <th mat-header-cell *matHeaderCellDef>Version</th>
+    <td mat-cell *matCellDef="let element">{{ element.assem.version }}</td>
+  </ng-container>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="elapsed">
+    <th mat-header-cell *matHeaderCellDef>Elapsed</th>
+    <td mat-cell *matCellDef="let element">{{ element.elapsed }}</td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>

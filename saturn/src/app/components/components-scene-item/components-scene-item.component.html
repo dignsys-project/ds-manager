@@ -1,0 +1,74 @@
+<div
+  class="container"
+  *ngIf="haveElement; else SCENE_ELSE_BLOCK"
+  fxLayout="flex"
+  fxLayoutAlign="start center"
+>
+  <div
+    class="scene__name"
+    (mouseenter)="onNameEnter($event)"
+    (mouseleave)="onNameLeave($event)"
+  >
+    <!-- {{ element.name }}
+    <picture class="scene__preview" *ngIf="isHoverPreview">
+      <img
+        *ngIf="havePreview(element.resource)"
+        [src]="getPreviewResourceLocation(element.resource)"
+        [alt]="element.name"
+      />
+    </picture>
+  </div> -->
+    <div
+      class="scene__name_title"
+      [ngClass]="{ scene__name_title_active: isHover }"
+    >
+      {{ element.name }}
+    </div>
+
+    <div class="scene__name_menus" *ngIf="isHover">
+      <button
+        mat-icon-button
+        matTooltip="미리보기"
+        (click)="onClickedPreviewScene(element.sceneId)"
+      >
+        <mat-icon>play_circle_outline</mat-icon>
+      </button>
+
+      <button
+        mat-icon-button
+        color="accent"
+        matTooltip="수정"
+        (click)="onClickedModifiedScene(element.sceneId)"
+      >
+        <mat-icon>arrow_circle_down</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="onClickedNavigation(element.sceneId)"
+      >
+        <mat-icon>navigation</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="warn"
+        *ngIf="!read && !disabledRemove"
+        (click)="onClickedRemoveScene()"
+        matTooltip="씬 제거"
+      >
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+    </div>
+  </div>
+</div>
+<ng-template #SCENE_ELSE_BLOCK>
+  <button
+    mat-icon-button
+    color="primary"
+    *ngIf="!read; else DONT_CHANGE_BLOCK"
+    (click)="onClickedChangeScene()"
+  >
+    <mat-icon>add_circle_outline</mat-icon>
+  </button>
+  <ng-template #DONT_CHANGE_BLOCK>-</ng-template>
+</ng-template>

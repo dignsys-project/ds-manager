@@ -1,0 +1,72 @@
+<div class="menus">
+  <form class="menus__search">
+    <mat-form-field class="example-full-width" appearance="outline">
+      <input
+        type="text"
+        placeholder="검색어를 입력하세요"
+        aria-label="Number"
+        matInput
+        [formControl]="myControl"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredOptions | async"
+          [value]="option.name"
+        >
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+  </form>
+</div>
+<div class="resources-container">
+  <div
+    class="resources-container__menus"
+    fxLayout="row"
+    fxLayoutAlign="end center"
+    *ngIf="hasElements"
+  >
+    <button
+      mat-icon-button
+      [disabled]="!isNormal"
+      (click)="onClickedListDetail()"
+    >
+      <mat-icon>view_list</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      [disabled]="isNormal"
+      (click)="onClickedListNormal()"
+    >
+      <mat-icon>apps</mat-icon>
+    </button>
+  </div>
+  <ul class="resource-list" #CONNECTOR_LIST class="d-items">
+    <li *ngFor="let item of filteredElements" class="item">
+      <!-- {{ item.name }} -->
+      <div class="item-image">
+        <img
+          [src]="getScreenCaptureLocation(item)"
+          *ngIf="haveScreenCapture(item)"
+        />
+      </div>
+
+      <div class="item-content">
+        <div class="item-content__name">
+          {{ item.name }}
+        </div>
+        <div class="item-content__created">
+          {{ item.updated | saturnDate: 'long' }}
+        </div>
+        <div class="item-content__detail">
+          <div class="item-content__detail-size">
+            <div *ngIf="isDetail">
+              {{ item.created | saturnDate: 'short' }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

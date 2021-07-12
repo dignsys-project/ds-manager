@@ -1,0 +1,37 @@
+<div class="container-menu" fxLayout="row" fxLayoutAlign="start center"></div>
+
+<section
+  class="container-department"
+  fxLayout="column"
+  fxLayoutAlign="start stratch"
+>
+  <mat-form-field
+    appearance="outline"
+    class="department__name"
+    *ngIf="parentControl"
+  >
+    <mat-label>상위 그룹</mat-label>
+    <input matInput [formControl]="parentControl" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="department__name">
+    <mat-label>그룹 이름을 입력해주세요.</mat-label>
+    <input matInput [formControl]="nameControl" />
+    <mat-hint align="end"> {{ nameControl.value?.length }} / 20 </mat-hint>
+    <mat-error *ngIf="nameControl.getError('required')"
+      >필수로 조직이름이 입력되어야 합니다.</mat-error
+    >
+    <mat-error *ngIf="nameControl.getError('maxlength')"
+      >최대 20자초과할 수 없습니다.</mat-error
+    >
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    [disabled]="nameControl.invalid || isProcess"
+    color="primary"
+    (click)="onClickedCreateDepartments()"
+  >
+    조직 만들기
+  </button>
+</section>

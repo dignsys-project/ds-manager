@@ -1,0 +1,26 @@
+<div class="container" *ngIf="element">
+  <div class="container__schedule">
+    <app-components-schedule [element]="element"></app-components-schedule>
+  </div>
+
+  <div
+    class="container__menus"
+    fxLayout="row"
+    fxLayoutAlign.lt-sm="space-between center"
+    fxLayoutAlign.gt-xs="end center"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <button
+      mat-raised-button
+      color="accent"
+      fxFlex.lt-sm="48%"
+      (click)="onClickedCreateSchedule()"
+      [disabled]="!element.isValidate"
+    >
+      {{ isUpdateMode ? '스케줄 수정' : '스케줄 추가' }}
+    </button>
+    <button mat-raised-button fxFlex.lt-sm="48%" (click)="onClickedCancel()">
+      취소
+    </button>
+  </div>
+</div>

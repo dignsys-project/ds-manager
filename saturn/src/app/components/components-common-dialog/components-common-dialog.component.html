@@ -1,0 +1,41 @@
+<h1
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <mat-icon *ngIf="isShowIcon()" color="warn">{{ getIconName() }} </mat-icon>
+  <div>{{ data.titleName }}</div>
+</h1>
+<div mat-dialog-content class="container-contents">
+  <p class="main-content">{{ data.content }}</p>
+  <div class="sub-content" *ngFor="let item of data.contents">
+    {{ item }}
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign.lt-sm="space-between center"
+  fxLayoutAlign.gt-xs="end center"
+  fxLayoutGap.gt-xs="20px"
+>
+  <button
+    fxFlex.lt-sm="48%"
+    mat-raised-button
+    color="accent"
+    [mat-dialog-close]="true"
+  >
+    확인
+  </button>
+
+  <button
+    mat-raised-button
+    [mat-dialog-close]="false"
+    *ngIf="data.haveCancel"
+    fxFlex.lt-sm="48%"
+    cdkFocusInitial
+  >
+    취소
+  </button>
+</div>

@@ -1,0 +1,20 @@
+<div class="menus">
+  <button mat-raised-button (click)="onClickedChangeEmergency()">
+    {{ isEmergency ? '긴급 버튼' : '긴급 해지' }}
+  </button>
+</div>
+<div class="container">
+  <app-components-departments-tree-v2
+    class="container__department"
+    (selected)="onSelectedComponentsDepartmentsTreeV2($event)"
+  ></app-components-departments-tree-v2>
+  <div class="container__connector_scene_stepper">
+    <app-components-connectors-scene-stepper
+      [isProcess]="isProcess"
+      [isEmergency]="isEmergency"
+      [departmentId]="departmentId"
+      [connectors]="elements"
+      (doIt)="onDoIt($event)"
+    ></app-components-connectors-scene-stepper>
+  </div>
+</div>

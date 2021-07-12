@@ -1,0 +1,31 @@
+<div class="content-clock">
+  <div
+    class="content-clock__background"
+    *ngIf="element.resource"
+    [style.background-image]="'url(' + getResourceAddress() + ')'"
+  ></div>
+
+  <span
+    class="content-clock__text"
+    *ngIf="element.useDate && element.dateElement.text"
+    [style.color]="element.dateElement.textColor"
+    [style.font-size]="element.dateElement.textSize + 'px'"
+    [ngStyle]="{
+      'font-style': element.dateElement.isItalic ? 'italic' : 'inherit',
+      'font-weight': element.dateElement.isBold ? 'bold' : 'inherit'
+    }"
+    >{{ element.dateElement.text }}
+  </span>
+
+  <span
+    class="content-clock__text"
+    *ngIf="element.textElement.text"
+    [style.color]="element.textElement.textColor"
+    [style.font-size]="element.textElement.textSize + 'px'"
+    [ngStyle]="{
+      'font-style': element.textElement.isItalic ? 'italic' : 'inherit',
+      'font-weight': element.textElement.isBold ? 'bold' : 'inherit'
+    }"
+    >{{ element.textElement.text }}
+  </span>
+</div>

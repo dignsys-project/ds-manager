@@ -1,0 +1,60 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  position: sticky;
+  left: 0px;
+  top: 0px;
+}
+.folder {
+  &__menus {
+    padding-bottom: 1rem;
+  }
+}
+
+.department {
+  &__folder-tree {
+    margin-top: 6px;
+    padding: 1rem;
+    max-height: 76vh;
+    overflow-y: auto;
+  }
+  &__name {
+    width: 100%;
+    // padding: 0rem 1rem;
+  }
+}
+
+.node {
+  &__selected {
+    color: $color-primary;
+  }
+}
+
+.node {
+  // background-color: red;
+  position: relative;
+  height: 100%;
+}
+
+.department_message {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+
+  row-gap: 1em;
+
+  & > * {
+    font-size: 1.6rem;
+    line-height: 2em;
+
+    &:last-child {
+      align-self: center;
+      width: 100%;
+    }
+
+    &:not(:last-child) {
+      user-select: none;
+    }
+  }
+}

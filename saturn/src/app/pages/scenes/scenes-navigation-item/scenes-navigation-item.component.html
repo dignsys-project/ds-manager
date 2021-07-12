@@ -1,0 +1,48 @@
+<div
+  class="container"
+  [class.mat-elevation-z2]="!isHover"
+  [class.mat-elevation-z8]="isHover"
+  (mouseenter)="onMouseEnter($event)"
+  (mouseleave)="onMouseLeave($event)"
+>
+  <div class="scene__name">{{ element.name }}</div>
+  <section class="scene" *ngIf="element">
+    <img
+      *ngIf="havePreview(element)"
+      [src]="getPreviewResourceAddress(element.resource)"
+      class="scene__preview"
+      [ngClass]="{ scene__preview_hover: isHover }"
+    />
+    <div
+      class="scene__menus"
+      *ngIf="isHover"
+      fxLayout="row"
+      fxLayoutAlign="space-around center"
+      @inOutAnimation
+    >
+      <button
+        mat-icon-button
+        matTooltip="미리보기"
+        (click)="onClickedPreviewScene(element.sceneId)"
+      >
+        <mat-icon>play_circle_outline</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        matTooltip="수정"
+        (click)="onClickedSceneModified(element.sceneId)"
+      >
+        <mat-icon>arrow_circle_down</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        matTooltip="네비게이션"
+        (click)="onClickedNavigateScene(element.sceneId)"
+      >
+        <mat-icon>navigation</mat-icon>
+      </button>
+    </div>
+  </section>
+</div>

@@ -1,0 +1,169 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  // margin: 0rem 1.6rem;
+  height: calc(100vh - 226px);
+  width: 100%;
+  min-height: 100%;
+  overflow: auto;
+  padding: 0rem 1rem;
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+    margin: 0;
+  }
+}
+
+.container-menu {
+  padding: 0rem 0rem 1.6rem 0rem;
+}
+
+.items {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(256px, 1fr));
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  }
+
+  grid-auto-rows: 1fr;
+  column-gap: 1.6rem;
+  row-gap: 1.6rem;
+
+  &::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+
+  & > :first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+}
+
+.item {
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.1);
+  position: relative;
+  @include mat-elevation(4);
+
+  &__size {
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+  }
+
+  &__name {
+    position: absolute;
+    // bottom: 0px;
+    // left: 0px;
+    opacity: 1;
+    background-color: black !important;
+    color: whitesmoke;
+    width: 100%;
+    padding: 1rem 0rem;
+    text-align: center;
+    z-index: 1;
+  }
+
+  &:hover {
+    @include mat-elevation(7);
+  }
+
+  &:hover &__background {
+    opacity: 0.5;
+    transform: scale(1.1);
+  }
+
+  &:hover &__menus-container {
+    z-index: 1;
+    display: initial;
+    opacity: 1;
+  }
+
+  &:hover &__icon {
+    opacity: 0.5;
+  }
+
+  &__selected {
+    position: relative;
+    &::before {
+      position: absolute;
+      display: inline-block;
+      content: '✔';
+      color: $color-primary-light;
+      bottom: 40px;
+      right: 0px;
+      z-index: 100;
+      font-size: 100px;
+    }
+  }
+
+  &__menus-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+
+    & > * {
+      height: 100%;
+      width: 100%;
+    }
+
+    transition: all 0.5s ease;
+  }
+
+  &__menus {
+    & > * {
+      width: 80%;
+      opacity: 0.9;
+      transition: all 0.5s ease;
+    }
+  }
+
+  &__background {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    transform: scale(1);
+
+    transition: all 0.3s ease;
+  }
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    transition: all 0.3s ease;
+  }
+}
+
+.elements-create {
+  height: 100%;
+
+  &__message {
+    color: $color-accent;
+    letter-spacing: 0.2rem;
+    font-size: large;
+    font-weight: bold;
+    line-height: 1em;
+  }
+}
+
+.container-paginator {
+  margin: 1rem 0rem;
+
+  & > * {
+    width: 100%;
+  }
+}

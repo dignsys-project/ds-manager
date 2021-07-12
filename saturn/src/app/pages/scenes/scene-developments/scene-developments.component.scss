@@ -1,0 +1,11 @@
+.container {
+  margin-bottom: 1rem;
+  // background-color: lightcyan;
+}
+
+.resource-list,
+.scenes-list {
+  & > * {
+    padding-bottom: 1rem;
+  }
+}

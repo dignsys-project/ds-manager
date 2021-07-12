@@ -1,0 +1,23 @@
+<div class="container">
+  <div
+    class="container-title"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div class="container-title__text">{{ title$ | async }}</div>
+    <button
+      [disabled]="isProcess"
+      mat-icon-button
+      class="container-title__menu"
+      color="accent"
+      *ngIf="isShowMenu() | async"
+      (click)="onClickedAdd()"
+    >
+      <mat-icon>{{ (isAddIcon() | async) ? 'add' : 'arrow_back' }} </mat-icon>
+    </button>
+  </div>
+
+  <div class="container-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.container-menus {
+  padding-bottom: 1rem;
+}
+.container {
+  display: grid;
+
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'member department' 'schedule empty';
+
+  @media screen and (max-width: 600px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'member'
+      'department'
+      'schedule';
+  }
+
+  &__member {
+    grid-area: member;
+  }
+  &__department {
+    grid-area: department;
+  }
+
+  &__schedule {
+    grid-area: schedule;
+  }
+}

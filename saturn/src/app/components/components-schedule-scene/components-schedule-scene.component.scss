@@ -1,0 +1,64 @@
+@import 'src/scss/custom_theme';
+.full {
+  width: 100%;
+}
+.schedule {
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+  margin-bottom: 2rem;
+
+  &__name {
+    line-height: 1em;
+    font-weight: bold;
+
+    color: $color-accent;
+    &-description {
+      color: $color-warn;
+      font-weight: normal;
+    }
+  }
+
+  &__list {
+    background-color: #303030;
+  }
+
+  &__list-item {
+    height: 50px;
+  }
+  &__menus {
+    padding-bottom: 1rem;
+  }
+}
+
+.mat-column {
+  &-select {
+    flex: 10%;
+  }
+  &-schedule {
+    flex: 90%;
+  }
+}
+
+.scene {
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 5px;
+
+  &__name {
+    padding-bottom: 1rem;
+    &-title {
+      line-height: 1em;
+      font-weight: bold;
+      color: $color-accent;
+    }
+    &-description {
+      color: $color-warn;
+      font-weight: normal;
+    }
+
+    &-invalid {
+      color: $color-warn;
+    }
+  }
+}

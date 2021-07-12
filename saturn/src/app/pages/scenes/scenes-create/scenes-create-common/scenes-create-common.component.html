@@ -1,0 +1,230 @@
+<section class="common" *ngIf="common" fxLayout="column" fxLayoutGap="10px">
+  <mat-form-field appearance="outline">
+    <input matInput [(ngModel)]="common.name" />
+    <mat-label>이름</mat-label>
+  </mat-form-field>
+
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title> 기본 </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div
+      class="common__position"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="10px"
+    >
+      <mat-form-field>
+        <mat-label>X</mat-label>
+        <input
+          type="number"
+          matInput
+          [(ngModel)]="common.position.x"
+          (change)="onChangePosition()"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>Y</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="common.position.y"
+          (change)="onChangePosition()"
+        />
+      </mat-form-field>
+    </div>
+    <div class="common__size" fxLayout="row" fxLayoutGap="10px">
+      <mat-form-field>
+        <mat-label>너비</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="common.size.width"
+          (change)="onChangeSize()"
+        />
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>높이</mat-label>
+        <input
+          matInput
+          type="number"
+          [(ngModel)]="common.size.height"
+          (change)="onChangeSize()"
+        />
+      </mat-form-field>
+    </div>
+    <div class="common__wards" fxLayoutAlign="space-between center">
+      <div class="common__wards_name">전,후 배열</div>
+      <button
+        mat-icon-button
+        matTooltip="앞으로 이동"
+        (click)="onClickedMoveForward()"
+        [disabled]="!canMoveForward"
+      >
+        <mat-icon>vertical_align_top</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        matTooltip="뒤로 이동"
+        [disabled]="!canMoveBackward"
+        (click)="onClickedMoveBackward()"
+      >
+        <mat-icon>vertical_align_bottom</mat-icon>
+      </button>
+    </div>
+  </mat-expansion-panel>
+
+  <div class="common__kind" fxLayout="row" fxLayoutAlign="space-between center">
+    <mat-icon color="primary">{{ iconName }} </mat-icon>
+    <mat-label>{{ componentName }} </mat-label>
+  </div>
+
+  <ng-template [ngIf]="common.kind === 3">
+    <!-- 버튼 기능 -->
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+
+    <app-scenes-create-common-button [element]="common.buttonElement">
+    </app-scenes-create-common-button>
+  </ng-template>
+  <ng-template [ngIf]="common.kind === 4">
+    <!-- 비디오 기능 들-->
+    <app-scenes-create-common-video
+      [element]="common.videoElement"
+    ></app-scenes-create-common-video>
+  </ng-template>
+  <ng-template [ngIf]="common.kind === 5">
+    <!-- 이미지 기능 들-->
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+
+    <app-scenes-create-common-image
+      [common]="common"
+    ></app-scenes-create-common-image>
+  </ng-template>
+
+  <!-- SCENE_COMPONENTS_KIND_SUBTITLE -->
+  <ng-template [ngIf]="isComponentsSubtitle">
+    <app-scenes-create-common-subtitle
+      [common]="common"
+    ></app-scenes-create-common-subtitle>
+  </ng-template>
+
+  <ng-template [ngIf]="common.kind === 7">
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+    <app-scenes-create-common-document
+      [element]="common.documentElement"
+    ></app-scenes-create-common-document>
+  </ng-template>
+
+  <!-- 8 is SCENE_COMPONENTS_KIND_ROUTE -->
+  <ng-template [ngIf]="common.kind === 8">
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+    <app-scenes-create-common-coordinate
+      [common]="common"
+    ></app-scenes-create-common-coordinate>
+  </ng-template>
+  <!-- 9 is SCENE_COMPONENTS_KIND_WEATHER -->
+  <ng-template [ngIf]="common.kind === 9">
+    <app-scenes-create-common-weather [common]="common">
+    </app-scenes-create-common-weather>
+  </ng-template>
+  <!-- 10 is SCENE_COMPONENTS_KIND_CLOCK -->
+  <ng-template [ngIf]="common.kind === 10">
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+
+    <app-scenes-create-common-clock [common]="common">
+    </app-scenes-create-common-clock>
+  </ng-template>
+  <!-- 11 is SCENE_COMPONENTS_KIND_WEB -->
+  <ng-template [ngIf]="common.kind === 11">
+    <app-scenes-create-common-web
+      [common]="common"
+    ></app-scenes-create-common-web>
+  </ng-template>
+  <!-- 12 is SCENE_COMPONENTS_KIND_SLID_IMAGE -->
+  <ng-template [ngIf]="isComponentsSlideImage">
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>배경 색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="common.backgroundColor"
+        [(colorPicker)]="common.backgroundColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+    <app-scenes-create-common-slide-image [common]="common">
+    </app-scenes-create-common-slide-image>
+  </ng-template>
+  <button
+    mat-raised-button
+    color="warn"
+    (click)="onClickedRemove()"
+    [disabled]="isReadOnly"
+  >
+    삭제
+  </button>
+</section>

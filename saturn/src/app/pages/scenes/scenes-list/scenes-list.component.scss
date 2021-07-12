@@ -1,0 +1,28 @@
+.container {
+  display: grid;
+  column-gap: 20px;
+
+  grid-template-columns: 4fr 1fr;
+  grid-template-areas: 'list menu';
+  // min-height: 80vh;
+
+  @media screen and (max-width: 959.9px) {
+    min-height: 60vh;
+  }
+
+  @media screen and (max-width: 599.9px) {
+    grid-template-columns: initial;
+    grid-template-areas:
+      'menu'
+      'list';
+  }
+
+  &__list {
+    grid-area: list;
+  }
+
+  &__menus {
+    grid-area: menu;
+    padding-bottom: 2rem;
+  }
+}

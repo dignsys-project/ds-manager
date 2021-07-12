@@ -1,0 +1,9 @@
+<h1 mat-dialog-title class="title">해당 씬이 존재합니다.</h1>
+<div mat-dialog-content>
+  <p>{{ sceneName }} 을 덮어쓰겠습니까?</p>
+  <p>기존 씬의 데이터는 삭제 됩니다.</p>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onClickedOverwrite()">저장</button>
+  <button mat-button (click)="onClickedCancel()">취소</button>
+</div>

@@ -1,0 +1,13 @@
+<div *ngIf="permission" [matTooltip]="getPermissionName()">
+  <mat-icon [color]="getIconColor()" *ngIf="isIcon; else ELSE_BLOCK">
+    {{ getIconName() }}
+  </mat-icon>
+  <ng-template #ELSE_BLOCK>
+    <div
+      [ngClass]="{ permission_kind__darkmode: isDarkMode }"
+      class="permission_kind"
+    >
+      {{ getPermissionName() }}
+    </div>
+  </ng-template>
+</div>

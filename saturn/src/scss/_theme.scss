@@ -1,0 +1,13 @@
+@import "~@angular/material/theming";
+@import "src/scss/custom_theme";
+
+@include mat-core();
+
+@include angular-material-theme($theme);
+
+// Our dark theme
+.dark-theme {
+  color: $light-primary-text;
+
+  @include angular-material-theme($dark-theme);
+}

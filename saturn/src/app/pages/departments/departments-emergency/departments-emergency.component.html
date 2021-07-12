@@ -1,0 +1,12 @@
+<div class="container">
+  <button mat-button (click)="isEmergency = !isEmergency">TEST</button>
+  <div class="container__connector_scene_stepper">
+    <app-components-connectors-scene-stepper
+      [isProcess]="isProcess"
+      [isEmergency]="isEmergency"
+      [departmentId]="departmentId"
+      [connectors]="elements"
+      (doIt)="onDoIt($event)"
+    ></app-components-connectors-scene-stepper>
+  </div>
+</div>

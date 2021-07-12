@@ -1,0 +1,55 @@
+<div
+  class="container"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="16px"
+>
+  <button
+    mat-raised-button
+    [color]="haveResource ? 'accent' : ''"
+    (click)="onClickedSelectVideo()"
+  >
+    비디오 파일 선택
+  </button>
+
+  <!-- TODO : 비디오 자동 재생 제거 -->
+
+  <!-- <div
+    class="container__properties"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <mat-checkbox
+      [(ngModel)]="element.repeated"
+      (change)="onCheckboxChangedRepeated($event)"
+      >반복재생</mat-checkbox
+    >
+    
+      
+      <mat-checkbox *ngIf="!element.repeated" [(ngModel)]="element.played"
+      >자동 재생</mat-checkbox
+    >
+  </div> -->
+
+  <div class="container__choice-scene" *ngIf="!element.repeated">
+    <div
+      *ngIf="!haveNextScene; else SCENE_ELSE_BLOCK"
+      fxLayout="column"
+      fxLayoutAlign="start stretch"
+    >
+      <button mat-raised-button (click)="onClickedSelectScene()">
+        재생 종료 시 씬 선택
+      </button>
+    </div>
+    <ng-template #SCENE_ELSE_BLOCK>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>씬</div>
+        <app-components-scene-item
+          [preview]="false"
+          [element]="element.nextScene"
+          (change)="onComponentsSceneItemChanged($event)"
+        ></app-components-scene-item>
+      </div>
+    </ng-template>
+  </div>
+</div>

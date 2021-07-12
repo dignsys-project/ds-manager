@@ -1,0 +1,73 @@
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  //   align-items: stretch;
+  height: 100%;
+  overflow: hidden;
+  text-overflow: clip;
+  text-align: start;
+
+  & > span {
+    height: 100%;
+    width: 100%;
+    position: relative;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    z-index: 1;
+    height: 100%;
+    min-width: 100%;
+    line-height: 1em;
+    white-space: nowrap;
+    position: absolute;
+    animation-timing-function: linear;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: normal;
+    animation-fill-mode: forwards;
+    animation-play-state: running;
+
+    // width: 100%;
+    user-select: none;
+  }
+}
+
+.right-to-left {
+  animation-name: animate;
+}
+
+@keyframes animate-x {
+  from {
+    position: absolute;
+    transform: translateX(100%);
+    text-align: start;
+  }
+  to {
+    transform: translateX(-100%);
+    // text-align: end;
+    position: absolute;
+  }
+}
+
+@keyframes animate-y {
+  0% {
+    position: absolute;
+    transform: translateY(100%);
+    text-align: start;
+  }
+  30% {
+    transform: translateY(0%);
+  }
+  70% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(-100%);
+    // text-align: end;
+    position: absolute;
+  }
+}

@@ -1,0 +1,23 @@
+<div class="common__image">
+  <button mat-raised-button color="accent" (click)="onClickedSelectResource()">
+    배경 이미지 선택
+  </button>
+</div>
+<app-scenes-create-common-text
+  [element]="element.textElement"
+></app-scenes-create-common-text>
+
+<div
+  class="common__choice-scene"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div class="key">
+    <div>씬</div>
+  </div>
+  <app-components-scene-item
+    [element]="nextScene"
+    [preview]="false"
+    (change)="onChangedComponentsSceneItem($event)"
+  ></app-components-scene-item>
+</div>

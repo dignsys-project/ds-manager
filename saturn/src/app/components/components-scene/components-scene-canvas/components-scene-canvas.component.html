@@ -1,0 +1,12 @@
+<section
+  #scene
+  id="container-scene"
+  (click)="onClickedContainerScene($event)"
+  [ngClass]="{ 'scene-component-selected': isSelected() }"
+  [style.width.px]="widthPixel()"
+  [style.height.px]="heightPixel()"
+  [style.background-color]="backgroundColor"
+  [style.color]="'black'"
+>
+  <ng-template #DYNAMIC> </ng-template>
+</section>

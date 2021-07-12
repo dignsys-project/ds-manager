@@ -1,0 +1,12 @@
+<div class="container" *ngIf="element">
+  <div
+    class="container__slide"
+    *ngFor="let item of element.elements; let i = index"
+  >
+    <img
+      *ngIf="haveResource(item) && isCurrent(item, i)"
+      [src]="getResourceLocation(item)"
+      [@simpleFadeAnimation]="'in'"
+    />
+  </div>
+</div>

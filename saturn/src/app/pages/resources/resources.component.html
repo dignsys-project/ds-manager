@@ -1,0 +1,97 @@
+<section class="container">
+  <div class="container__name">리소스 네비게이션</div>
+  <input
+    hidden
+    type="file"
+    #FILE_INPUT
+    [disabled]="isProcess"
+    (change)="onChangeInputHTMLElement($event.target.files)"
+  />
+  <div class="container__content content" *ngIf="isLoaded">
+    <p class="content__name">{{ resourceName }}</p>
+    <!-- thumbnail -->
+    <div class="content__thumbnail thumbnail">
+      <img
+        *ngIf="!element.isDefinedPreview; else DEFINED_PREVIEW"
+        [src]="getResourcePreviewLocation(element)"
+      />
+      <ng-template #DEFINED_PREVIEW>
+        <img [src]="element.getDefinedPreviewLocation" />
+      </ng-template>
+      <mat-icon class="thumbnail__icon" *ngIf="!element.isDefinedPreview"
+        >{{ element.getIconName }}
+      </mat-icon>
+    </div>
+    <div class="content__modified modified">
+      <button
+        mat-raised-button
+        [color]="isCreateResource ? '' : 'accent'"
+        style="width: 100%"
+        (click)="onPressedResourceChange()"
+      >
+        {{ isCreateResource ? '취소' : '리소스 변경' }}
+      </button>
+
+      <div class="modified__container" *ngIf="isCreateResource">
+        <div
+          class="modified__create"
+          *ngIf="!haveAttachment"
+          (click)="onPressedModifiedContainer()"
+        >
+          <div
+            class="modified__create__content"
+            resourcesDragDrop
+            [isProcess]="isProcess"
+            (dropped)="onDroppedResourcesDragDropDirective($event)"
+          >
+            <p>파일을 드래그 앤 드랍 하거나 선택해주세요.</p>
+          </div>
+        </div>
+        <!-- class="modified__create" -->
+        <div class="modified__create__content_create" *ngIf="haveAttachment">
+          <app-components-resources-create-element
+            [element]="attachmentElement"
+            (remove)="onRemovedComponentsResourcesCreate($event)"
+          ></app-components-resources-create-element>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="onPressedResourceFetch()"
+          >
+            리소스 변경
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="content__detail">
+      <div class="detail">
+        <div class="detail__name">생성 시간</div>
+        <div class="detail__value">
+          {{ element.createdDate | saturnDate }}
+        </div>
+      </div>
+
+      <!-- detail -->
+      <div class="detail" *ngIf="!element.isSameCreated">
+        <div class="detail__name">변경 시간</div>
+        <div class="detail__value">
+          {{ element.updatedDate | saturnDate }}
+        </div>
+      </div>
+      <div class="detail">
+        <div class="detail__name">용량</div>
+        <div class="detail__value">{{ element.size | filesize }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="container__scenes">
+    <p class="scenes__name">리소스를 참조하는 씬</p>
+    <div class="scenes">
+      <div class="scenes_item" *ngFor="let item of sceneBaseElements">
+        <app-scenes-navigation-item
+          [element]="item"
+        ></app-scenes-navigation-item>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,49 @@
+<h1 mat-dialog-title>{{ isModified ? '씬 수정' : '씬 저장' }}</h1>
+<div mat-dialog-content>
+  <p>{{ isModified ? '수정' : '저장' }} 할 씬 이름을 지정해주세요</p>
+
+  <mat-horizontal-stepper
+    linear="true"
+    #stepper
+    *ngIf="isReceived; else SPINNER_BLOCK"
+  >
+    <mat-step [stepControl]="folderGroup">
+      <ng-template matStepLabel>폴더 선택 </ng-template>
+
+      <app-components-department-folder-tree
+        class="container__tree"
+        [readonly]="true"
+        [elements]="elements"
+        (selected)="onSelectedComponentsDepartmentFolderTree($event)"
+      >
+      </app-components-department-folder-tree>
+      <div>
+        <button
+          mat-raised-button
+          matStepperNext
+          color="primary"
+          [disabled]="!folderGroup.valid"
+        >
+          다음
+        </button>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="nameGroup" label="씬 이름">
+      <form [formGroup]="nameGroup">
+        <mat-form-field appearance="outline" style="width: 100%">
+          <mat-label>씬 이름</mat-label>
+          <input matInput formControlName="name" maxlength="100" />
+        </mat-form-field>
+        <div>
+          <button mat-button matStepperPrevious>이전</button>
+          <button mat-button (click)="onClickedSceneSave()">씬 저장</button>
+        </div>
+      </form>
+    </mat-step>
+  </mat-horizontal-stepper>
+  <ng-template #SPINNER_BLOCK>
+    <div class="spinner">
+      <mat-spinner></mat-spinner>
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,43 @@
+@import 'src/scss/custom_theme';
+
+.canvas-menu {
+  padding-top: 1rem;
+  margin-bottom: 2rem;
+  & > * {
+    width: 100%;
+  }
+
+  ::ng-deep .mat-form-field-infix {
+    width: auto !important;
+  }
+}
+.container {
+  &__dispatch_scene {
+    border: 1px solid $color-border;
+    border-radius: 6px;
+    padding: 1rem;
+    box-sizing: border-box;
+    position: relative;
+    margin-top: 1.6rem;
+  }
+}
+
+.dispatch_scene {
+  &__name {
+    // color: #fdfdfd;
+    border-bottom: 1px solid $color-border;
+    padding-bottom: 1rem;
+    margin-bottom: 1rem;
+  }
+
+  &__used,
+  &__touch {
+    padding-bottom: 10px;
+  }
+
+  &__seconds {
+    & > mat-slider {
+      flex: 1;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<div
+  class="container"
+  *ngIf="hasScheduleScenes; else SCHEDULE_SCENES_NOCONTENT"
+>
+  <mat-table [dataSource]="dataSource">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="content">
+      <mat-header-cell *matHeaderCellDef> 스케줄 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <app-components-schedule-item
+          [element]="element"
+          (update)="onUpdateFromSchedule($event)"
+          (delete)="onDeleteFromSchedule($event)"
+        ></app-components-schedule-item>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [length]="paginator.itemsCount"
+    [pageSize]="paginator.size"
+    (page)="onPaginatorPage($event)"
+  >
+  </mat-paginator>
+</div>
+<ng-template #SCHEDULE_SCENES_NOCONTENT>
+  <div class="container__nocontent">
+    <div class="container__nocontent-name">
+      스케줄 씬이 없습니다.
+    </div>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onClickedCreateScheduleScene()"
+    >
+      스케줄 씬을 추가하시겠습니까?
+    </button>
+  </div>
+</ng-template>

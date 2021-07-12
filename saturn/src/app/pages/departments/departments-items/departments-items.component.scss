@@ -1,0 +1,96 @@
+@import 'src/scss/custom_theme';
+
+.container-items {
+  padding: 2rem 0rem;
+}
+
+.mat-tree-node {
+  margin-bottom: 0.5rem;
+}
+
+.container {
+  min-height: 75vh;
+
+  @media screen and (max-width: 959.9px) {
+    min-height: 65vh;
+  }
+
+  @media screen and (max-width: 599.9px) {
+    min-height: 48vh;
+  }
+
+  &__common-menus {
+    margin-bottom: 1rem;
+  }
+
+  &__departments {
+    padding: 2rem;
+  }
+
+  &__nocontent {
+    &-message {
+      color: $color-warn;
+      font-size: 3.2rem;
+      line-height: 1.2;
+      letter-spacing: 0.3rem;
+    }
+  }
+}
+
+.emergency {
+  min-width: 200px;
+}
+.item {
+  width: 100%;
+  padding-left: 1rem;
+  min-height: 40px;
+  position: relative;
+  background-color: #4242;
+  border-radius: 6px;
+  padding: 0rem 3rem;
+  background-color: rgba($color-accent-light, 0.3);
+
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  @include mat-elevation(3);
+
+  &:hover {
+    background-color: rgba($color-primary-light, 0.5);
+    @include mat-elevation(8);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background-color: gray;
+    transition: all 0.2s ease-in;
+  }
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  cursor: pointer;
+  &__connector {
+    justify-content: flex-end;
+    background-color: initial;
+  }
+
+  &__member {
+    justify-content: flex-end;
+    background-color: initial;
+  }
+
+  &__icon {
+    padding-right: 1.6rem;
+  }
+
+  &__name {
+    min-width: 200px;
+    text-align: end;
+  }
+}

@@ -1,0 +1,105 @@
+@import 'src/scss/custom_theme';
+.container_timeline {
+  box-sizing: border-box;
+  height: calc(100vh - 94px);
+}
+
+.timeline {
+  &__menus {
+    height: 50px;
+    // background-color: #1d1d1d;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    padding: 0.5rem;
+    box-sizing: border-box;
+  }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+.container {
+  padding: 1.6rem;
+  min-height: 50vh;
+}
+
+.timeline {
+  padding: 40px 0px;
+  // width: 80%;
+  // margin-left: 10%;
+  margin-bottom: 40px;
+
+  height: calc(100vh - 224px);
+  overflow-y: auto;
+
+  @media screen and (max-width: 768px) {
+    width: 100%;
+    padding: 0rem 2rem;
+    margin: initial;
+    box-sizing: border-box;
+  }
+}
+
+.timeline:before {
+  content: '';
+  position: absolute;
+  top: 40px;
+  left: 65px;
+  width: 3px;
+  height: calc(100% - 80px);
+  background: $color-primary;
+
+  @media screen and (max-width: 768px) {
+    display: none;
+  }
+}
+
+.timeline .column {
+  margin: 40px 40px 40px 120px;
+
+  @media screen and (max-width: 768px) {
+    margin: initial;
+  }
+}
+
+.timeline .column .title h1 {
+  font-size: 120px;
+  color: rgba(0, 0, 0, 0.1);
+  letter-spacing: 3px;
+  user-select: none;
+}
+
+.timeline .column .title h1:before {
+  content: '';
+  position: absolute;
+  left: -62px;
+  top: 86px;
+  width: 10px;
+  height: 10px;
+  background: $color-accent;
+  border: 3px solid $color-primary;
+}
+
+.timeline .column .title .member {
+  margin-top: -60px;
+  //   font-size: 33px;
+}
+.timeline .column .title .date {
+  margin-top: -60px;
+  //   font-size: 33px;
+}
+
+.timeline .column .description p {
+  line-height: 1em;
+  font-size: 1.6rem;
+  margin-left: 20px;
+  margin-top: 10px;
+}
+
+.timeline .column .description {
+  border-left: 1px solid #232323;
+}

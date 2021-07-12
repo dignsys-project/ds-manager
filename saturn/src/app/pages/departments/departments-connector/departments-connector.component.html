@@ -1,0 +1,11 @@
+<div class="container">
+  <div class="container-menus">
+    <button mat-icon-button (click)="onClickedArrowBack()">
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+  <app-components-connector
+    [element]="element"
+    [readOnly]="bReadOnly"
+  ></app-components-connector>
+</div>

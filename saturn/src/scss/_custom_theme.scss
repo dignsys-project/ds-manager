@@ -1,0 +1,46 @@
+@import '~@angular/material/theming';
+
+$color-border-primary: rgba(255, 255, 255, 0.12);
+$color-border: rgba(255, 255, 255, 0.3);
+$color-gamegress-primary: #074536;
+$color-gamegress-accent: #118b6e;
+
+$color-blue: #0f4c81;
+
+$min-content-height: calc(100vh - 106px);
+
+$primary: mat-palette($mat-blue);
+$accent: mat-palette($mat-teal, 600, 400, 800);
+$warn: mat-palette($mat-red, 500, 300, 800);
+
+// light-theme
+$theme: mat-light-theme($primary, $accent, $warn);
+
+$dark-primary: mat-palette($mat-blue);
+$dark-accent: mat-palette($mat-teal, 600, 400, 800);
+$dark-warn: mat-palette($mat-red, 500, 300, 800);
+
+// dark-theme
+$dark-theme: mat-dark-theme($dark-primary, $dark-accent, $dark-warn);
+
+$color-primary-light: mat-color($primary);
+$color-primary-accent: mat-color($accent);
+$color-accent-light: mat-color($accent);
+
+$color-primary: mat-color($primary);
+$color-accent: mat-color($accent);
+$color-warn: mat-color($warn);
+
+$content-size: calc(100vh - 74px);
+
+$light-background: map-get(
+  $map: $mat-light-theme-background,
+  $key: background,
+);
+
+$dark-background: map-get(
+  $map: $mat-dark-theme-background,
+  $key: background,
+);
+
+$container-max-width: 1150px;

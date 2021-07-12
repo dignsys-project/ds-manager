@@ -1,0 +1,89 @@
+<div class="resources-container">
+  <div class="resources-container__menus menus" *ngIf="hasElements">
+    <div class="menus__search">
+      <mat-form-field appearance="outline" class="menus__search_field">
+        <mat-label>검색어를 입력하세요.</mat-label>
+        <input
+          matInput
+          [formControl]="searchControl"
+          [matAutocomplete]="auto"
+          maxlength="100"
+        />
+        <mat-error *ngIf="searchControl.hasError('max-length')">
+          검색어는 최대 50자 입니다.
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredResourceNames$ | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+    <div class="menus_show">
+      <button
+        mat-icon-button
+        [disabled]="!isNormal"
+        (click)="onClickedListDetail()"
+      >
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [disabled]="isNormal"
+        (click)="onClickedListNormal()"
+      >
+        <mat-icon>apps</mat-icon>
+      </button>
+    </div>
+  </div>
+  <ul class="resource-list" #SCENE_LIST class="d-items">
+    <li
+      *ngFor="let item of filteredResources$ | async"
+      (mouseenter)="onMouseEnter(item)"
+      (mouseleave)="onMouseLeave(item)"
+      class="item"
+      [ngClass]="{ 'item-active': isHoverItem(item) || isSelectedItem(item) }"
+      (click)="onClickedResourceItem(item)"
+      cdkDrag
+      [cdkDragData]="selectedElements"
+      [cdkDragDisabled]="dragDisabled || selectedItemCount <= 0"
+    >
+      <div *cdkDragPreview>
+        <mat-icon [matBadge]="selectedItemCount">collections</mat-icon>
+      </div>
+      <div *cdkDragPlaceholder class="place_holder"></div>
+
+      <!-- {{ item.name }} -->
+      <div class="item-image">
+        <ng-template [ngIf]="havePreviewResource(item)">
+          <img [src]="getPreviewResourceLocation(item)" />
+        </ng-template>
+        <ng-template [ngIf]="item.isDefinedPreview">
+          <img [src]="item.getDefinedPreviewLocation" />
+        </ng-template>
+      </div>
+
+      <div class="item-content">
+        <div class="item-content__name">
+          {{ item.name }}
+        </div>
+        <div class="item-content__created" *ngIf="isDetail">
+          {{ item.updatedDate | saturnDate }}
+        </div>
+        <div class="item-content__detail">
+          <div class="item-content__detail-size">
+            <div *ngIf="isDetail">
+              {{ item.size | filesize }}
+            </div>
+          </div>
+          <mat-icon class="item-content__detail-icon">
+            {{ item.getIconName }}
+          </mat-icon>
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,60 @@
+<div
+  class="container"
+  *ngIf="element"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayout.lt-md="column"
+  fxLayoutAlign.lt-md="center start"
+  fxLayoutGap="20px"
+  fxLayoutGap.lt-md="10px"
+>
+  <div class="container__row-1" fxLayout="row" fxLayoutGap="20px">
+    <div class="container__name">
+      {{ element.getShortName() }}
+    </div>
+
+    <div class="container__date" fxLayout="row" fxLayoutGap="10px">
+      <div
+        class="expired_name"
+        [ngClass]="{ expired_name__expired: isExpired }"
+        *ngIf="element.useDate"
+      >
+        {{ expiredName }}
+      </div>
+    </div>
+  </div>
+  <div class="container__row-2" *ngIf="weekElements" fxLayout="row">
+    <div
+      class="day_of_week mat-elevation-z2"
+      *ngFor="let item of weekElements"
+      [ngClass]="{ day_of_week__disabled: item.element.disabled }"
+    >
+      {{ item.name }}
+    </div>
+  </div>
+
+  <div
+    class="container__menus"
+    *ngIf="!read"
+    fxLayout="row"
+    fxLayoutAlign="space-around center"
+    fxLayoutGap="20px"
+  >
+    <button
+      mat-raised-button
+      color="accent"
+      fxFlex="100%"
+      (click)="onClickedUpdateSchedule()"
+    >
+      수정
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      fxFlex="100%"
+      (click)="onClickedDeleteSchedule()"
+    >
+      삭제
+    </button>
+  </div>
+</div>

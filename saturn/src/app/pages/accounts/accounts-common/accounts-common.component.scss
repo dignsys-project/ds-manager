@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100%;
+}
+
+.container {
+  & > a {
+    min-width: 300px;
+
+    @media screen and (max-width: 959.9px) {
+      min-width: 250px;
+    }
+  }
+}

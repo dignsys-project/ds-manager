@@ -1,0 +1,10 @@
+<div class="container">
+  <button
+    mat-raised-button
+    [color]="haveResource ? 'accent' : ''"
+    (click)="onClickedSelectImage()"
+    [disabled]="isReadOnly"
+  >
+    이미지 (지도) 선택
+  </button>
+</div>

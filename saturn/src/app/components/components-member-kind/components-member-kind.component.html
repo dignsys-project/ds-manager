@@ -1,0 +1,13 @@
+<div
+  class="member-kind"
+  [ngClass]="{
+    'member-kind__admin': isAdmin(memberKind),
+    'member-kind__manager': isManager(memberKind),
+    'member-kind__member': isMember(memberKind),
+    'member-kind__tester': isTester(memberKind)
+  }"
+  fxLayout="column"
+  fxLayoutAlign="center center"
+>
+  {{ getName() }}
+</div>

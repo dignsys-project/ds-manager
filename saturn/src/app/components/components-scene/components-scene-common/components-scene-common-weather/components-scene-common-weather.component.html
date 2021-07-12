@@ -1,0 +1,6 @@
+<div class="weather" *ngIf="weather">
+  <img class="weather__icon" [src]="getWeatherAssetsName(weather)" />
+  <app-components-scene-common-text
+    [element]="element.textElement"
+  ></app-components-scene-common-text>
+</div>

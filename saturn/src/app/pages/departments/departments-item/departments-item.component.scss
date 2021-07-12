@@ -1,0 +1,56 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-areas:
+    'department department department menus'
+    'lowers lowers lowers lowers'
+    'members members connectors connectors';
+
+  @media screen and (max-width: 1279.9px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      'department department department menus'
+      'lowers lowers lowers lowers'
+      'members members members members'
+      'connectors connectors connectors connectors';
+  }
+
+  @media screen and (max-width: 599.9px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas:
+      'menus menus menus menus'
+      'department department department department'
+      'lowers lowers lowers lowers'
+      'members members members members'
+      'connectors connectors connectors connectors';
+  }
+
+  column-gap: 1rem;
+  row-gap: 2rem;
+
+  &__department {
+    grid-area: department;
+  }
+
+  &__lowers {
+    grid-area: lowers;
+
+    &-title {
+      color: $color-accent;
+    }
+  }
+
+  &__menus {
+    grid-area: menus;
+  }
+
+  &__members {
+    grid-area: members;
+  }
+
+  &__connectors {
+    grid-area: connectors;
+  }
+}

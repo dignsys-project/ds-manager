@@ -1,0 +1,137 @@
+@import 'src/scss/custom_theme';
+
+.header {
+  padding: 1.6rem;
+  border-bottom: 2px solid $color-gamegress-primary;
+}
+
+.sub-menu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: $dark-background;
+  z-index: 100;
+
+  &__close {
+    padding: 1.6rem;
+  }
+
+  &__content {
+    padding: 1.6rem;
+    & > ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    &-items {
+      font-size: 5rem;
+      line-height: 1.5em;
+      letter-spacing: 0.2em;
+      position: relative;
+
+      &:hover {
+        &::after {
+          width: 100%;
+        }
+      }
+      &::after {
+        content: '';
+        position: absolute;
+        bottom: 2px;
+        transition: all ease-in 0.3s;
+        background-color: whitesmoke;
+        width: 0%;
+        height: 2px;
+        left: 0;
+      }
+    }
+  }
+}
+
+.nav-item {
+  &__route {
+    &,
+    &:active,
+    &:visited {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    padding: 1rem 2rem 1.15rem;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: #ebebeb;
+    min-width: 80px;
+    margin: auto;
+
+    &:hover {
+      background-color: gray;
+      background-size: 100% 100%;
+      color: #27262c;
+      animation: spring 300ms ease-out;
+      font-weight: bold;
+    }
+
+    &:active {
+      transform: translateY(4px);
+    }
+  }
+}
+
+.router-link {
+  &__item {
+    &:before,
+    &:after {
+      content: '';
+      border-bottom: solid 1px $color-primary-light;
+      position: absolute;
+      bottom: 0px;
+      width: 0;
+
+      -webkit-transition: all 0.3s ease;
+      transition: all 0.3s ease;
+    }
+
+    &:before {
+      left: 0;
+    }
+    &:after {
+      right: 0;
+    }
+
+    &:hover {
+      border-bottom-color: $color-primary-light !important;
+
+      // transform: translateY(-1px);
+      &:before,
+      &:after {
+        width: 50%;
+      }
+    }
+  }
+
+  &__active {
+    font-weight: bold;
+    color: $color-primary-light !important;
+  }
+}
+
+@keyframes spring {
+  15% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1.2, 1.1);
+  }
+  40% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(0.95, 0.95);
+  }
+  75% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1.05, 1);
+  }
+  100% {
+    -webkit-transform-origin: center center;
+    -webkit-transform: scale(1, 1);
+  }
+}

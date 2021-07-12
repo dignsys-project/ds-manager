@@ -1,0 +1,22 @@
+::ng-deep.mat-list-item-content {
+  width: 100% !important;
+}
+
+mat-selection-list {
+  & > * {
+    width: 100%;
+  }
+}
+
+.component_name {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.component__menus {
+  & > * {
+    width: 100%;
+  }
+  padding-bottom: 1rem;
+}

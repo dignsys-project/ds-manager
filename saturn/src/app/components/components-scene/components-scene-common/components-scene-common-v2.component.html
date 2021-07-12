@@ -1,0 +1,84 @@
+<!-- <div class="guidelines">
+  <svg class="guidelines__center_top">
+    <line
+      x1="0"
+      y1="0"
+      x2="200"
+      y2="200"
+      style="stroke: rgb(255, 0, 0); stroke-width: 2"
+    />
+  </svg>
+</div> -->
+<div
+  class="content"
+  [style.background-color]="backgroundColor"
+  [style.zIndex]="zIndex"
+>
+  <div class="content__icon" *ngIf="false" [style.zIndex]="helperzIndex">
+    <mat-icon>{{ getIconName() }}</mat-icon>
+  </div>
+
+  <!-- scene button component -->
+  <ng-template [ngIf]="buttonElement">
+    <app-components-scene-common-button
+      [element]="buttonElement"
+    ></app-components-scene-common-button>
+  </ng-template>
+
+  <!-- video component -->
+  <ng-template [ngIf]="videoElement">
+    <app-components-scene-common-video
+      [element]="videoElement"
+    ></app-components-scene-common-video>
+  </ng-template>
+  <!-- image component -->
+  <ng-template [ngIf]="imageElement">
+    <app-components-scene-common-image
+      [element]="imageElement"
+    ></app-components-scene-common-image>
+  </ng-template>
+
+  <!-- document component -->
+  <ng-template [ngIf]="documentElement">
+    <app-components-scene-common-document
+      [element]="documentElement"
+    ></app-components-scene-common-document>
+  </ng-template>
+  <!-- subtitle component -->
+  <ng-template [ngIf]="subtitleElement">
+    <app-components-scene-common-subtitle
+      [common]="common"
+      [element]="subtitleElement"
+    ></app-components-scene-common-subtitle>
+  </ng-template>
+  <!-- route button component -->
+  <ng-template [ngIf]="coordinateElement">
+    <app-components-scene-common-coordinate [element]="coordinateElement">
+    </app-components-scene-common-coordinate>
+  </ng-template>
+  <!-- weather component -->
+  <ng-template [ngIf]="weatherElement">
+    <app-components-scene-common-weather [element]="weatherElement">
+    </app-components-scene-common-weather>
+  </ng-template>
+  <!-- clock component -->
+  <ng-template [ngIf]="clockElement">
+    <app-components-scene-common-clock [element]="clockElement">
+    </app-components-scene-common-clock>
+  </ng-template>
+
+  <!-- web component -->
+  <ng-template [ngIf]="webElement">
+    <app-components-scene-common-web
+      [common]="common"
+      [element]="webElement"
+    ></app-components-scene-common-web>
+  </ng-template>
+
+  <!-- image slide component -->
+  <ng-template [ngIf]="slideImageElement">
+    <app-components-scene-common-slide-image
+      [element]="slideImageElement"
+    ></app-components-scene-common-slide-image>
+  </ng-template>
+</div>

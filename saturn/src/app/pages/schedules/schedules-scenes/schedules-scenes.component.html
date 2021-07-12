@@ -1,0 +1,92 @@
+<div
+  class="container"
+  *ngIf="hasScheduleScenes; else SCHEDULE_SCENE_NOCONTENT_BLOCK"
+>
+  <mat-table [dataSource]="dataSource">
+    <!-- id Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let element"> {{ element.id }} </mat-cell>
+    </ng-container>
+
+    <!-- schedule Column -->
+    <ng-container matColumnDef="schedule">
+      <mat-header-cell *matHeaderCellDef> 스케줄 씬 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <div
+          class="schedule-scene"
+          fxLayout="column"
+          fxLayoutAlign="space-between start"
+          (mouseenter)="onMouseEnterScheduleScene(element)"
+          (mouseleave)="onMouseLeaveScheduleScene(element)"
+        >
+          <div class="schedule-scene__name">{{ element.name }}</div>
+          <div class="schedule-scene__schedule">
+            <app-components-schedule-item
+              [element]="element.schedule"
+              [read]="true"
+            ></app-components-schedule-item>
+          </div>
+
+          <div
+            class="schedule-scene__menus"
+            fxLayoutAlign="space-between center"
+            fxLayoutGap="20px"
+            *ngIf="isHover(element)"
+          >
+            <button
+              mat-raised-button
+              color="accent"
+              fxFlex="calc(50% - 20px)"
+              [disabled]="isProcess"
+              (click)="onClickedUpdate(element)"
+            >
+              수정
+            </button>
+            <button
+              mat-raised-button
+              color="warn"
+              fxFlex="calc(50% - 20px)"
+              [disabled]="isProcess"
+              (click)="onClickedDelete(element)"
+            >
+              삭제
+            </button>
+          </div>
+        </div>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="scene">
+      <mat-header-cell *matHeaderCellDef> 씬 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <app-components-scene-item
+          [element]="element.sceneBase"
+          [read]="true"
+        ></app-components-scene-item>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <mat-paginator
+    [length]="paginator.itemsCount"
+    [pageSize]="paginator.size"
+    (page)="onPaginatorPage($event)"
+  >
+  </mat-paginator>
+</div>
+<ng-template #SCHEDULE_SCENE_NOCONTENT_BLOCK>
+  <div class="container__nocontent">
+    <div class="container__nocontent-name">
+      스케줄 씬이 없습니다.
+    </div>
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="onClickedCreateSchedule()"
+    >
+      스케줄 씬을 추가하시겠습니까?
+    </button>
+  </div>
+</ng-template>

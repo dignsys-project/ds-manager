@@ -1,0 +1,58 @@
+<div class="container">
+  <div
+    class="container__menus"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="10px"
+  >
+    <a
+      mat-raised-button
+      *ngIf="selected"
+      [routerLink]="['/scenes/scene', selected.sceneId]"
+      target="_blank"
+      >미리보기</a
+    >
+
+    <button
+      mat-raised-button
+      color="accent"
+      *ngIf="selected"
+      (click)="onClickedSceneModified(selected)"
+    >
+      씬 수정
+    </button>
+
+    <button
+      mat-raised-button
+      color="accent"
+      *ngIf="selected"
+      (click)="onClickedSceneDuplicate(selected)"
+    >
+      씬 복사
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="false"
+      (click)="onClickedScenesDetail(selected)"
+    >
+      상세 정보
+    </button>
+    <button
+      mat-raised-button
+      color="warn"
+      *ngIf="selected"
+      (click)="onClickedScenesDelete(selected)"
+    >
+      씬 삭제
+    </button>
+  </div>
+  <div class="container__list">
+    <app-components-scenes
+      [itemsCount]="itemsCount"
+      (next)="onOutputSceneNext()"
+      (selected)="onOutputSelected($event)"
+    ></app-components-scenes>
+  </div>
+</div>

@@ -1,0 +1,112 @@
+<form
+  [formGroup]="forms"
+  fxLayout="column"
+  fxLayoutGap="40px"
+  class="container-register"
+>
+  <mat-form-field>
+    <mat-label>이메일 계정을 입력해주세요</mat-label>
+    <input
+      matInput
+      placeholder="pat@example.com"
+      formControlName="email"
+      autocomplete="username"
+    />
+    <mat-error *ngIf="forms.get('email').hasError('pattern')"
+      >올바른 이메일 주소를 입력해야합니다.</mat-error
+    >
+    <mat-error *ngIf="forms.get('email').hasError('required')"
+      >필수로 입력해야 합니다.</mat-error
+    >
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>계정 비밀번호를 입력해주세요</mat-label>
+    <input
+      matInput
+      [type]="ishidePassword ? 'password' : 'text'"
+      formControlName="password"
+      autocomplete="new-password"
+      maxlength="16"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="ishidePassword = !ishidePassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="ishidePassword"
+      type="button"
+    >
+      <mat-icon>
+        {{ ishidePassword ? "visibility_off" : "visibility" }}
+      </mat-icon>
+    </button>
+
+    <mat-hint>
+      8 ~ 16 영문 대소문자, 숫자, 특수문자를 조합해 주세요.
+    </mat-hint>
+
+    <mat-error *ngIf="forms.get('password').hasError('pattern')">
+      올바른 이메일 주소를 입력해야합니다.
+    </mat-error>
+    <mat-error *ngIf="forms.get('password').hasError('required')">
+      필수로 입력해야 합니다.
+    </mat-error>
+    <mat-error *ngIf="forms.get('password').hasError('requiredLowerCharacter')">
+      소문자가 필수로 입력되어야 합니다.
+    </mat-error>
+    <mat-error *ngIf="forms.get('password').hasError('requiredUpperCharacter')">
+      대문자가 필수로 입력되어야 합니다.
+    </mat-error>
+    <mat-error
+      *ngIf="forms.get('password').hasError('requiredLengthCharacter')"
+    >
+      최소 8글자 이상 입력되어야 합니다.
+    </mat-error>
+    <mat-error
+      *ngIf="forms.get('password').hasError('requiredSpecialCharacter')"
+    >
+      특수 문자가 하나 이상 입력되어야 합니다.
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>계정 비밀번호를 다시 한번 더 입력해주세요</mat-label>
+    <input
+      matInput
+      formControlName="password_confirm"
+      [type]="ishidePassword ? 'password' : 'text'"
+      autocomplete="new-password"
+    />
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="ishidePassword = !ishidePassword"
+      [attr.aria-label]="'Hide password'"
+      [attr.aria-pressed]="ishidePassword"
+      type="button"
+    >
+      <mat-icon>{{
+        ishidePassword ? "visibility_off" : "visibility"
+      }}</mat-icon>
+    </button>
+
+    <mat-error *ngIf="forms.get('password_confirm').hasError('required')">
+      필수로 입력해야 합니다.
+    </mat-error>
+    <mat-error
+      *ngIf="forms.get('password_confirm').hasError('requiredSamePassword')"
+    >
+      동일한 비밀번호를 입력해주세요
+    </mat-error>
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    color="primary"
+    (click)="onClickedRegister()"
+    [disabled]="forms.invalid || isProcess"
+  >
+    계정 생성
+  </button>
+  <ng-content></ng-content>
+</form>

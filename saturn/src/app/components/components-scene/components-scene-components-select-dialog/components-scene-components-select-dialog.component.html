@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{ getComponentsName() }} 선택</h1>
+<div mat-dialog-content>
+  <mat-selection-list
+    [multiple]="false"
+    (selectionChange)="onSelectionListChanged($event)"
+  >
+    <div mat-subheader>구성 요소</div>
+
+    <mat-list-option
+      *ngFor="let item of elements"
+      fxLayout="row"
+      fxLayoutGap="16px"
+      [value]="item"
+      [selected]="isSelected(item)"
+    >
+      <mat-icon mat-list-icon>{{ item.getIconName() }} </mat-icon>
+      <div class="element__name" mat-line>{{ item.name }}</div>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button
+    mat-raised-button
+    color="accent"
+    fxFlex="calc(100% / 2 - 10px)"
+    [disabled]="!isValid"
+    (click)="onClickedSave()"
+  >
+    저장
+  </button>
+  <button
+    mat-raised-button
+    (click)="onClickedCancel()"
+    fxFlex="calc(100% / 2 - 10px)"
+  >
+    취소
+  </button>
+</div>

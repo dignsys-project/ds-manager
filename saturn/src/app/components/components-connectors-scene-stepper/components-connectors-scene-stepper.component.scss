@@ -1,0 +1,30 @@
+@import 'src/scss/custom_theme';
+
+.connectors-container {
+  max-width: 1024px;
+  width: 100%;
+
+  @include mat-elevation(4);
+
+  padding: 2rem;
+
+  & > * {
+    padding: 12px;
+
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  }
+}
+
+.connectors {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  &__name {
+    flex: 0 0 40%;
+  }
+
+  &__department {
+    flex: 0 0 20%;
+  }
+}

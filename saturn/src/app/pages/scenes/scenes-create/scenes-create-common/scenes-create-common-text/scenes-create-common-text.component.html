@@ -1,0 +1,67 @@
+<div class="common__text" *ngIf="element">
+  <mat-form-field appearance="outline" *ngIf="!disabledText">
+    <input matInput [(ngModel)]="element.text" />
+    <mat-label>버튼 글자</mat-label>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>글자 크기</mat-label>
+    <input
+      type="number"
+      matInput
+      placeholder="17"
+      [(ngModel)]="element.textSize"
+    />
+    <span matSuffix>px</span>
+  </mat-form-field>
+
+  <div
+    class="common__background common-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>글자 색상</div>
+    <input
+      [ngStyle]="{ width: '100px' }"
+      [style.background]="element.textColor"
+      [(colorPicker)]="element.textColor"
+      [cpPosition]="'top-left'"
+    />
+  </div>
+</div>
+<div
+  class="common__text-decorator"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <mat-checkbox [(ngModel)]="element.isBold">Bold</mat-checkbox>
+  <mat-checkbox [(ngModel)]="element.isItalic">Italic</mat-checkbox>
+</div>
+
+<!-- vertical -->
+<mat-button-toggle-group
+  class="text-align"
+  [(ngModel)]="this.element.verticalKind"
+  (change)="onChangeTextVerticalAlignFromButtonToggleGroup($event)"
+>
+  <mat-button-toggle
+    [value]="item.kind"
+    *ngFor="let item of verticalKinds"
+    [checked]="isCheckedVertical(item.kind)"
+  >
+    <mat-icon>{{ item.name }} </mat-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>
+<!-- horizontal -->
+<mat-button-toggle-group
+  class="text-align"
+  [(ngModel)]="this.element.horizontalKind"
+  (change)="onChangeTextHorizontalAlignFromButtonToggleGroup($event)"
+>
+  <mat-button-toggle
+    [value]="item.kind"
+    *ngFor="let item of horizontalKinds"
+    [checked]="isCheckedHorizontal(item.kind)"
+  >
+    <mat-icon>{{ item.name }} </mat-icon>
+  </mat-button-toggle>
+</mat-button-toggle-group>

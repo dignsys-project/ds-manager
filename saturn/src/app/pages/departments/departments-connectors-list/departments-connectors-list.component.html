@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="container__list">
+    <app-components-connector-table
+      *ngIf="elements$ | async as elements"
+      [elements]="elements"
+      (selected)="onClickedConnector($event)"
+    ></app-components-connector-table>
+  </div>
+  <div
+    class="container__menus"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-flat-button
+      *ngIf="isDevelopment"
+      class="mat-elevation-z4 menu-item"
+      (click)="onClickedCreateTestConnectors()"
+      [disabled]="isProcess"
+    >
+      30개 테스트 디바이스 추가
+    </button>
+
+    <button
+      *ngIf="selectedElements?.length > 0"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="primary"
+      (click)="onClickedConnectorsConfirm()"
+      [disabled]="isProcess"
+    >
+      디바이스 승인
+    </button>
+
+    <button
+      *ngIf="selectedElements?.length > 0"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="accent"
+      (click)="onClickedConnectorsDeny()"
+      [disabled]="isProcess"
+    >
+      디바이스 거부
+    </button>
+
+    <button
+      *ngIf="selectedElements?.length > 0"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="warn"
+      (click)="onClickedConnectorsDelete()"
+      [disabled]="isProcess"
+    >
+      디바이스 삭제
+    </button>
+
+    <button
+      *ngIf="selectedElements?.length > 0"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="warn"
+      (click)="onClickedEmergencyChange(true)"
+      [disabled]="isProcess"
+    >
+      디바이스 긴급 시작
+    </button>
+
+    <button
+      *ngIf="selectedElements?.length > 0"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="warn"
+      (click)="onClickedEmergencyChange(false)"
+      [disabled]="isProcess"
+    >
+      디바이스 긴급 종료
+    </button>
+  </div>
+</div>

@@ -1,0 +1,68 @@
+/* You can add global styles to this file, and also import other style files */
+@import 'src/scss/theme';
+
+html {
+  font-size: 62.5% !important;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body {
+  font-family: 'Noto Sans KR', sans-serif !important;
+  font-size: 1.6rem;
+}
+
+.dialog-title {
+  color: $color-primary;
+}
+
+.scene-component-selected {
+  @include mat-elevation(10);
+  border: 1px solid black;
+  box-sizing: border-box;
+}
+
+.light-background {
+  background-color: $light-background;
+}
+
+.dark-background {
+  background-color: $dark-background;
+}
+
+.round-container {
+  position: relative;
+  border: 1px solid #cecece;
+  border-radius: 6px;
+
+  padding: 1rem;
+  margin-bottom: 1rem;
+
+  &__name {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    transform: translateY(-1rem) scale(0.75);
+    padding: 0rem 1rem;
+  }
+}
+
+.snackbar {
+  &__normal {
+    font-size: 2rem;
+    line-height: 1em;
+  }
+
+  &__warning {
+    background-color: yellow;
+  }
+
+  &__error {
+    color: red;
+  }
+}

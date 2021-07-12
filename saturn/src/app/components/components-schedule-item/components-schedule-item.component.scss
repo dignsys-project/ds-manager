@@ -1,0 +1,94 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+}
+.container {
+  min-height: 56px;
+  position: relative;
+  padding: 1rem 0rem;
+
+  transition: all 1s ease;
+
+  @media screen and (max-width: 1080px) {
+    display: flex;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+  }
+
+  &__name {
+    width: 230px;
+    font-weight: bold;
+    letter-spacing: 1px;
+  }
+
+  &__date {
+    width: 75px;
+  }
+  &__row-1,
+  &__row-2 {
+    transition: all 0.3s ease;
+  }
+
+  &__row-2 {
+    & > .day_of_week {
+      &:not(:last-child) {
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  &__menus {
+    display: none !important;
+
+    @media screen and (max-width: 1080px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    width: 100%;
+    height: 100%;
+  }
+
+  &:hover {
+    .container__menus {
+      display: flex !important;
+    }
+
+    .container__row-1,
+    .container__row-2 {
+      @media screen and (max-width: 1080px) {
+        opacity: 0.1;
+      }
+    }
+  }
+}
+
+.expired_name {
+  padding: 0.2rem 1rem;
+  font-size: 90%;
+  border-radius: 6px;
+  background-color: $color-accent-light;
+  width: 100%;
+  text-align: center;
+
+  &__expired {
+    background-color: $color-warn;
+  }
+}
+
+.day_of_week {
+  padding: 0.5rem;
+  border-radius: 50%;
+  background-color: $color-accent-light;
+  width: 20px;
+  text-align: center;
+
+  &__disabled {
+    background-color: initial;
+    color: gray;
+  }
+}

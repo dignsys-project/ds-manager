@@ -1,0 +1,95 @@
+<div class="container" *ngIf="isReceived" cdkDropListGroup>
+  <!-- department scene folders -->
+  <app-components-department-folder-tree
+    class="container__tree"
+    [elements]="elements"
+    [isProcess]="isProcess"
+    (created)="onCreatedComponentsDepartmentFolderTree($event)"
+    (deleted)="onDeletedComponentsDepartmentFolderTree($event)"
+    (selected)="onSelectedComponentsDepartmentFolderTree($event)"
+    (changed)="onChangedComponentsDepartmentFolderTree($event)"
+    (moved)="onMovedComponentsDepartmentFolderTree($event)"
+  ></app-components-department-folder-tree>
+  <!-- scene menus -->
+  <div
+    class="container__menus"
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-icon-button
+      color="primary"
+      *ngIf="isSelectedFolder"
+      [disabled]="!isSelectedFolder"
+      (click)="onClickedResourceCreate()"
+    >
+      <mat-icon>
+        {{ !isCreateMode ? 'add_circle_outline' : 'view_list' }}
+      </mat-icon>
+    </button>
+    <a
+      mat-icon-button
+      target="_blank"
+      matTooltip="미리보기"
+      *ngIf="!isCreateMode"
+      [disabled]="!isPossibleMenu"
+      [href]="getResourceLocation()"
+      ><mat-icon>play_circle_outline</mat-icon></a
+    >
+
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="onPressedResourceNavigation()"
+      [disabled]="!isPossibleMenu"
+    >
+      <mat-icon>navigation</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      *ngIf="!isCreateMode"
+      [disabled]="!isPossibleMenu"
+      color="warn"
+      (click)="onClickedResourceDelete()"
+      matTooltip="삭제"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+  </div>
+
+  <ng-template [ngIf]="isSelectedFolder">
+    <!-- resource list -->
+    <app-components-resources-list-v2
+      *ngIf="!isCreateMode; else CREATE_MODE"
+      cdkDropList
+      cdkDropListSortingDisabled
+      [dragDisabled]="false"
+      class="container__content"
+      [elements]="resources"
+      [isProcess]="isProcess"
+      (selected)="onSelectedComponentsResourcesList($event)"
+    ></app-components-resources-list-v2>
+    <ng-template #CREATE_MODE>
+      <!-- resource create  -->
+      <components-resources-create-v2
+        [isProcess]="isProcess"
+        (upload)="onUploadComponentsResourceCreateV2($event)"
+      ></components-resources-create-v2>
+    </ng-template>
+  </ng-template>
+  <ng-template [ngIf]="!isSelectedFolder">
+    <!-- resource list for exclude folder -->
+    <app-components-resources-list-v2
+      *ngIf="!isCreateMode"
+      cdkDropList
+      cdkDropListSortingDisabled
+      [dragDisabled]="false"
+      class="container__content"
+      [elements]="resources"
+      [isProcess]="isProcess"
+      (selected)="onSelectedComponentsResourcesList($event)"
+    ></app-components-resources-list-v2>
+  </ng-template>
+</div>

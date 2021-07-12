@@ -1,0 +1,56 @@
+<div
+  class="container"
+  fxLayout="column"
+  fxLayoutAlign="stretch flx-start"
+  fxLayoutGap="16px"
+>
+  <div
+    *ngFor="let item of element.elements; let i = index"
+    class="container__element"
+    fxLayout="column"
+    fxLayoutAlign="flex-start stretch"
+  >
+    <button
+      mat-raised-button
+      color="primary"
+      *ngIf="!haveResource(item); else RESOURCE_BLOCK"
+      (click)="onClickedSlideImageResource(item)"
+    >
+      이미지 추가
+    </button>
+    <ng-template #RESOURCE_BLOCK>
+      <div
+        class="container__element-resource"
+        fxLayout="row"
+        fxLayoutAlign="space-between flex-start"
+      >
+        <div class="resource__name">{{ item.resource.name }}</div>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="onClickedSlideImageResource(item)"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </div>
+    </ng-template>
+    <mat-slider
+      thumbLabel
+      tickInterval="1000"
+      min="1"
+      max="60"
+      [(ngModel)]="item.seconds"
+    ></mat-slider>
+
+    <button
+      mat-raised-button
+      color="warn"
+      (click)="onClickedSlideImageRemove(item, i)"
+    >
+      제거
+    </button>
+  </div>
+  <button mat-raised-button color="accent" (click)="onClickedSlideImageAdd()">
+    이미지 속성 추가
+  </button>
+</div>

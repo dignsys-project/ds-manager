@@ -1,0 +1,33 @@
+<div
+  class="container"
+  fxLayout="row wrap"
+  fxLayoutGap="16px"
+  fxLayoutAlign="start center"
+>
+  <div *ngFor="let item of menus">
+    <a
+      *ngIf="!hasChildren(item); else MENU_CHILDREN_BLOCK"
+      mat-raised-button
+      [routerLink]="item.url"
+      routerLinkActive="router-link-active"
+      >{{ item.name | uppercase }}
+    </a>
+    <ng-template #MENU_CHILDREN_BLOCK>
+      <button mat-raised-button [matMenuTriggerFor]="menu">
+        {{ item.name | uppercase }}
+      </button>
+      <mat-menu #menu="matMenu" fxLayout="column">
+        <a
+          mat-button
+          *ngFor="let child of item.children"
+          mat-button
+          [routerLink]="child.url"
+          routerLinkActive="router-link-active"
+          >{{ child.name | uppercase }}</a
+        >
+      </mat-menu>
+    </ng-template>
+  </div>
+</div>
+
+<router-outlet></router-outlet>

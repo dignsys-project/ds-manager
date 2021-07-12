@@ -1,0 +1,70 @@
+<div class="container">
+  <div
+    class="container__desc"
+    fxLayout="row"
+    fxLayoutAlign="space-between start"
+  >
+    <ul>
+      <li>
+        이미지 (*.png), 동영상(*.mp4), 문서 (*.pdf) 파일을 업로드 할수 있습니다.
+      </li>
+      <li>
+        동영상 파일의 업로드에 경우에는 별도의 미리보기 이미지들이 필요 합니다.
+      </li>
+      <li>동영상 파일은 최대 1기가까지 업로드 할 수 있습니다.</li>
+    </ul>
+  </div>
+
+  <input
+    hidden
+    type="file"
+    #fileInput
+    [disabled]="isProcess"
+    (change)="onChangeInputHtmlElement($event.target.files)"
+    multiple
+  />
+  <div
+    class="container__upload"
+    (click)="onClickedUploadContainer()"
+    componentsResourcesCreateDragDrop
+    [isProcess]="isProcess"
+    (dropped)="onDropeedComponentsResourceCreateDragDropDirective($event)"
+  >
+    <div
+      class="container__upload-message"
+      fxLayout="row"
+      fxLayoutAlign="center center"
+    >
+      <div
+        *ngIf="elements?.length > 0; else ELSE_BLOCK"
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+      >
+        <div>{{ elements.length }}개의 아이템이 선택되었습니다</div>
+      </div>
+      <ng-template #ELSE_BLOCK>
+        <div class="message">파일을 드래그 앤 드랍 하거나 선택해주세요.</div>
+      </ng-template>
+    </div>
+  </div>
+  <div class="container__items" *ngIf="hasElements">
+    <div class="container__items-menus">
+      <button
+        mat-raised-button
+        [disabled]="isProcess"
+        color="primary"
+        (click)="onClickedUploadToPrometheus()"
+      >
+        업로드
+      </button>
+    </div>
+    <div class="container__items-container">
+      <app-components-resources-create-element
+        [isProcess]="isProcess"
+        *ngFor="let item of elements"
+        [element]="item"
+        (remove)="onRemoveComponentsResourceCreateElement($event)"
+      ></app-components-resources-create-element>
+    </div>
+  </div>
+</div>

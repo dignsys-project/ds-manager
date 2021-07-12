@@ -1,0 +1,49 @@
+@import '~@angular/material/theming';
+@import 'src/scss/custom_theme';
+
+:host {
+  display: inline-block;
+  min-height: calc(100vh - 138px);
+}
+
+.container {
+  &__logo {
+    width: 150px;
+    padding: 1rem;
+    transition: all 0.3s;
+
+    &:hover {
+      cursor: pointer;
+      filter: blur(1px);
+    }
+  }
+}
+
+.container-home {
+  min-height: 90px;
+}
+
+.menu__items {
+  color: $color-accent-light;
+}
+
+.router-link-active {
+  position: relative;
+
+  transition: all 0.3s;
+  opacity: 0.8;
+  background-color: rgba($color-gamegress-primary, 0.3);
+  color: $color-primary-light;
+
+  &::after {
+    position: absolute;
+
+    // content: "";
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+
+    background-color: $color-gamegress-accent;
+    height: 2px;
+  }
+}

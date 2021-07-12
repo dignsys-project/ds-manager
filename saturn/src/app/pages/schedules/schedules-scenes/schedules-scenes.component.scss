@@ -1,0 +1,60 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  &__nocontent {
+    &-name {
+      color: $color-warn;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.mat-column {
+  &-id {
+    flex: 5%;
+  }
+  &-schedule {
+    flex: 85%;
+    @media screen and (max-width: 960px) {
+      flex: 75%;
+    }
+  }
+
+  &-scene {
+    overflow: visible !important;
+    flex: 10%;
+    @media screen and (max-width: 960px) {
+      flex: 20%;
+    }
+  }
+}
+
+.schedule-scene {
+  position: relative;
+
+  &:hover {
+    .schedule-scene__name,
+    .schedule-scene__schedule {
+      opacity: 0.1;
+    }
+  }
+
+  &__name {
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    transition: all 500ms ease;
+  }
+
+  &__schedule {
+    transition: all 500ms ease;
+  }
+
+  &__menus {
+    transition: all 500ms ease;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}

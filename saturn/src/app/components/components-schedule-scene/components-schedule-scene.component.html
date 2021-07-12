@@ -1,0 +1,132 @@
+<div class="container">
+  <div class="container__schedule-scene-name">
+    <mat-form-field appearance="outline" class="full">
+      <mat-label>스케줄 씬 이름</mat-label>
+      <input matInput [formControl]="nameControl" maxlength="30" />
+      <mat-hint align="end">
+        스케줄 씬 이름을 30자이내로 입력해주세요<span>&nbsp;</span>
+        {{ nameControl.value.length }} / 30
+      </mat-hint>
+      <mat-error *ngIf="nameControl.hasError('required')"
+        >스케줄 씬 이름이 필요합니다.</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <div class="container__schedule schedule">
+    <div
+      class="schedule__menus"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div
+        class="schedule__name"
+        fxLayout="row"
+        fxLayoutAlign="start end"
+        fxLayoutGap="16px"
+        fxLayout.lt-sm="column"
+        fxLayoutAlign.lt-sm="center start"
+      >
+        <div class="schedule__name-title">스케줄</div>
+        <div class="schedule__name-description" *ngIf="!isValidSchedule">
+          * 스케줄 설정이 필요합니다.
+        </div>
+      </div>
+
+      <div
+        class="schedule__name-menus"
+        fxLayoutAlign="start center"
+        fxLayoutGap="10px"
+        *ngIf="!readSchedule"
+      >
+        <button
+          mat-icon-button
+          (click)="onClickedRemoveSchedule()"
+          color="warn"
+          *ngIf="isValidSchedule"
+        >
+          <mat-icon>close</mat-icon></button
+        ><button
+          mat-icon-button
+          (click)="onClickedChangeScheduleMode()"
+          color="accent"
+        >
+          <mat-icon>{{
+            isScheduleListMode ? 'keyboard_arrow_left' : 'list'
+          }}</mat-icon>
+        </button>
+      </div>
+    </div>
+    <app-components-schedule
+      *ngIf="!isScheduleListMode; else SCHEDULE_LIST_BLOCK"
+      [element]="element.schedule"
+      [read]="isReadSchedule"
+    ></app-components-schedule>
+
+    <ng-template #SCHEDULE_LIST_BLOCK>
+      <mat-radio-group
+        aria-label="Select an option"
+        (change)="onRadioGroupChanged($event)"
+      >
+        <!-- class="mat-elevation-z8" -->
+        <mat-table [dataSource]="dataSource">
+          <!-- Position Column -->
+          <ng-container matColumnDef="select">
+            <mat-header-cell *matHeaderCellDef> 선택 </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <mat-radio-button [value]="element"></mat-radio-button>
+            </mat-cell>
+          </ng-container>
+
+          <!-- Name Column -->
+          <ng-container matColumnDef="schedule">
+            <mat-header-cell *matHeaderCellDef> 스케줄 </mat-header-cell>
+            <mat-cell *matCellDef="let element">
+              <app-components-schedule-item
+                [element]="element"
+                [read]="true"
+              ></app-components-schedule-item>
+            </mat-cell>
+          </ng-container>
+
+          <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+          <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+        </mat-table>
+      </mat-radio-group>
+      <mat-paginator
+        [length]="paginator.itemsCount"
+        [pageSize]="paginator.size"
+        (page)="onPaginatorPage($event)"
+      >
+      </mat-paginator>
+    </ng-template>
+  </div>
+
+  <div class="container__scene scene">
+    <div
+      class="scene__name"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="10px"
+    >
+      <div class="scene__name-title">씬 설정</div>
+      <div class="scene__name-description" *ngIf="!isValidScene">
+        * 씬 설정이 필요 합니다
+      </div>
+    </div>
+
+    <div
+      class="scene__content"
+      fxLayout="row"
+      fxLayoutAlign="space-between start"
+    >
+      <div class="scene__content-name">씬 이름</div>
+      <div class="scene__content-preview">
+        <app-components-scene-item
+          [element]="element.sceneBase"
+          [read]="isReadScene"
+          (change)="onComponentsScenePreviewChanged($event)"
+        ></app-components-scene-item>
+      </div>
+    </div>
+  </div>
+</div>

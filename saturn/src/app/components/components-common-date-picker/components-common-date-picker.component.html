@@ -1,0 +1,42 @@
+<div
+  class="time_pickers"
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <div
+    class="time_pickers_start"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="16px"
+  >
+    <div>시작 시간 :</div>
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-form-field class="time_pickers__hour">
+        <input matInput value="0" maxlength="2" />
+      </mat-form-field>
+      <div class="time_pickers__spacer">:</div>
+      <mat-form-field class="time_pickers__minute">
+        <input matInput value="0" />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div
+    class="time_pickers__end"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="16px"
+  >
+    <div>종료 시간 :</div>
+    <div fxLayout="row" fxLayoutGap="16px">
+      <mat-form-field class="time_pickers__hour">
+        <input matInput value="0" maxlength="2" />
+      </mat-form-field>
+      <div class="time_pickers__spacer">:</div>
+      <mat-form-field class="time_pickers__minute">
+        <input matInput value="0" />
+      </mat-form-field>
+    </div>
+  </div>
+</div>

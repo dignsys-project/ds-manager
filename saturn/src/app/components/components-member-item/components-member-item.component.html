@@ -1,0 +1,106 @@
+<div class="container" *ngIf="element">
+  <mat-card class="container__member mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>멤버 정보</mat-card-title>
+      <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+    </mat-card-header>
+    <mat-card-content class="content">
+      <div
+        class="content__email"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">이메일</div>
+        <div class="value">{{ element.email }}</div>
+      </div>
+
+      <div
+        class="content__kind"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">멤버 타입</div>
+        <div class="value">
+          <app-components-member-kind
+            [memberKind]="element.kind"
+          ></app-components-member-kind>
+        </div>
+      </div>
+      <div
+        class="content__permission"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">권한</div>
+        <div
+          class="value"
+          fxLayout="row"
+          fxLayoutAlign="end center"
+          fxLayoutGap="10px"
+          fxLayout.lt-sm="column"
+          fxLayoutAlign.lt-sm="start stretch"
+        >
+          <div fxLayout="row" fxLayoutGap="10px">
+            <app-components-member-permission
+              [permission]="memberPermission"
+              [kind]="'icon'"
+              *ngFor="
+                let memberPermission of scenePermissions(element.permissions)
+              "
+            ></app-components-member-permission>
+          </div>
+
+          <div fxLayout="row" fxLayoutGap="10px">
+            <app-components-member-permission
+              [permission]="memberPermission"
+              [kind]="'icon'"
+              *ngFor="
+                let memberPermission of connectorPermissions(
+                  element.permissions
+                )
+              "
+            ></app-components-member-permission>
+          </div>
+          <div fxLayout="row" fxLayoutGap="10px">
+            <app-components-member-permission
+              [permission]="memberPermission"
+              [kind]="'icon'"
+              *ngFor="
+                let memberPermission of memberPermissions(element.permissions)
+              "
+            ></app-components-member-permission>
+          </div>
+          <app-components-member-permission
+            [permission]="memberPermission"
+            [kind]="'icon'"
+            *ngFor="
+              let memberPermission of monitorPermissions(element.permissions)
+            "
+          ></app-components-member-permission>
+        </div>
+      </div>
+    </mat-card-content>
+    <mat-card-actions
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="16px"
+    >
+      <button
+        color="accent"
+        mat-flat-button
+        [disabled]="!havePermission || isProcess"
+        (click)="onClickedChangeMemberPermissions()"
+      >
+        권한 변경
+      </button>
+      <button
+        color="warn"
+        [disabled]="isProcess"
+        mat-flat-button
+        [disabled]="!havePermission || isProcess"
+      >
+        비밀번호 초기화
+      </button>
+    </mat-card-actions>
+  </mat-card>
+</div>

@@ -1,0 +1,14 @@
+.container-contents {
+  & > p {
+    text-align: center;
+  }
+
+  & > .sub-content {
+    font-weight: 100;
+  }
+}
+
+.main-content {
+  text-align: center;
+  font-size: 120%;
+}

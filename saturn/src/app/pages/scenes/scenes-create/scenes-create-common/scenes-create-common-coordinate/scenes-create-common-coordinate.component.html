@@ -1,0 +1,71 @@
+<div class="container">
+  <div class="common__image">
+    <button
+      style="width: 100%"
+      mat-raised-button
+      color="accent"
+      (click)="onClickedSelectResource()"
+    >
+      버튼 이미지 선택
+    </button>
+  </div>
+  <app-scenes-create-common-text
+    [element]="element.textElement"
+  ></app-scenes-create-common-text>
+  <div
+    class="common__menus"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="10px"
+  >
+    <div class="menus__select-owner-map" fxLayoutAlign="space-between center">
+      <button
+        mat-raised-button
+        fxFlex="100%"
+        color="primary"
+        (click)="onClickedFindOwnerScenePartImage()"
+        *ngIf="!element.haveScenePart; else HAS_OWNER_MAP_BLOCK"
+      >
+        지도 선택
+      </button>
+
+      <ng-template #HAS_OWNER_MAP_BLOCK>
+        <div>{{ element.scenePartImage?.name }}</div>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="onClickedRemoveOwnerScenePartImage()"
+        >
+          <mat-icon>remove_circle_outline</mat-icon>
+        </button>
+      </ng-template>
+    </div>
+
+    <button
+      mat-raised-button
+      [color]="haveCoordinate ? 'accent' : ''"
+      [disabled]="!element.haveScenePart"
+      (click)="onClickedSelectRouteImageResource()"
+    >
+      경로 선택
+    </button>
+
+    <button
+      mat-raised-button
+      [disabled]="!element.haveScenePart"
+      [color]="haveSource ? 'accent' : ''"
+      (click)="onClickedSelectSourceResource()"
+    >
+      시작 지점
+    </button>
+
+    <button
+      mat-raised-button
+      [disabled]="!element.haveScenePart"
+      [color]="haveDestination ? 'accent' : ''"
+      (click)="onClickedSelectDestinationResource()"
+    >
+      종료 지점
+    </button>
+  </div>
+</div>

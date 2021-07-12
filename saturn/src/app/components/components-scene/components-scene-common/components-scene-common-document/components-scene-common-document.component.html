@@ -1,0 +1,15 @@
+<div class="container">
+  <div *ngIf="!haveDocument || !isScene; else PDF_BLOCK">
+    {{ getDocumentName }}
+  </div>
+  <ng-template #PDF_BLOCK>
+    <pdf-viewer
+      [src]="getResourceLocation()"
+      [show-all]="true"
+      [render-text]="false"
+      [autoresize]="false"
+      [fit-to-page]="true"
+      style="display: block;"
+    ></pdf-viewer>
+  </ng-template>
+</div>

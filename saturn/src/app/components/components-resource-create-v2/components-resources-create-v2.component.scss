@@ -1,0 +1,53 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  &__upload {
+    position: relative;
+
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center;
+    height: 100px;
+    margin: 20px auto;
+
+    outline: 2px dashed #92dbb3;
+
+    transition: all 0.15s ease-in-out, background-color 0.15s linear;
+
+    &-message {
+      height: 100%;
+      color: #1d1d1d;
+
+      font-size: 2rem;
+      line-height: 2em;
+    }
+  }
+
+  &__items {
+    padding-bottom: 2rem;
+
+    &-menus {
+      padding-bottom: 1rem;
+
+      & > * {
+        min-width: 300px;
+
+        @media screen and (max-width: 599px) {
+          min-width: 100%;
+        }
+      }
+    }
+  }
+
+  &__desc {
+    & > ul {
+      list-style: none;
+      margin: 0rem;
+      padding: 0rem;
+      & > li {
+        font-size: 1.6rem;
+        line-height: 2em;
+      }
+    }
+  }
+}

@@ -1,0 +1,120 @@
+<section class="container" fxLayout="row" fxLayoutAlign="start stretch">
+  <mat-tree
+    class="container-departments"
+    [dataSource]="dataSource"
+    [treeControl]="treeControl"
+    *ngIf="dataSource.data.length > 0; else NO_CONTENT"
+  >
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      matTreeNodeToggle
+      matTreeNodePadding
+    >
+      <button mat-icon-button disabled></button>
+      <div
+        class="item"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        class="item"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        draggable="true"
+        (dragstart)="onDragStart($event, node)"
+        (dragover)="onDragOver($event, node)"
+        (dragend)="onDragEnd($event, node)"
+        (click)="onClickedDepartmentNode(node)"
+        [ngClass]="{
+          item__center: isCenter(node) && !node.expandable,
+          item__over: isOver(node),
+          item__above: isAbove(node),
+          item__below: isBelow(node),
+          item__edit: isEdit(node),
+          item__selected: isSelected(node)
+        }"
+      >
+        <div>{{ node.name() }}</div>
+
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="32px">
+          <div
+            *ngIf="memberCount(node) > 0"
+            [matBadge]="memberCount(node)"
+            matBadgeColor="primary"
+          ></div>
+          <div
+            *ngIf="deviceCount(node) > 0"
+            [matBadge]="deviceCount(node)"
+            matBadgeColor="accent"
+          ></div>
+        </div>
+      </div>
+
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+    </mat-tree-node>
+
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild"
+      matTreeNodePadding
+    >
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'toggle ' + node.name"
+      >
+        <mat-icon class="mat-icon-rtl-mirror" color="accent">
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+      </button>
+      <div
+        class="item"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        draggable="true"
+        (dragstart)="onDragStart($event, node)"
+        (dragover)="onDragOver($event, node)"
+        (dragend)="onDragEnd($event, node)"
+        (click)="onClickedDepartmentNode(node)"
+        [ngClass]="{
+          item__center: isCenter(node) && !node.expandable,
+          item__over: isOver(node),
+          item__above: isAbove(node),
+          item__below: isBelow(node),
+          item__edit: isEdit(node),
+          item__selected: isSelected(node)
+        }"
+      >
+        <div>{{ node.name() }}</div>
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="32px">
+          <div
+            *ngIf="memberCount(node) > 0"
+            [matBadge]="memberCount(node)"
+            matBadgeColor="primary"
+          ></div>
+          <div
+            *ngIf="deviceCount(node) > 0"
+            [matBadge]="deviceCount(node)"
+            matBadgeColor="accent"
+          ></div>
+        </div>
+        <!-- <div
+          *ngIf="lowersCount(node) > 0"
+          [matBadge]="lowersCount(node)"
+          matBadgeColor="warn"
+        ></div> -->
+      </div>
+      <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+    </mat-tree-node>
+  </mat-tree>
+
+  <ng-template #NO_CONTENT>
+    <section
+      class="container-nocontent"
+      fxLayout="column"
+      fxLayoutAlign="start center"
+    >
+      <p class="container-nocontent__message">
+        현재 조직이 없습니다 <br />
+        조직을 추가하세요
+      </p>
+    </section>
+  </ng-template>
+</section>

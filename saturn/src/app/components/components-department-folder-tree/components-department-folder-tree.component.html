@@ -1,0 +1,154 @@
+<div class="container">
+  <div
+    class="folder__menus"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="5px"
+  >
+    <div>
+      <button
+        mat-icon-button
+        [disabled]="!isSelectedDepartment || isProcess"
+        *ngIf="!readonly"
+        color="primary"
+        (click)="onClickedCreateFolder()"
+      >
+        <mat-icon>create_new_folder</mat-icon>
+      </button>
+
+      <button
+        *ngIf="!readonly"
+        mat-icon-button
+        color="accent"
+        [disabled]="!isSelectedFolder || isProcess"
+        (click)="onClickedChangeFolderName()"
+      >
+        <mat-icon>create</mat-icon>
+      </button>
+      <button
+        *ngIf="!readonly"
+        mat-icon-button
+        [disabled]="!isSelectedFolder || isProcess"
+        color="warn"
+        (click)="onClickedDeleteFolder()"
+      >
+        <mat-icon>rule_folder</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button
+        mat-icon-button
+        (click)="onClickedCollapseNodes()"
+        [disabled]="!hasNodes"
+      >
+        <mat-icon>expand_less</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        (click)="onClickedExpandNodes()"
+        [disabled]="!hasNodes"
+      >
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </div>
+  </div>
+  <mat-tree
+    [dataSource]="dataSource"
+    [treeControl]="treeControl"
+    class="department__folder-tree"
+    *ngIf="!isNoContent; else NOCONTENT_BLOCK"
+  >
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node"
+      matTreeNodePadding
+      matTreeNodePaddingIndent="16px"
+      cdkDropList
+      cdkDropListDisabled
+      cdkDropListSortingDisabled
+      (cdkDropListDropped)="onDropListDropped(node, $event)"
+      class="node"
+    >
+      <!-- use a disabled button to provide padding for tree leaf -->
+      <button mat-icon-button disabled></button>
+      <button
+        mat-button
+        [disabled]="isProcess"
+        [attr.aria-label]="'Toggle ' + node.name"
+        [ngClass]="{ node__selected: isNodeSelected(node) }"
+        class="department__name"
+        (click)="onClickedTreeNode(node)"
+      >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+          <mat-icon
+            [color]="
+              isNodeSelected(node)
+                ? 'primary'
+                : isNodeFolder(node)
+                ? 'accent'
+                : ''
+            "
+          >
+            {{ getNodeIcon(node) }}
+          </mat-icon>
+          <div>{{ node.name }}</div>
+        </div>
+      </button>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild"
+      matTreeNodePadding
+      matTreeNodePaddingIndent="16px"
+      cdkDropList
+      cdkDropListDisabled
+      cdkDropListSortingDisabled
+      (cdkDropListDropped)="onDropListDropped(node, $event)"
+      class="node"
+    >
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [disabled]="isProcess"
+        [attr.aria-label]="'Toggle ' + node.name"
+      >
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+      </button>
+      <button
+        mat-button
+        [disabled]="isProcess"
+        [attr.aria-label]="'Toggle ' + node.name"
+        class="department__name"
+        [ngClass]="{ node__selected: isNodeSelected(node) }"
+        (click)="onClickedTreeNode(node)"
+      >
+        <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+          <mat-icon
+            [color]="
+              isNodeSelected(node)
+                ? 'primary'
+                : isNodeFolder(node)
+                ? 'accent'
+                : ''
+            "
+          >
+            {{ getNodeIcon(node) }}
+          </mat-icon>
+          <div>{{ node.name }}</div>
+        </div>
+      </button>
+    </mat-tree-node>
+  </mat-tree>
+  <ng-template #NOCONTENT_BLOCK>
+    <div class="department_message">
+      <div>계정에 할당된 조직을 찾을 수 없습니다.</div>
+      <div>조직이 먼저 추가 되어야 합니다.</div>
+      <a mat-raised-button color="primary" [routerLink]="['/departments/items']"
+        >조직 관리로 이동</a
+      >
+    </div>
+  </ng-template>
+</div>

@@ -1,0 +1,57 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  display: grid;
+  grid-template-columns: 5fr minmax(250px, 1fr);
+  grid-template-rows: 50px 1fr;
+
+  grid-template-areas:
+    'scene-menus scene-menus'
+    'canvas menus';
+  column-gap: 1em;
+
+  &-scene-menus {
+    grid-area: scene-menus;
+  }
+  &-canvas {
+    grid-area: canvas;
+    overflow: auto;
+  }
+
+  &-menus {
+    grid-area: menus;
+    padding: 1em;
+    overflow-y: auto;
+  }
+
+  & > * {
+    &:not(:first-child) {
+      border: 1px solid #d6d6d6;
+    }
+  }
+}
+
+.scene_part {
+  & > * {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  &__items {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    & > :first-child {
+      font-weight: bold;
+      padding-right: 6 px;
+    }
+
+    & > :last-child {
+      min-width: 25px;
+    }
+
+    padding-right: 16px;
+  }
+}

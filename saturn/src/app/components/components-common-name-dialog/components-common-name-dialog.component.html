@@ -1,0 +1,33 @@
+<h1
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <div>{{ data.titleName }}</div>
+</h1>
+<div mat-dialog-content class="container-contents">
+  <mat-form-field appearance="outline" class="name">
+    <mat-label>{{ data.titleName }}</mat-label>
+    <input matInput [formControl]="nameControl" />
+    <mat-hint align="end">
+      <span
+        >{{ data.titleName }}을 입력해주세요. {{ nameControl?.value?.length }} /
+        {{ data.maxLength }}
+      </span>
+    </mat-hint>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="start stretch">
+  <button mat-button (click)="onClickedCancel()" *ngIf="data.haveCancel">
+    취소
+  </button>
+  <button
+    mat-button
+    color="primary"
+    (click)="onClickedSubmit()"
+    [disabled]="nameControl.invalid"
+  >
+    확인
+  </button>
+</div>

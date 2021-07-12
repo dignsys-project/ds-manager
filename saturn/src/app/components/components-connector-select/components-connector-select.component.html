@@ -1,0 +1,67 @@
+<div class="container mat-elevation-z4">
+  <mat-radio-group [formControl]="formControl">
+    <mat-table [dataSource]="dataSource" class="connector-table">
+      <!-- Checkbox Column -->
+      <ng-container matColumnDef="select">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          선택
+        </mat-header-cell>
+
+        <mat-cell mat-cell *matCellDef="let element">
+          <mat-radio-button [value]="element"> </mat-radio-button>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <mat-header-cell mat-header-cell *matHeaderCellDef
+          >이름</mat-header-cell
+        >
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.name | uppercase }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Device Id -->
+      <ng-container matColumnDef="device_id">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          디바이스 ID
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.deviceId | uppercase }}
+        </mat-cell>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="kind">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          타입
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          <app-components-connector-kind
+            [kind]="element.kind"
+          ></app-components-connector-kind>
+        </mat-cell>
+      </ng-container>
+
+      <!-- Created Column -->
+      <ng-container matColumnDef="created">
+        <mat-header-cell mat-header-cell *matHeaderCellDef>
+          생성 일자
+        </mat-header-cell>
+        <mat-cell mat-cell *matCellDef="let element">
+          {{ element.created | saturnDate: 'short' }}
+        </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row
+        [ngClass]="{ 'mat-row-dark-barkground': isDarkMode }"
+        *matRowDef="let row; columns: displayedColumns"
+        (click)="onClickedRow(row)"
+      ></mat-row>
+    </mat-table>
+
+    <mat-paginator [pageSize]="10" showFirstLastButtons> </mat-paginator>
+  </mat-radio-group>
+</div>

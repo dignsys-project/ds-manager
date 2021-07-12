@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+  width: 100%;
+}
+.container-register {
+  min-width: 375px;
+
+  margin: 0 auto;
+
+  @media screen and (max-width: 599.9px) {
+    min-width: initial;
+    width: 100%;
+  }
+}

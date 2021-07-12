@@ -1,0 +1,28 @@
+<section class="container-grid">
+  <div class="container-grid__departments">
+    <app-components-departments-tree-v2></app-components-departments-tree-v2>
+  </div>
+  <div class="container-grid__menu">
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+      <div>
+        <a
+          *ngIf="isEnableGoBack$ | async"
+          mat-icon-button
+          [routerLink]="['/departments/list']"
+          routerLinkActive="router-link-active"
+          ><mat-icon>arrow_back</mat-icon></a
+        >
+      </div>
+
+      <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+        <button mat-icon-button (click)="onClickedExpandAll()">
+          <mat-icon>expand_less</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onClickedCollapseAll()">
+          <mat-icon>expand_more</mat-icon>
+        </button>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+  </div>
+</section>

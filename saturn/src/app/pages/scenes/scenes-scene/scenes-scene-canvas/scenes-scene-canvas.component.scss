@@ -1,0 +1,19 @@
+#container-scene {
+  position: relative;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow: hidden;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  ::-webkit-scrollbar {
+    width: 0px;
+    background: transparent; /* make scrollbar transparent */
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent; /* make scrollbar transparent */
+}

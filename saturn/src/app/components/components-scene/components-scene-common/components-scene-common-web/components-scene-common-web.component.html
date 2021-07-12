@@ -1,0 +1,26 @@
+<div class="container">
+  <iframe
+    *ngIf="isScene || element.isShowWeb"
+    #WEB_BOX
+    frameborder="0"
+    class="container__content"
+    [src]="element.url | safe"
+  >
+  </iframe>
+  <div
+    *ngIf="!isScene && !element.isShowWeb"
+    class="container__address"
+    [style.maxWidth]="maxWidth + 'px'"
+  >
+    <p class="address_text" *ngIf="url">{{ url }}</p>
+  </div>
+  <!-- <ng-template #SCENE_BLOCK>
+    <iframe
+      #WEB_BOX
+      frameborder="0"
+      class="container__content"
+      [src]="element.url | safe"
+    >
+    </iframe>
+  </ng-template> -->
+</div>

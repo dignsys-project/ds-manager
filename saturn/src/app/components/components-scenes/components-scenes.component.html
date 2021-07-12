@@ -1,0 +1,55 @@
+<div class="container">
+  <div class="items" *ngIf="hasElements; else ELSE_BLOCK">
+    <div
+      *ngFor="let item of elements; let i = index"
+      class="item"
+      fxLayout="row"
+      [ngClass]="{ item__selected: isSelected(item) }"
+    >
+      <div class="item__size">{{ item.width }} x {{ item.height }}</div>
+      <div class="item__name">{{ item.name }}</div>
+      <div class="item__menus-container">
+        <div
+          class="item__menus"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+          fxLayoutGap="10px"
+        >
+          <button
+            mat-raised-button
+            color="primary"
+            mat-button
+            (click)="onClickedSelect(item)"
+          >
+            선택
+          </button>
+        </div>
+      </div>
+      <!-- 미리 지정한 리소스 -->
+      <div
+        *ngIf="havePreview(item)"
+        class="item__icon"
+        [style.background-image]="'url(' + getPreviewLocation(item) + ')'"
+      ></div>
+    </div>
+  </div>
+  <div class="container-paginator">
+    <button
+      mat-flat-button
+      *ngIf="haveNextResources"
+      (click)="onClickedNextResource()"
+    >
+      추가 로드
+    </button>
+  </div>
+  <ng-template #ELSE_BLOCK>
+    <div fxLayout="row" fxLayoutAlign="center center" class="elements-create">
+      <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+        <div class="elements-create__message">아직 리소스가 없습니다.</div>
+        <button mat-button (click)="onClickedSceneAdd()" color="primary">
+          리소스 추가 하시겠습니까?
+        </button>
+      </div>
+    </div>
+  </ng-template>
+</div>

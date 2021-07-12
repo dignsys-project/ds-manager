@@ -1,0 +1,6 @@
+<div class="container" *ngIf="isShowIcon; else ELSE_BLOCK">
+  <mat-icon [color]="getIconColor()">{{ getIconName() }}</mat-icon>
+</div>
+<ng-template #ELSE_BLOCK>
+  {{ getKindName() }}
+</ng-template>

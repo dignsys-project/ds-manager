@@ -1,0 +1,105 @@
+<div class="container">
+  <div class="container-description">
+    <h1>계정 로그인</h1>
+  </div>
+  <form
+    class="container-authorize"
+    [formGroup]="forms"
+    fxLayout="column"
+    fxLayoutGap="20px"
+  >
+    <mat-form-field>
+      <mat-label>이메일 계정을 입력해주세요</mat-label>
+      <input
+        matInput
+        placeholder="pat@example.com"
+        formControlName="email"
+        autocomplete="username"
+        maxLength="50"
+      />
+      <mat-error *ngIf="forms.get('email').hasError('pattern')"
+        >올바른 이메일 주소를 입력해야합니다.</mat-error
+      >
+      <mat-error *ngIf="forms.get('email').hasError('required')"
+        >필수로 입력해야 합니다.</mat-error
+      >
+      <mat-error *ngIf="forms.get('email').hasError('maxlength')"
+        >이메일 주소는 최대 50자까지 입력할 수 있습니다.</mat-error
+      >
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>계정 비밀번호를 입력해주세요</mat-label>
+      <input
+        matInput
+        [type]="isHidePassword ? 'password' : 'text'"
+        formControlName="password"
+        autocomplete="current-password"
+        maxlength="16"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="isHidePassword = !isHidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="isHidePassword"
+        type="button"
+      >
+        <mat-icon>
+          {{ isHidePassword ? 'visibility_off' : 'visibility' }}
+        </mat-icon>
+      </button>
+
+      <mat-hint>
+        8 ~ 16 영문 대소문자, 숫자, 특수문자를 조합해 주세요.
+      </mat-hint>
+
+      <mat-error *ngIf="forms.get('password').hasError('pattern')">
+        올바른 이메일 주소를 입력해야합니다.
+      </mat-error>
+      <mat-error *ngIf="forms.get('password').hasError('required')">
+        필수로 입력해야 합니다.
+      </mat-error>
+      <mat-error *ngIf="forms.get('password').hasError('maxlength')"
+        >비밀번호는 최대 16자까지 입력할 수 있습니다.</mat-error
+      >
+      <mat-error
+        *ngIf="forms.get('password').hasError('requiredLowerCharacter')"
+      >
+        소문자가 필수로 입력되어야 합니다.
+      </mat-error>
+      <mat-error
+        *ngIf="forms.get('password').hasError('requiredUpperCharacter')"
+      >
+        대문자가 필수로 입력되어야 합니다.
+      </mat-error>
+      <mat-error
+        *ngIf="forms.get('password').hasError('requiredLengthCharacter')"
+      >
+        최소 8글자 이상 입력되어야 합니다.
+      </mat-error>
+      <mat-error
+        *ngIf="forms.get('password').hasError('requiredSpecialCharacter')"
+      >
+        특수 문자가 하나 이상 입력되어야 합니다.
+      </mat-error>
+    </mat-form-field>
+
+    <button
+      mat-raised-button
+      color="primary"
+      [disabled]="forms.invalid || isProcess"
+      (click)="onClickedAuthorize()"
+    >
+      로그인
+    </button>
+    <a
+      mat-raised-button
+      color="primary"
+      [routerLink]="['/accounts/register']"
+      routerLinkActive="router-link-active"
+    >
+      계정 생성
+    </a>
+  </form>
+</div>

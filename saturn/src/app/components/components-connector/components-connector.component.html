@@ -1,0 +1,128 @@
+<div class="container" *ngIf="element">
+  <mat-card class="container__member mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>디바이스 정보</mat-card-title>
+      <!-- <mat-card-subtitle>subtitle</mat-card-subtitle> -->
+    </mat-card-header>
+    <mat-card-content class="content">
+      <div
+        class="content__name"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">디바이스 이름</div>
+        <div class="connector__name">
+          <div class="value">
+            {{ element.name | uppercase }}
+          </div>
+          <button
+            mat-icon-button
+            color="accent"
+            matTooltip="디바이스 이름 변경"
+            (click)="onClickedConnectorNameChange()"
+          >
+            <mat-icon>published_with_changes</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <div
+        class="content__deviceId"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">디바이스 ID</div>
+        <div class="value">
+          {{ element.deviceId | uppercase }}
+        </div>
+      </div>
+      <div
+        class="content__kind"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">상태</div>
+        <div
+          class="value"
+          fxLayout="row"
+          fxLayoutAlign="end center"
+          fxLayoutGap="10px"
+        >
+          <app-components-connector-kind
+            [kind]="element.kind"
+            [type]="'text'"
+          ></app-components-connector-kind>
+        </div>
+      </div>
+
+      <div
+        class="content_scene"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">할당된 씬</div>
+        <div class="value">
+          <app-components-scene-item
+            [read]="readOnly"
+            [element]="element.scene"
+            (change)="onComponentsSceneItemChanged($event)"
+          ></app-components-scene-item>
+        </div>
+      </div>
+      <div
+        class="content_scene"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">긴급 씬</div>
+        <div class="value">
+          <app-components-scene-item
+            [read]="readOnly"
+            [element]="element.emergencyScene"
+            (change)="onChangedComponentsSceneItemForEmergency($event)"
+          ></app-components-scene-item>
+        </div>
+      </div>
+
+      <div
+        class="content_scene"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div class="key">긴급 상태</div>
+        <div class="value emergency_icon">
+          <button
+            mat-icon-button
+            (click)="onClickedChangeEmergency(element)"
+            [disabled]="isProcess"
+          >
+            <mat-icon [color]="element.isEmergency ? 'warn' : ''">
+              {{ element.isEmergency ? 'report' : 'report_off' }}
+            </mat-icon>
+          </button>
+        </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div class="container__department">
+    <app-components-department-base-item
+      [base]="element.departmentBase"
+    ></app-components-department-base-item>
+  </div>
+
+  <mat-card class="container__schedules mat-elevation-z8">
+    <mat-card-header>
+      <mat-card-title>스케줄 정보</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container__connector-schedules">
+        <app-components-connector-schedules
+          [elements]="element.schedules"
+          [connectorId]="element.connectorId"
+        >
+        </app-components-connector-schedules>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

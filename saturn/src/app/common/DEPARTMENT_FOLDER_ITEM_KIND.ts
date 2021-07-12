@@ -1,0 +1,6 @@
+export enum DEPARTMENT_FOLDER_ITEM_KIND {
+  DEFAULT = 0,
+  DEPARTMENT = 1,
+  FOLDER = 2,
+  ITEM = 3,
+}

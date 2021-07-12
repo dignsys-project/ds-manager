@@ -1,0 +1,77 @@
+@import 'src/scss/custom_theme';
+
+// for schedule-scene-table
+.mat-column {
+  &-select {
+    flex: 10%;
+  }
+  &-schedule {
+    flex: 80%;
+    @media screen and (max-width: 960px) {
+      flex: 75%;
+    }
+  }
+
+  &-scene {
+    overflow: visible !important;
+    flex: 10%;
+    @media screen and (max-width: 960px) {
+      flex: 20%;
+    }
+  }
+}
+
+.container {
+  padding: 0rem 1.6rem;
+
+  &__name {
+    color: $color-accent;
+    font-weight: bold;
+    letter-spacing: 0.1em;
+    line-height: 1em;
+  }
+  &__schedules {
+    display: initial;
+    // 커넥터 스케줄을 보여주는 화면 (테이블)
+  }
+}
+
+.connector_schedules {
+  &__nocontent {
+    // 커넥터 스케줄이 없는 화면
+    &-message {
+      color: $color-warn;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.schedule-scene {
+  &__name {
+    &-title {
+      color: $color-accent;
+      font-weight: bold;
+      letter-spacing: 0.1em;
+      line-height: 1em;
+    }
+    &-description {
+      color: $color-warn;
+    }
+  }
+
+  &__add,
+  &__list {
+    padding-bottom: 1rem;
+  }
+
+  &__nocontent {
+    &-name {
+      color: $color-warn;
+    }
+    & > * {
+      &:not(:last-child) {
+        padding-bottom: 1rem;
+      }
+    }
+  }
+}

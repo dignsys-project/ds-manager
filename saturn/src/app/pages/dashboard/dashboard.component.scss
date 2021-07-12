@@ -1,0 +1,16 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  max-width: $container-max-width;
+  margin: 0 auto;
+  margin-top: 2rem;
+
+  @media screen and (max-width: 960px) {
+    margin: 0rem 2rem;
+  }
+
+  &__menus {
+    margin-top: 2rem;
+    width: 100%;
+  }
+}

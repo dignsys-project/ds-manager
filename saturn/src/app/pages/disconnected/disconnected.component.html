@@ -1,0 +1,23 @@
+<section class="container">
+  <div class="content">
+    <p class="message">
+      Prometheus 서비스에 접속할 수 없습니다. <br />서비스 상태 확인이 필요
+      합니다.
+    </p>
+
+    <button
+      mat-raised-button
+      class="connect_button"
+      (click)="onPressedRetryConnect()"
+      color="accent"
+    >
+      다시 접속
+    </button>
+    <p style="text-align: center">
+      <span class="message__prometheus"> Prometheus Service : </span>
+      <span>
+        {{ prometheusAddress }}
+      </span>
+    </p>
+  </div>
+</section>

@@ -1,0 +1,23 @@
+<div class="container">
+  <mat-card
+    [ngClass]="{ container__clickable: !disabled }"
+    class="container__department mat-elevation-z8"
+    (click)="onClickedDepartmentBase()"
+  >
+    <mat-card-header>
+      <mat-card-title>조직 정보</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="container__name">
+        <div *ngIf="base; else ELSE_BLOCK">
+          <div>{{ base.name }}</div>
+        </div>
+        <ng-template #ELSE_BLOCK>
+          <div class="container-empty">
+            <h1>조직이 아직 할당 되지 않았습니다.</h1>
+          </div>
+        </ng-template>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

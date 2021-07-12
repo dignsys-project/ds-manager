@@ -1,0 +1,105 @@
+<div class="common__image">
+  <button mat-raised-button color="accent" (click)="onClickedSelectResource()">
+    배경 이미지 선택
+  </button>
+</div>
+
+<div class="date" fxLayoutGap="16px" fxLayout="column">
+  <div fxLayoutAlign="space-between center">
+    <mat-checkbox
+      class="date__checkbox"
+      [checked]="element.useDate"
+      (change)="onChangedDateCheckbox($event)"
+      >날짜 사용
+    </mat-checkbox>
+    <mat-checkbox
+      *ngIf="element.useDate"
+      class="date__checkbox"
+      [checked]="element.useWeek"
+      (change)="onchangedWeekCheckbox($event)"
+      >요일 추가
+    </mat-checkbox>
+  </div>
+
+  <div class="common date custom_card" *ngIf="useDate">
+    <div class="common__name">날짜</div>
+    <mat-form-field appearance="outline">
+      <input matInput [(ngModel)]="element.dateFormat" />
+      <mat-label>날짜 포맷</mat-label>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>글자 크기</mat-label>
+      <input
+        type="number"
+        matInput
+        placeholder="17"
+        [(ngModel)]="elementDateText.textSize"
+      />
+      <span matSuffix>px</span>
+    </mat-form-field>
+
+    <div
+      class="common__background common-container"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div>색상</div>
+      <input
+        [ngStyle]="{ width: '100px' }"
+        [style.background]="elementDateText.textColor"
+        [(colorPicker)]="elementDateText.textColor"
+        [cpPosition]="'top-left'"
+      />
+    </div>
+
+    <div
+      class="common__text-decorator"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <mat-checkbox [(ngModel)]="elementDateText.isBold">Bold</mat-checkbox>
+      <mat-checkbox [(ngModel)]="elementDateText.isItalic">Italic</mat-checkbox>
+    </div>
+  </div>
+  <mat-divider *ngIf="useDate"> </mat-divider>
+</div>
+
+<div class="common custom_card" *ngIf="elementText">
+  <div class="common__name">시간</div>
+  <mat-form-field appearance="outline">
+    <input matInput [(ngModel)]="element.textFormat" />
+    <mat-label>시간 포맷</mat-label>
+  </mat-form-field>
+  <mat-form-field appearance="outline">
+    <mat-label>글자 크기</mat-label>
+    <input
+      type="number"
+      matInput
+      placeholder="17"
+      [(ngModel)]="elementText.textSize"
+    />
+    <span matSuffix>px</span>
+  </mat-form-field>
+
+  <div
+    class="common__background common-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>색상</div>
+    <input
+      [ngStyle]="{ width: '100px' }"
+      [style.background]="elementText.textColor"
+      [(colorPicker)]="elementText.textColor"
+      [cpPosition]="'top-left'"
+    />
+  </div>
+  <div
+    class="common__text-decorator"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <mat-checkbox [(ngModel)]="elementText.isBold">Bold</mat-checkbox>
+    <mat-checkbox [(ngModel)]="elementText.isItalic">Italic</mat-checkbox>
+  </div>
+</div>

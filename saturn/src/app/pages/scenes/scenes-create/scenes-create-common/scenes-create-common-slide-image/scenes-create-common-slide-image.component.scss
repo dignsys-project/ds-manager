@@ -1,0 +1,21 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  &__element {
+    border: 1px solid $color-border;
+    padding: 1rem;
+
+    &-second {
+      & > mat-slider {
+        width: 100%;
+      }
+    }
+  }
+}
+
+// resource
+.resource {
+  &__name {
+    word-break: break-all;
+  }
+}

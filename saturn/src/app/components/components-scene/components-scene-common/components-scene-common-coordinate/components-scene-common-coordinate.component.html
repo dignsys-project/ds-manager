@@ -1,0 +1,10 @@
+<div class="content-button" *ngIf="element" (click)="onClickedRoute()">
+  <div
+    class="content-button__background"
+    *ngIf="element.resource"
+    [style.background-image]="'url(' + getResourceAddress() + ')'"
+  ></div>
+  <app-components-scene-common-text
+    [element]="element.textElement"
+  ></app-components-scene-common-text>
+</div>

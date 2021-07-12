@@ -1,0 +1,65 @@
+<mat-horizontal-stepper [linear]="isLinear" #stepper labelPosition="end">
+  <!-- selecte connectors -->
+  <mat-step [stepControl]="connectorsForm" [editable]="!isProcess">
+    <ng-template matStepLabel>디바이스 선택</ng-template>
+    <app-components-connector-department-table
+      [departmentId]="departmentId"
+      [elements]="connectorDepartmentElements"
+      (selected)="onSelectedComponentsConnectorDepartmentTable($event)"
+    ></app-components-connector-department-table>
+    <div>
+      <button mat-button matStepperNext [disabled]="!connectorFormValid">
+        다음
+      </button>
+    </div>
+  </mat-step>
+
+  <!-- select scene -->
+  <mat-step [stepControl]="sceneForm" [editable]="!isProcess">
+    <ng-template matStepLabel>씬 선택</ng-template>
+    <app-components-scenes-v2
+      class="components-scenes"
+      [minHeight]="298"
+      [canCreate]="false"
+      (selected)="onSelectedComponentsScenesV2($event)"
+    ></app-components-scenes-v2>
+
+    <div>
+      <button mat-button matStepperPrevious>이전</button>
+      <button mat-button matStepperNext [disabled]="!sceneFormValid">
+        다음
+      </button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>확인</ng-template>
+    <span fxLayout="row" fxLayoutAlign="center center">
+      {{ selectedConnectorsCount }} 개의 디바이스에
+      <app-components-scene-item
+        [read]="true"
+        [element]="selectedSceneBaseElement"
+      ></app-components-scene-item>
+      의 씬으로 변경하시겠습니까?
+    </span>
+
+    <mat-progress-bar
+      *ngIf="isProcess"
+      mode="determinate"
+      [value]="processPercent"
+    ></mat-progress-bar>
+
+    <div>
+      <button
+        mat-button
+        color="primary"
+        [disabled]="isProcess"
+        matStepperPrevious
+      >
+        Back
+      </button>
+      <button mat-button (click)="onClickedScene()" [disabled]="isProcess">
+        씬 변경
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

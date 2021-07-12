@@ -1,0 +1,48 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  width: 100%;
+  display: inline-block;
+  min-height: $content-size;
+}
+
+.container {
+  width: 100%;
+  margin-bottom: 2rem;
+
+  &-title {
+    margin: 0rem 1.6rem;
+    &__text {
+      user-select: none;
+      padding: 1.6rem 0rem;
+      font-size: 3.2rem;
+      color: $color-primary-light;
+
+      @media screen and (max-width: 959.9px) {
+        font-size: 2.2rem;
+      }
+
+      @media screen and (max-width: 599.9px) {
+        font-size: 2rem;
+      }
+    }
+  }
+}
+
+.container-content {
+  padding: 1.6rem;
+  @media screen and (max-width: 600px) {
+    padding: 0.5rem;
+  }
+}
+
+.router-link-active {
+  font-weight: bold;
+}
+
+.router-link {
+  &__active {
+    color: white;
+    background-color: rgba($color-primary-accent, 0.6);
+  }
+}

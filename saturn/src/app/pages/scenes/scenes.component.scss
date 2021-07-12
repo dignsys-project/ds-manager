@@ -1,0 +1,27 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  width: 100%;
+  display: inline-block;
+  min-height: calc(100vh - 84px);
+}
+
+.container {
+  padding: 0em 1em;
+
+  &__name {
+    line-height: 1em;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    padding: 1.6rem 0rem;
+    font-size: 3.2rem;
+    line-height: 1em;
+    color: $color-primary;
+  }
+}
+
+.no-padding {
+  padding: 0 !important;
+}

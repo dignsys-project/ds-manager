@@ -1,0 +1,15 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  &__name {
+    padding: 0rem 1.6rem;
+  }
+
+  &__clickable {
+    transition: all 0.4s;
+    &:hover {
+      cursor: pointer;
+      background-color: $color-primary;
+    }
+  }
+}

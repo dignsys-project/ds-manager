@@ -1,0 +1,61 @@
+<table
+  mat-table
+  [dataSource]="dataSource"
+  class="mat-elevation-z8 connector_table"
+>
+  <!-- Checkbox Column -->
+  <ng-container matColumnDef="select">
+    <th mat-header-cell *matHeaderCellDef>
+      <mat-checkbox
+        (change)="onChangeCheckboxSelectAllItems($event)"
+        [checked]="selection.hasValue() && selection.isAllSelected()"
+        [indeterminate]="selection.hasValue() && !selection.isAllSelected()"
+      >
+      </mat-checkbox>
+    </th>
+    <td mat-cell *matCellDef="let row">
+      <mat-checkbox
+        (click)="$event.stopPropagation()"
+        (change)="onChangeCheckboxItem(row)"
+        [checked]="selection.isSelected(row)"
+      >
+      </mat-checkbox>
+    </td>
+  </ng-container>
+
+  <!-- Connector Name Column -->
+  <ng-container matColumnDef="connector_name">
+    <th mat-header-cell *matHeaderCellDef>디바이스 이름</th>
+    <td mat-cell *matCellDef="let element">
+      <div class="connector">
+        {{ element.connectorName | uppercase }}
+      </div>
+      <div class="connector__department" *ngIf="isSmallScreen">
+        {{ element.departmentName }}
+      </div>
+    </td>
+  </ng-container>
+
+  <!-- Department Name Column -->
+  <ng-container matColumnDef="department_name">
+    <th mat-header-cell *matHeaderCellDef>조직 이름</th>
+    <td mat-cell *matCellDef="let element">{{ element.departmentName }}</td>
+  </ng-container>
+
+  <!-- Emergency Name Column -->
+  <ng-container matColumnDef="emergency">
+    <th mat-header-cell *matHeaderCellDef>긴급 상태</th>
+    <td mat-cell *matCellDef="let element">
+      <mat-icon [color]="element.isemergency ? 'warn' : ''">
+        {{ element.isemergency ? 'report' : 'report_off' }}
+      </mat-icon>
+    </td></ng-container
+  >
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+    mat-row
+    *matRowDef="let row; columns: displayedColumns"
+    (click)="onChangeCheckboxItem(row)"
+  ></tr>
+</table>

@@ -1,0 +1,19 @@
+<div class="container" fxLayout="column" fxLayoutAlign="start stretch">
+  <button
+    mat-raised-button
+    color="accent"
+    (click)="onClickedSelectDocument()"
+    *ngIf="!hasResource; else RESOURCE_ELSE_BLOCK"
+  >
+    PDF 선택
+  </button>
+
+  <ng-template #RESOURCE_ELSE_BLOCK>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="name">{{ documentName }}</div>
+      <button mat-icon-button color="warn" (click)="onClickedRemoveDocument()">
+        <mat-icon>cancel</mat-icon>
+      </button>
+    </div>
+  </ng-template>
+</div>

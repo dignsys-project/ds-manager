@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="container__list">
+    <app-components-member-table
+      [elements]="elements"
+      (clicked)="onMemberTableClicked($event)"
+      (selected)="onMemberTableSelected($event)"
+    ></app-components-member-table>
+  </div>
+  <div
+    class="container__menus"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-flat-button
+      *ngIf="isDevelopment"
+      class="mat-elevation-z4 menu-item"
+      (click)="onClickedCreateTestMember()"
+      [disabled]="isProcess"
+    >
+      30개 테스트 계정 추가
+    </button>
+
+    <button
+      *ngIf="hasSelectedMembers"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="warn"
+      (click)="onClickedDeleteMember()"
+      [disabled]="isProcess"
+    >
+      계정 삭제
+    </button>
+
+    <button
+      *ngIf="hasNeedApprovalMembers"
+      mat-flat-button
+      class="mat-elevation-z4 menu-item"
+      color="accent"
+      (click)="onClickedConfirm()"
+      [disabled]="isProcess"
+    >
+      계정 승인
+    </button>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+@import 'src/scss/custom_theme';
+
+.content {
+  // padding: 0rem 1.6rem 0.5rem 1.6rem;
+  & > * {
+    margin-bottom: 1rem;
+    // border-bottom: 1px solid #cdcdcd;
+
+    &:hover {
+      & > .name {
+        color: $color-primary-light;
+      }
+    }
+  }
+  &__scene {
+    border-bottom: 1px solid #cdcdcd;
+  }
+
+  &__menus {
+    & > * {
+      margin-bottom: 8px;
+    }
+  }
+}
+
+.full {
+  width: 100%;
+}
+
+.name {
+  font-weight: bold;
+  margin-bottom: 1em;
+
+  transition: all 0.3s ease-out;
+
+  &-invalid {
+    color: $color-warn;
+  }
+}
+
+.weekend {
+  border-bottom: 1px solid gray;
+  padding-bottom: 1.5rem;
+
+  &-activated {
+    color: $color-primary-accent !important;
+  }
+}
+
+.date {
+  display: grid;
+  grid-template-areas: 'start end disabled';
+  align-items: center;
+  row-gap: 1.6em;
+  column-gap: 1.6em;
+
+  @media screen and (max-width: 800px) {
+    grid-template-areas: 'start end' 'disabled disabled';
+  }
+  @media screen and (max-width: 690px) {
+    grid-template-areas: 'start' 'end' 'disabled';
+  }
+
+  &__start {
+    grid-area: start;
+  }
+
+  &__end {
+    grid-area: end;
+  }
+
+  &__disabled {
+    grid-area: disabled;
+    justify-self: flex-end;
+  }
+}
+
+.time {
+  display: grid;
+  grid-template-areas: 'start end allDay disabled';
+  align-items: center;
+  row-gap: 1.6em;
+  column-gap: 1.6em;
+
+  @media screen and (max-width: 800px) {
+    grid-template-areas: 'start end' 'allDay disabled';
+  }
+  @media screen and (max-width: 690px) {
+    grid-template-areas: 'start' 'end' 'allDay' 'disabled';
+  }
+
+  &__start {
+    grid-area: start;
+  }
+
+  &__end {
+    grid-area: end;
+  }
+
+  &__all-day {
+    grid-area: allDay;
+    justify-self: flex-end;
+  }
+
+  &__disabled {
+    grid-area: disabled;
+    justify-self: flex-end;
+  }
+}

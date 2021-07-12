@@ -1,0 +1,21 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  & > * {
+    padding-bottom: 1rem;
+  }
+  &__text {
+    & > * {
+      width: 100%;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.common-container {
+  border: 1px solid $color-border;
+  border-radius: 6px;
+
+  padding: 1rem;
+  margin-bottom: 1rem;
+}

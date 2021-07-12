@@ -1,0 +1,233 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  padding-bottom: 1.4rem;
+}
+
+.scenes-container {
+  // background-color: lightslategrey;
+  border: 1px solid $color-border-primary;
+  padding: 0rem 1rem 1rem 1rem;
+  min-height: 100%;
+  max-height: 77.8vh;
+
+  @media screen and (max-width: 960px) {
+    max-height: initial;
+  }
+  overflow-y: auto;
+  box-sizing: border-box;
+
+  &__menus {
+    margin-bottom: 1rem;
+  }
+}
+
+.menus {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & > * {
+    display: flex;
+    align-items: center;
+  }
+
+  &__search {
+    flex-wrap: wrap;
+    & > * {
+      &:not(:last-child) {
+        padding-right: 0.5rem;
+      }
+    }
+    &_field {
+      font-size: 12px;
+      padding-top: 0.6rem;
+      min-width: 300px;
+
+      ::ng-deep.mat-form-field-wrapper {
+        padding-bottom: initial;
+      }
+    }
+  }
+}
+
+.scene-list {
+  margin: 0rem;
+}
+
+.d-items {
+  list-style: none;
+  padding-left: 0rem;
+
+  & > :not(:last-child) {
+    margin-bottom: 0.1rem;
+  }
+
+  transition: all 0.3s;
+
+  & > .item-active {
+    border: 1px solid $color-primary !important;
+    & > .item-content {
+      background-color: $color-primary !important;
+    }
+  }
+
+  & > li {
+    border: 1px solid transparent;
+    background-color: rgba(0, 0, 0, 0.1);
+    position: relative;
+    display: grid;
+    grid-template-areas: 'content image';
+    grid-template-columns: 7fr 128px;
+    // padding: 1rem;
+    transition: all 0.3s;
+
+    // box-sizing: border-box;
+
+    & > .item-preview {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
+      grid-area: image;
+      width: 100%;
+      height: 100%;
+
+      & > img {
+        width: 128px;
+        height: 100%;
+        // height: 100%;
+        object-fit: contain;
+        object-position: right;
+
+        user-select: none;
+        -webkit-user-select: none;
+
+        touch-action: none;
+      }
+    }
+
+    & > .item-content {
+      grid-area: content;
+      transition: all 0.3s;
+      width: 100%;
+      // background-color: $color-accent;
+      box-sizing: border-box;
+
+      display: flex;
+
+      padding: 1rem;
+
+      & > * {
+        user-select: none;
+        -webkit-user-select: none;
+
+        &.item-content__name {
+          flex-basis: 50%;
+          flex-grow: 0;
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          max-width: 40%;
+          width: 90%;
+          overflow: hidden;
+          box-sizing: border-box;
+          // padding: 0rem 1rem;
+        }
+
+        &.item-content__size {
+          flex-basis: 30%;
+          font-size: 80%;
+        }
+
+        &.item-content__detail {
+          flex-basis: 20%;
+          font-size: 80%;
+        }
+      }
+    }
+  }
+}
+
+.n-items {
+  list-style: none;
+  padding-left: 0rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  grid-auto-rows: 1fr;
+  column-gap: 1rem;
+  row-gap: 1rem;
+
+  transition: all 0.3s;
+
+  @media screen and (min-width: 1280px) {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  }
+
+  &::before {
+    content: '';
+    width: 0;
+    padding-bottom: 100%;
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+
+  & > :first-child {
+    grid-row: 1 / 1;
+    grid-column: 1 / 1;
+  }
+
+  & > .item-active {
+    border: 1px solid $color-primary !important;
+    & > .item-content {
+      background-color: $color-primary !important;
+    }
+  }
+
+  & > li {
+    background-color: rgba(0, 0, 0, 0.1);
+    position: relative;
+    padding: 1rem;
+    transition: all 0.5s;
+
+    & > .item-preview {
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      width: 100%;
+      height: 100%;
+
+      & > img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+        object-position: top;
+      }
+    }
+
+    & > .item-content {
+      transition: all 0.5s;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      z-index: 1;
+      width: 100%;
+      background-color: $color-accent;
+      box-sizing: border-box;
+
+      padding: 1rem;
+
+      & > * {
+        user-select: none;
+        -webkit-user-select: none;
+
+        &.item-content__name {
+          text-align: center;
+
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          max-width: 100%;
+          width: 100%;
+          overflow: hidden;
+        }
+      }
+    }
+  }
+}

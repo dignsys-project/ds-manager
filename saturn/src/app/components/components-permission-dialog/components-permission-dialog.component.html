@@ -1,0 +1,66 @@
+<h1
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+  class="dialog-title"
+>
+  추가할 권한을 선택해주세요
+</h1>
+<div mat-dialog-content class="container-contents">
+  <div
+    class="container__permission"
+    *ngFor="let item of permissions"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="16px"
+  >
+    <div
+      class="menus"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="16px"
+    >
+      <div class="container__permission-checkbox">
+        <mat-checkbox [(ngModel)]="item.isChecked" color="primary">
+        </mat-checkbox>
+      </div>
+      <div class="container__permission-icon">
+        <app-components-member-permission
+          [permission]="item.permission"
+          [kind]="'icon'"
+        ></app-components-member-permission>
+      </div>
+    </div>
+
+    <div class="container__permission-description">
+      {{ item.description }}
+    </div>
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign.lt-sm="space-between center"
+  fxLayoutAlign.gt-xs="end center"
+  fxLayoutGap.gt-xs="20px"
+>
+  <button
+    fxFlex.lt-sm="48%"
+    mat-raised-button
+    color="accent"
+    (click)="onClickedConfirm()"
+    cdkFocusInitial
+  >
+    확인
+  </button>
+
+  <button
+    mat-raised-button
+    (click)="onClickedCancel()"
+    *ngIf="data.haveCancel"
+    fxFlex.lt-sm="48%"
+  >
+    취소
+  </button>
+</div>

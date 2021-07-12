@@ -1,0 +1,22 @@
+<div class="content">
+  <span
+    *ngIf="haveTextElement"
+    [style.color]="element.textElement.textColor"
+    [style.font-size]="element.textElement.textSize + 'px'"
+    [ngStyle]="{
+      'font-style': element.textElement.isItalic ? 'italic' : 'inherit',
+      'font-weight': element.textElement.isBold ? 'bold' : 'inherit'
+    }"
+  >
+    <div
+      class="content__text"
+      #CONTENT_TEXT
+      [style.justify-content]="verticalAlign"
+      [style.align-items]="horizontalAlign"
+      [style.animation-name]="animationName"
+      [style.animation-duration]="element.seconds + 's'"
+    >
+      {{ element.current }}
+    </div>
+  </span>
+</div>

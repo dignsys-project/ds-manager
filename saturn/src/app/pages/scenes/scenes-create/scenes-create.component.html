@@ -1,0 +1,104 @@
+<section
+  class="container"
+  #container
+  [ngClass]="{ 'container-canvas-fullscreen': isFullScreenMode }"
+>
+  <div
+    class="container-scene-menus"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div
+      class="menus__help"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+      fxLayoutGap="16px"
+    >
+      <button mat-button (click)="onClickedSelectCanvas()" *ngIf="hasCanvas">
+        켄버스 사이즈 : {{ canvasWidth }} x {{ canvasHeight }}
+      </button>
+      <div
+        class="menus"
+        *ngIf="!isShowComponents"
+        fxLayout="row"
+        fxLayoutAlign="start center"
+        fxLayoutGap="16px"
+      >
+        <ng-template [ngIf]="isShowCanvasMenu">
+          <div class="menus__help-canvas"><!-- HELP MENU CANVAS --></div>
+        </ng-template>
+        <ng-template [ngIf]="isShowPartMenu">
+          <div
+            class="menus__help-components scene_part"
+            fxLayout="row"
+            fxLayoutAlign="flex-start center"
+            fxLayoutGap="16px"
+          >
+            <div class="scene_part__position">
+              <div class="scene_part__items">
+                <div>X :</div>
+                <div>{{ sceneCommonPosition.x }}</div>
+              </div>
+              <div class="scene_part__items">
+                <div>Y :</div>
+                <div>{{ sceneCommonPosition.y }}</div>
+              </div>
+            </div>
+            <div class="scene_part__size">
+              <div class="scene_part__items">
+                <div>
+                  {{ sceneCommonSize.width }} x {{ sceneCommonSize.height }}
+                </div>
+              </div>
+            </div>
+            <div class="scene_part__z_index">{{ sceneCommonZIndex }}</div>
+            <!-- HELP COMPONENTS CANVAS -->
+          </div>
+        </ng-template>
+      </div>
+    </div>
+    <div
+      class="menus__common"
+      fxLayout="row"
+      fxLayoutAlign="end center"
+      fxLayoutGap="16px"
+    >
+      <!-- 컴포넌트 목록-->
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="onClickedSelectComponents()"
+      >
+        <mat-icon>list</mat-icon>
+      </button>
+      <!-- 씬 저장 -->
+      <button mat-icon-button color="accent" (click)="onClickedSaveScene()">
+        <mat-icon>save</mat-icon>
+      </button>
+      <!-- 컴포넌트 추가-->
+      <button
+        mat-icon-button
+        color="accent"
+        (click)="onClickedCreateComponent()"
+      >
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="container-canvas">
+    <app-components-scene-canvas> </app-components-scene-canvas>
+  </div>
+
+  <div class="container-menus">
+    <ng-template [ngIf]="isShowCanvasMenu">
+      <app-scenes-create-canvas></app-scenes-create-canvas>
+    </ng-template>
+    <ng-template [ngIf]="isShowPartMenu">
+      <app-scenes-create-common></app-scenes-create-common>
+    </ng-template>
+    <ng-template [ngIf]="isShowComponents">
+      <app-scenes-create-components></app-scenes-create-components>
+    </ng-template>
+  </div>
+</section>

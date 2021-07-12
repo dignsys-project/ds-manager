@@ -1,0 +1,78 @@
+@import '~@angular/material/theming';
+@import 'src/scss/custom_theme';
+
+.container {
+  width: 100%;
+  & > .mat-table {
+    width: 100%;
+    padding-bottom: 1rem;
+  }
+}
+.mat-header-row {
+  border-bottom: inherit !important;
+  box-shadow: 0 5px 5px -5px #333;
+}
+.mat-header-cell {
+  letter-spacing: 0.1rem;
+}
+
+.mat-row {
+  border-bottom: inherit !important;
+  background-color: rgba($color-accent-light, 0.3) !important;
+  box-shadow: 0 0 5px #ddd;
+  margin: 1rem;
+  border-radius: 6px;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  &:hover {
+    background-color: rgba($color-primary-light, 0.5) !important;
+    transition: all 1.3rem;
+    cursor: pointer;
+  }
+}
+
+.mat-row-dark-barkground {
+  box-shadow: 0 0 5px #333;
+}
+
+.mat-column {
+  &-select {
+    flex: 0.2;
+  }
+  &-email {
+    flex: 1;
+  }
+  &-member_kind {
+    flex: 0 0 95px;
+    padding: 0rem 1rem;
+  }
+
+  &-register,
+  &-permission {
+    flex: 0.6;
+    margin: 0rem 1rem;
+  }
+}
+
+.member-date {
+  font-size: 90%;
+  &__created {
+    &::before {
+      content: '생성 시간';
+      font-weight: bold;
+      left: 0;
+      top: 0;
+      padding-right: 1rem;
+    }
+  }
+
+  &__connected {
+    &::before {
+      content: '접속 시간';
+      font-weight: bold;
+      left: 0;
+      top: 0;
+      padding-right: 1rem;
+    }
+  }
+}

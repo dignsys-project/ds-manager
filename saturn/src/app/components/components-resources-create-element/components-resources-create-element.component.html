@@ -1,0 +1,77 @@
+<div
+  class="element"
+  *ngIf="element"
+  fxLayout="row"
+  fxLayoutAlign="space-between"
+>
+  <div
+    class="element-content"
+    fxLayout="row"
+    fxLayoutAlign="flex-start"
+    fxLayoutGap="16px"
+    fxLayout.lt-sm="column"
+  >
+    <div
+      class="element__thumbnail"
+      *ngIf="!isProcess; else ELSE_BLOCK"
+      [ngClass]="{ 'element__thumbnail-defined': element.isDefinedPreview }"
+    >
+      <ng-template [ngIf]="haveUrl">
+        <img [src]="dataUrl" />
+      </ng-template>
+      <ng-template [ngIf]="element.isDefinedPreview">
+        <img [src]="element.getDefinedPreviewLocation" />
+      </ng-template>
+    </div>
+    <ng-template #ELSE_BLOCK>
+      <div class="element__theumbnail">
+        <mat-spinner></mat-spinner>
+      </div>
+    </ng-template>
+    <div class="element__content" *ngIf="element">
+      <div class="content_name" fxLayout="row" fxLayoutGap="16px">
+        <div class="key">이름 :</div>
+        <div class="value">
+          {{ element.name }}
+        </div>
+      </div>
+      <div
+        class="content__size"
+        fxLayout="row"
+        fxLayoutGap="16px"
+        *ngIf="element.haveResolution"
+      >
+        <div class="key">해상도 :</div>
+        <div class="value">{{ element.width }} x {{ element.height }}</div>
+      </div>
+
+      <div
+        class="content__duration"
+        *ngIf="element.haveDuration"
+        fxLayout="row"
+        fxLayoutGap="16px"
+      >
+        <div class="key">길이 :</div>
+        <div class="value">
+          {{ calculateDuration(element.duration) }}
+        </div>
+      </div>
+      <div class="content__size" fxLayout="row" fxLayoutGap="16px">
+        <div class="key">용량 :</div>
+        <div class="value">
+          {{ element.size | filesize }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="element-menus">
+    <button
+      mat-icon-button
+      color="warn"
+      (click)="onClickedRemoveElement()"
+      [disabled]="isProcess"
+    >
+      <mat-icon>remove_circle_outline</mat-icon>
+    </button>
+  </div>
+</div>

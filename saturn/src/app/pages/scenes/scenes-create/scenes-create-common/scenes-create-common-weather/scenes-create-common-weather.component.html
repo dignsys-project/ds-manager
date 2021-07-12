@@ -1,0 +1,19 @@
+<div class="container">
+  <div
+    class="container__background common-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>배경 색상</div>
+    <input
+      [ngStyle]="{ width: '100px' }"
+      [style.background]="common.backgroundColor"
+      [(colorPicker)]="common.backgroundColor"
+      [cpPosition]="'top-left'"
+    />
+  </div>
+  <app-scenes-create-common-text
+    [element]="element.textElement"
+    [disabledText]="true"
+  ></app-scenes-create-common-text>
+</div>

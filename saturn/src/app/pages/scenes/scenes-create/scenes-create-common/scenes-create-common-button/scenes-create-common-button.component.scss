@@ -1,0 +1,41 @@
+@import 'src/scss/custom_theme';
+
+.common-container {
+  border: 1px solid $color-border;
+  border-radius: 6px;
+
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.common {
+  padding-top: 1rem;
+  &__name {
+    width: 100%;
+  }
+
+  &__text {
+    & > * {
+      width: 100%;
+    }
+  }
+
+  &__text-decorator {
+    margin-bottom: 10px;
+  }
+
+  &__image {
+    & > button {
+      width: 100%;
+    }
+    padding-bottom: 18px;
+  }
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0px !important;
+}
+
+.mat-expansion-panel-body {
+  padding: 0rem 1.6rem;
+}

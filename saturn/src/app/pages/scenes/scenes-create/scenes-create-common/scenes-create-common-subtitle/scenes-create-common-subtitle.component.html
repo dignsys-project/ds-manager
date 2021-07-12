@@ -1,0 +1,160 @@
+<!-- 배경 색상-->
+<div
+  class="common__background common-container"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+>
+  <div>배경 색상</div>
+  <input
+    [ngStyle]="{ width: '100px' }"
+    [style.background]="common.backgroundColor"
+    [(colorPicker)]="common.backgroundColor"
+    [cpPosition]="'top-left'"
+  />
+</div>
+
+<!-- 불러 오기 -->
+<button
+  mat-raised-button
+  [color]="haveResource ? 'primary' : ''"
+  class="text-load-button"
+  (click)="onClickedLoadResource()"
+>
+  텍스트 파일 불러오기
+</button>
+
+<button
+  mat-raised-button
+  class="text-load-button"
+  [color]="haveRss ? 'primary' : ''"
+  (click)="onClickedLoadRss()"
+>
+  RSS 불러오기
+</button>
+
+<button
+  mat-raised-button
+  class="text-load-button"
+  *ngIf="haveRss"
+  color="warn"
+  (click)="onClickedRemoveRss()"
+>
+  RSS 제거
+</button>
+
+<!-- <button mat-button (click)="onClickedTest()">TEXT</button> -->
+
+<div
+  class="common__text"
+  *ngIf="element.textElement"
+  fxLayout="column"
+  fxLayoutAlign="start stretch"
+  fxLayoutGap="16px"
+>
+  <!-- 글자 내용-->
+  <mat-form-field appearance="outline">
+    <textarea
+      matInput
+      [value]="element.content"
+      #text
+      (input)="onChangedFromTextArea(text.value)"
+      class="common__content"
+    ></textarea>
+    <mat-label>텍스트</mat-label>
+  </mat-form-field>
+
+  <!-- 글자 크기-->
+  <mat-form-field appearance="outline">
+    <mat-label>글자 크기</mat-label>
+    <input
+      #font_size
+      type="number"
+      matInput
+      placeholder="17"
+      (input)="onChangedFromFontSize(font_size.value)"
+      [(ngModel)]="element.textElement.textSize"
+    />
+    <span matSuffix>px</span>
+  </mat-form-field>
+
+  <!-- 글자 색상 -->
+  <div
+    class="common__background common-container"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>글자 색상</div>
+    <input
+      [ngStyle]="{ width: '100px' }"
+      [style.background]="element.textElement.textColor"
+      [(colorPicker)]="element.textElement.textColor"
+      [cpPosition]="'top-left'"
+    />
+  </div>
+  <div
+    class="common__text-decorator"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    *ngIf="element.textElement"
+  >
+    <mat-checkbox [(ngModel)]="element.textElement.isBold">Bold</mat-checkbox>
+    <mat-checkbox [(ngModel)]="element.textElement.isItalic"
+      >Italic</mat-checkbox
+    >
+  </div>
+
+  <!-- 애니메이션 시간-->
+  <div class="common__seconds">
+    <div>애니메이션 시간</div>
+    <mat-slider
+      min="1"
+      max="100"
+      value="element.seconds"
+      thumbLabel="true"
+      [(ngModel)]="element.seconds"
+    ></mat-slider>
+  </div>
+</div>
+
+<div class="common__animations">
+  <mat-form-field appearance="outline" class="subtitle-animation">
+    <mat-label>텍스트 애니메이션 </mat-label>
+    <mat-select
+      [(ngModel)]="this.element.kind"
+      (selectionChange)="onSelectionChangeFromSubtitleAnimationSelect($event)"
+    >
+      <mat-option *ngFor="let item of animKinds" [value]="item.kind">
+        {{ item.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <!-- vertical -->
+  <mat-button-toggle-group
+    class="text-align"
+    [(ngModel)]="this.element.textElement.verticalKind"
+    (change)="onChangeTextVerticalAlignFromButtonToggleGroup($event)"
+  >
+    <mat-button-toggle
+      [value]="item.kind"
+      *ngFor="let item of verticalKinds"
+      [checked]="isCheckedVertical(item.kind)"
+    >
+      <mat-icon>{{ item.name }} </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+  <!-- horizontal -->
+  <mat-button-toggle-group
+    class="text-align"
+    [(ngModel)]="this.element.textElement.horizontalKind"
+    (change)="onChangeTextHorizontalAlignFromButtonToggleGroup($event)"
+  >
+    <mat-button-toggle
+      [value]="item.kind"
+      *ngFor="let item of horizontalKinds"
+      [checked]="isCheckedHorizontal(item.kind)"
+    >
+      <mat-icon>{{ item.name }} </mat-icon>
+    </mat-button-toggle>
+  </mat-button-toggle-group>
+</div>

@@ -1,0 +1,27 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  @media screen and (max-width: 599px) {
+    padding: 0rem 2rem;
+  }
+
+  & > .mat-table {
+    width: 100%;
+  }
+
+  &__nocontent {
+    &-name {
+      color: $color-warn;
+      padding-bottom: 1rem;
+    }
+  }
+}
+
+.mat-column {
+  &-id {
+    flex: 10%;
+  }
+  &-content {
+    flex: 90%;
+  }
+}

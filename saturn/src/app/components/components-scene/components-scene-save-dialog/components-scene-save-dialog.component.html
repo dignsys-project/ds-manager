@@ -1,0 +1,22 @@
+<h1 mat-dialog-title>{{ isModified ? '씬 수정' : '씬 저장' }}</h1>
+<div mat-dialog-content>
+  <p>{{ isModified ? '수정' : '저장' }} 할 씬 이름을 지정해주세요</p>
+  <mat-form-field>
+    <mat-label>씬 이름</mat-label>
+    <input matInput [formControl]="nameControl" maxlength="50" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions fxLayout="row" fxLayoutAlign="space-between center">
+  <button
+    mat-button
+    [mat-dialog-close]="true"
+    fxFlex="calc(100% / 2 - 10px)"
+    [disabled]="!nameControl.valid"
+    (click)="onClickedSave()"
+  >
+    저장
+  </button>
+  <button mat-button mat-dialog-close fxFlex="calc(100% / 2 - 10px)">
+    취소
+  </button>
+</div>

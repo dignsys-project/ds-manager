@@ -1,0 +1,207 @@
+<div class="container">
+  <div
+    class="container__menus"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="10px"
+  >
+    <div class="container__name">
+      {{ isListMode ? '디바이스 스케줄 목록' : '디바이스 스케줄 목록 추가' }}
+    </div>
+    <div class="menus">
+      <button
+        *ngIf="hasSelectedItems"
+        mat-icon-button
+        [disabled]="isProcess"
+        color="warn"
+        (click)="onClickedRemoveConnectorSchedules()"
+      >
+        <mat-icon>remove_circle_outline</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        color="accent"
+        [disabled]="isProcess"
+        (click)="onClickedConnectorScheduleAdd()"
+      >
+        <mat-icon>{{ isListMode ? 'add' : 'keyboard_arrow_left' }}</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div
+    class="container__schedules"
+    *ngIf="isListMode; else SCHEDULE_SCENE_ADD_BLOCK"
+  >
+    <div
+      class="connector_schedules"
+      *ngIf="hasSchedules; else NOCONTENT_SCHEDULES"
+    >
+      <app-components-connector-schedules-container
+        [connectorId]="connectorId"
+        [elements]="elements"
+        (select)="onSelectComponentsConnectorSchedulesContainer($event.value)"
+      ></app-components-connector-schedules-container>
+    </div>
+    <ng-template #NOCONTENT_SCHEDULES>
+      <div class="connector_schedules__nocontent">
+        <div class="connector_schedules__nocontent-message">
+          디바이스에 적용된 스케줄이 없습니다.
+        </div>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="onClickedConnectorScheduleAdd()"
+        >
+          추가하시겠습니까?
+        </button>
+      </div>
+    </ng-template>
+  </div>
+
+  <!-- 스케줄 씬 추가 레이아웃 START -->
+  <ng-template #SCHEDULE_SCENE_ADD_BLOCK>
+    <div class="schedule-scene">
+      <div
+        class="schedule-scene__menus"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+      >
+        <div
+          class="schedule-scene__name"
+          fxLayout="row"
+          fxLayoutAlign="start center"
+          fxLayoutGap="16px"
+        >
+          <div class="schedule-scene__name-title">
+            {{ isScheduleSceneListMode ? '스케줄 씬 목록' : '스케줄 씬 정보' }}
+          </div>
+        </div>
+        <button
+          mat-icon-button
+          color="accent"
+          (click)="onClickedScheduleSceneAdd()"
+        >
+          <mat-icon>{{
+            isScheduleSceneListMode ? 'add' : 'keyboard_arrow_left'
+          }}</mat-icon>
+        </button>
+      </div>
+
+      <!-- 스케줄 씬 리스트 레이아웃 -->
+      <div
+        class="schedule-scene__list"
+        *ngIf="isScheduleSceneListMode; else SCHEDULE_SCENE_ADD_BLOCK"
+      >
+        <div
+          class="schedule-scene__list-table"
+          *ngIf="hasScheduleScenes; else SCHEDULE_SCENE_LIST_NOCONTENT_BLOCK"
+        >
+          <mat-radio-group
+            aria-label="Select an option"
+            (change)="onRadioGroupChangedScheduleScene($event)"
+          >
+            <mat-table [dataSource]="dataSourceScheduleScenes">
+              <!-- id Column -->
+              <ng-container matColumnDef="select">
+                <mat-header-cell *matHeaderCellDef> 선택 </mat-header-cell>
+                <mat-cell *matCellDef="let element"
+                  ><mat-radio-button
+                    [value]="element"
+                    [disabled]="haveConnectorScheduleScenes(element.id)"
+                  ></mat-radio-button>
+                </mat-cell>
+              </ng-container>
+
+              <!-- schedule Column -->
+              <ng-container matColumnDef="schedule">
+                <mat-header-cell *matHeaderCellDef> 스케줄 </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <div
+                    class="schedule-scene"
+                    fxLayout="column"
+                    fxLayoutAlign="space-between start"
+                  >
+                    <div class="schedule-scene__name">{{ element.name }}</div>
+                    <div class="schedule-scene__schedule">
+                      <app-components-schedule-item
+                        [element]="element.schedule"
+                        [read]="true"
+                      ></app-components-schedule-item>
+                    </div>
+                  </div>
+                </mat-cell>
+              </ng-container>
+              <ng-container matColumnDef="scene">
+                <mat-header-cell *matHeaderCellDef> 씬 </mat-header-cell>
+                <mat-cell *matCellDef="let element">
+                  <app-components-scene-item
+                    [element]="element.sceneBase"
+                    [read]="true"
+                  ></app-components-scene-item>
+                </mat-cell>
+              </ng-container>
+
+              <mat-header-row
+                *matHeaderRowDef="displayedColumnsScheduleScenes"
+              ></mat-header-row>
+              <mat-row
+                *matRowDef="let row; columns: displayedColumnsScheduleScenes"
+              ></mat-row>
+            </mat-table>
+          </mat-radio-group>
+          <mat-paginator
+            [length]="paginatorScheduleScenes.itemsCount"
+            [pageSize]="paginatorScheduleScenes.size"
+            (page)="onPaginatorPageScheduleScene($event)"
+          >
+          </mat-paginator>
+        </div>
+        <ng-template #SCHEDULE_SCENE_LIST_NOCONTENT_BLOCK>
+          <div class="schedule-scene__nocontent">
+            <div class="schedule-scene__nocontent-name">
+              스케줄 씬이 없습니다.
+            </div>
+            <button
+              mat-raised-button
+              color="accent"
+              (click)="onClickedScheduleSceneAdd()"
+            >
+              등록하시겠습니까?
+            </button>
+          </div>
+        </ng-template>
+      </div>
+      <ng-template #SCHEDULE_SCENE_ADD_BLOCK>
+        <!-- 스케줄 씬 수동으로 추가 레이아웃 -->
+        <div class="schedule-scene__add">
+          <app-components-schedule-scene
+            [element]="createScheduleScene"
+            [read]="true"
+            [readSchedule]="true"
+            (changeSchedule)="onComponentsScheduleSceneChangeSchedule($event)"
+          ></app-components-schedule-scene>
+        </div>
+      </ng-template>
+
+      <div
+        class="schedule-scene__add-menus"
+        fxLayout="row"
+        fxLayoutAlign="end center"
+        fxLayoutGap="16px"
+        *ngIf="createScheduleScene.isValidate"
+      >
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="onClickedConnectorScheduleCreate()"
+          *ngIf="!canAdd"
+        >
+          디바이스 스케줄 추가
+        </button>
+        <button mat-raised-button (click)="onClickedCancel()">취소</button>
+      </div>
+    </div>
+
+    <!-- 스케줄 씬 추가 레이아웃 END -->
+  </ng-template>
+</div>

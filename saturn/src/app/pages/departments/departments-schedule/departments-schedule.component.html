@@ -1,0 +1,70 @@
+<mat-horizontal-stepper
+  [linear]="isLinear"
+  #stepper
+  labelPosition="end"
+  [disableRipple]="isProcess"
+>
+  <!-- selecte connectors -->
+  <mat-step [stepControl]="connectorsForm" [editable]="!isProcess">
+    <ng-template matStepLabel>디바이스 선택</ng-template>
+    <app-components-connector-department-table
+      [departmentId]="departmentId"
+      [elements]="connectorDepartmentElements"
+      (selected)="onSelectedComponentsConnectorDepartmentTable($event)"
+    ></app-components-connector-department-table>
+    <div>
+      <button mat-button matStepperNext [disabled]="!connectorFormValid">
+        다음
+      </button>
+    </div>
+  </mat-step>
+
+  <!-- select scene -->
+  <mat-step [stepControl]="scheduleSceneForm" [editable]="!isProcess">
+    <ng-template matStepLabel>스케줄 선택</ng-template>
+    <app-components-connector-schedules
+      [listMode]="true"
+      [canAdd]="true"
+      (add)="onAddComponentsConnectorSchedules($event)"
+    >
+    </app-components-connector-schedules>
+    <div>
+      <button mat-button matStepperPrevious>이전</button>
+      <button mat-button matStepperNext [disabled]="!scheduleSceneFormValid">
+        다음
+      </button>
+    </div>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>확인</ng-template>
+    <span fxLayout="row" fxLayoutAlign="center center">
+      {{ selectedConnectorsCount }} 개의 디바이스에 스케줄 씬 : [{{
+        scheduleSceneName
+      }}] 을 추가하시겠습니까?
+    </span>
+
+    <mat-progress-bar
+      *ngIf="isProcess"
+      mode="determinate"
+      [value]="processPercent"
+    ></mat-progress-bar>
+
+    <div>
+      <button
+        mat-button
+        [disabled]="isProcess"
+        color="primary"
+        matStepperPrevious
+      >
+        Back
+      </button>
+      <button
+        mat-button
+        (click)="onClickedScheduleScene()"
+        [disabled]="isProcess"
+      >
+        스케줄 씬 추가
+      </button>
+    </div>
+  </mat-step>
+</mat-horizontal-stepper>

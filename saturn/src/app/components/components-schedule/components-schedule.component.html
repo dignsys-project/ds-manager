@@ -1,0 +1,215 @@
+<div class="content" *ngIf="element">
+  <mat-form-field appearance="outline" class="full">
+    <mat-label>스케줄 이름</mat-label>
+    <input matInput [formControl]="nameControl" maxlength="50" />
+    <mat-hint align="end"
+      >스케줄 이름을 50자이내로 입력해주세요<span>&nbsp;</span>
+      {{ nameControl.value.length }} / 50</mat-hint
+    >
+    <mat-error *ngIf="nameControl.hasError('required')"
+      >스케줄 이름이 필요합니다.</mat-error
+    >
+  </mat-form-field>
+
+  <div class="content__date">
+    <div class="name" [ngClass]="{ 'name-invalid': !isValidateDate }">
+      기간 설정
+    </div>
+    <div class="date" [formGroup]="dateForms">
+      <mat-form-field class="date__start">
+        <mat-label>시작 기간</mat-label>
+        <input
+          matInput
+          [matDatepicker]="startDatePicker"
+          formControlName="start_date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="startDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #startDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field class="date__end">
+        <mat-label>종료 기간</mat-label>
+        <input
+          matInput
+          [matDatepicker]="endDatePicker"
+          formControlName="end_date"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="endDatePicker"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-checkbox class="date__disabled" formControlName="disabled"
+        >설정 안함</mat-checkbox
+      >
+    </div>
+  </div>
+
+  <div class="content__weekend">
+    <div class="name" [ngClass]="{ 'name-invalid': !isValidateWeek }">
+      요일 설정
+    </div>
+    <div
+      class="weekend"
+      fxLayout="row wrap"
+      fxLayoutAlign="space-between center"
+    >
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.mon.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.mon)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.mon)"
+      >
+        월
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.tue.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.tue)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.tue)"
+      >
+        화
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.wed.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.wed)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.wed)"
+      >
+        수
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.thu.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.thu)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.thu)"
+      >
+        목
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.fri.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.fri)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.fri)"
+      >
+        금
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.sat.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.sat)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.sat)"
+      >
+        토
+      </button>
+      <button
+        mat-mini-fab
+        [color]="
+          element.week.sun.disabled
+            ? ''
+            : isSelectedDayOfWeek(element.week.sun)
+            ? 'accent'
+            : 'primary'
+        "
+        (click)="onClickedDayOfWeek(element.week.sun)"
+      >
+        일
+      </button>
+    </div>
+  </div>
+  <div class="content__time" *ngIf="currentDayOfWeekElement">
+    <div
+      class="name"
+      [ngClass]="{ 'name-invalid': !currentDayOfWeekElement.isValidate }"
+    >
+      시간 설정
+    </div>
+    <div class="time">
+      <mat-form-field class="time__start">
+        <mat-label>시작 시간</mat-label>
+        <input
+          matInput
+          [format]="24"
+          [ngxTimepicker]="startTimePicker"
+          [value]="currentDayOfWeekElement.startTime"
+          readonly
+          [disabled]="
+            currentDayOfWeekElement.isAllDay || currentDayOfWeekElement.disabled
+          "
+        />
+        <ngx-material-timepicker
+          #startTimePicker
+          [defaultTime]="currentDayOfWeekElement.startTime"
+          (timeChanged)="onTimePickerStartTimeChanged($event)"
+          [appendToInput]="true"
+        ></ngx-material-timepicker>
+      </mat-form-field>
+      <mat-form-field class="time__end">
+        <mat-label>종료 시간</mat-label>
+        <input
+          matInput
+          [format]="24"
+          [ngxTimepicker]="endTimePicker"
+          [value]="currentDayOfWeekElement.endTime"
+          readonly
+          [disabled]="
+            currentDayOfWeekElement.isAllDay || currentDayOfWeekElement.disabled
+          "
+        />
+        <ngx-material-timepicker
+          #endTimePicker
+          [defaultTime]="currentDayOfWeekElement.endTime"
+          [appendToInput]="true"
+          (timeChanged)="onTimePickerEndTimeChanged($event)"
+        ></ngx-material-timepicker>
+      </mat-form-field>
+
+      <mat-checkbox
+        class="time__allDay"
+        [(ngModel)]="currentDayOfWeekElement.isAllDay"
+        [disabled]="currentDayOfWeekElement.disabled"
+        >하루 종일</mat-checkbox
+      >
+      <mat-checkbox
+        class="time__disabled"
+        [(ngModel)]="currentDayOfWeekElement.disabled"
+        >사용 안함</mat-checkbox
+      >
+    </div>
+  </div>
+</div>

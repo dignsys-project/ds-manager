@@ -1,0 +1,38 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  width: 100%;
+  margin-bottom: 2rem;
+  max-width: 1150px;
+  margin: 0 auto;
+  min-height: calc(100vh - 74px);
+
+  &-title {
+    @media screen and (max-width: 599.9px) {
+      padding: 0rem 2rem;
+    }
+
+    &__text {
+      line-height: 1em;
+      user-select: none;
+      padding: 1.6rem;
+      font-size: 3.2rem;
+      color: $color-primary-light;
+
+      @media screen and (max-width: 959.9px) {
+        font-size: 2.2rem;
+      }
+
+      @media screen and (max-width: 600px) {
+        padding: 0.5rem;
+      }
+    }
+  }
+}
+
+.container-content {
+  padding: 1.6rem;
+  @media screen and (max-width: 600px) {
+    padding: 20px;
+  }
+}

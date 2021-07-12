@@ -1,0 +1,40 @@
+<div
+  class="container"
+  fxLayout="column"
+  fxLayoutAlign="center start"
+  fxLayoutGap="16px"
+>
+  <div class="container__resource">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onClickedOpenComponentsResourceDialogV2()"
+    >
+      리소스 선택 다이얼로그
+    </button>
+    <div class="resource-list">
+      <div *ngFor="let item of selectedElements">
+        {{ item | json }}
+      </div>
+    </div>
+  </div>
+
+  <div class="container__scene">
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onClickedOpenComponentsSceneDialogV2()"
+    >
+      씬 선택 다이얼로그
+    </button>
+  </div>
+
+  <button mat-raised-button (click)="onClickedCommonDialog()">
+    COMMON_DIALOG
+  </button>
+  <div class="scenes-list">
+    <div *ngFor="let item of selectedScenes">
+      {{ item | json }}
+    </div>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+<p>scene-develompents-components-rss works!</p>
+
+<button
+  mat-raised-button
+  class="open-rss"
+  color="primary"
+  (click)="onClickedCreateRss()"
+>
+  CREATE RSS
+</button>
+<div class="content" *ngIf="rssElement">
+  {{ rssElement | json }}
+
+  <button mat-raised-button (click)="onClickedReadRss()">READ RSS</button>
+</div>

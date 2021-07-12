@@ -1,0 +1,21 @@
+<div class="container-departments">
+  <div
+    class="container-title"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div class="container-title__text">{{ title$ | async }}</div>
+
+    <button
+      mat-icon-button
+      (click)="onClickedLocationBack()"
+      *ngIf="enabledBack$ | async"
+    >
+      <mat-icon>arrow_back</mat-icon>
+    </button>
+  </div>
+</div>
+
+<div class="container-content">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,16 @@
+<div class="container">
+  <div class="container__create">
+    <app-scenes-create-common-slide-image
+      [common]="common"
+      (added)="onAddedScenesCreateCommonSlideImage()"
+    ></app-scenes-create-common-slide-image>
+  </div>
+
+  <div class="container__viewer">
+    <div class="slide-image">
+      <app-components-scene-common-slide-image
+        [element]="common.slideImageElement"
+      ></app-components-scene-common-slide-image>
+    </div>
+  </div>
+</div>

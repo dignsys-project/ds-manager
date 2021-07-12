@@ -1,0 +1,41 @@
+.container {
+  // display: grid;
+
+  // column-gap: 20px;
+  // grid-template-columns: 1fr 1fr;
+  // grid-template-areas: "member department";
+
+  // @media screen and (max-width: 600px) {
+  //   grid-template-columns: 1fr;
+  //   grid-template-areas:
+  //     "member"
+  //     "department";
+  //   row-gap: 20px;
+  // }
+
+  // &__member {
+  //   grid-area: member;
+  // }
+  // &__department {
+  //   grid-area: department;
+  // }
+}
+
+.key {
+  font-weight: bold;
+}
+
+.content {
+  & > * {
+    padding: 0rem 1.6rem 0.5rem 1.6rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #cdcdcd;
+  }
+  &__email {
+    border-bottom: 1px solid #cdcdcd;
+  }
+
+  &__password-reset {
+    border-bottom: initial !important;
+  }
+}

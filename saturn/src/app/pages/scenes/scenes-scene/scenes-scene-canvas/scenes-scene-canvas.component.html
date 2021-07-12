@@ -1,0 +1,11 @@
+<section
+  #scene
+  id="container-scene"
+  [style.width.px]="calculatedWidth()"
+  [style.height.px]="calculatedHeight()"
+  [style.background-color]="backgroundColor"
+  [style.color]="'black'"
+  (click)="onClickedCanvas()"
+>
+  <ng-template #DYNAMIC> </ng-template>
+</section>

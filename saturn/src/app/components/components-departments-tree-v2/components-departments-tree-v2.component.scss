@@ -1,0 +1,177 @@
+@import '~@angular/material/theming';
+@import 'src/scss/custom_theme';
+
+.container {
+  margin-top: 4rem;
+  width: 100%;
+  min-height: 75vh;
+
+  @media screen and (max-width: 959.9px) {
+    min-height: 65vh;
+  }
+
+  @media screen and (max-width: 599.9px) {
+    min-height: 48vh;
+  }
+}
+
+.mat-tree-node {
+  margin-bottom: 0.5rem;
+}
+
+.container-nocontent {
+  width: 100%;
+
+  &__message {
+    color: $color-warn;
+    font-size: 3.2rem;
+    line-height: 1.2;
+    letter-spacing: 0.3rem;
+  }
+}
+
+.container-departments {
+  padding: 2rem;
+  width: inherit;
+  // background-color: $container-departments-color;
+  // min-height: calc(100vh - 238px);
+
+  &__item {
+    width: 100%;
+    text-align: left;
+
+    padding: 0.5rem 0.5rem;
+
+    &-selected {
+      @include mat-elevation(8);
+    }
+  }
+}
+
+.container-tree-menu {
+  padding-bottom: 1rem;
+}
+
+.item {
+  width: 100%;
+  padding-left: 1rem;
+  min-height: 40px;
+  position: relative;
+  background-color: #4242;
+  border-radius: 6px;
+  padding: 0rem 3rem;
+  background-color: rgba($color-accent-light, 0.3);
+
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  @include mat-elevation(3);
+
+  &:hover {
+    background-color: rgba($color-primary-light, 0.5);
+    @include mat-elevation(8);
+  }
+
+  &::before {
+    position: absolute;
+    content: '';
+    left: 0;
+    bottom: 0;
+    height: 2px;
+    width: 0%;
+    background-color: gray;
+    transition: all 0.2s ease-in;
+  }
+
+  &__over {
+    font-weight: bold;
+  }
+
+  &__menus {
+    &__member-list {
+      border-radius: 50%;
+      @include mat-elevation(3);
+    }
+  }
+
+  &__edit {
+    transition: all 0.3s ease;
+    background-color: inherit;
+    opacity: 0.3;
+  }
+
+  &__selected {
+    transition: all 0.3s ease-in ease-out;
+    background-color: rgba($color-primary-light, 0.5);
+    @include mat-elevation(8);
+  }
+
+  &__center {
+    background-color: inherit;
+    transition: all 0.3s ease-in;
+    @include mat-elevation(8);
+  }
+
+  &__below {
+    border-bottom: 1rem solid $color-gamegress-accent;
+    margin-bottom: -1rem;
+
+    transition: all 0.3s ease-in;
+  }
+
+  &__above {
+    border-top: 1rem solid $color-primary-light;
+    margin-top: -1rem;
+    transition: all 0.3s ease-in ease-out;
+  }
+}
+
+$container-departments-color: rgb(66, 157, 253);
+/**
+ * TREE DRAG AND DROP STYLING
+ */
+
+.mat-tree-node {
+  // background-color: $container-departments-color;
+  // color: white;
+  user-select: none;
+  cursor: move;
+
+  &.cdk-drag-preview {
+    // while dragging
+    @include mat-elevation(12);
+  }
+  &.cdk-drag-placeholder {
+    // potential drop area
+    opacity: 0.1;
+  }
+
+  &.drag-item {
+    // while dragging
+    @include mat-elevation(12);
+  }
+}
+
+/* items moving away to make room for drop */
+.cdk-drop-list-dragging .mat-tree-node:not(.cdk-drag-placeholder) {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+/* item being dropped */
+.cdk-drag-animating {
+  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+.container-menu {
+  padding: 0 2rem;
+  width: 100%;
+}
+
+.mat-tree-node-button {
+  padding: 1rem;
+}
+
+.example-custom-placeholder {
+  // background: #ccc;
+  border: dotted 1px #999;
+  min-height: 50px;
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}

@@ -1,0 +1,99 @@
+<div class="container">
+  <mat-horizontal-stepper linear="true" #stepper labelPosition="end">
+    <!-- selecte connectors -->
+    <mat-step [stepControl]="connectorsForm" [editable]="!isProcess">
+      <ng-template matStepLabel>디바이스 선택 </ng-template>
+      <app-components-connector-department-table
+        [departmentId]="departmentId"
+        [elements]="connectors"
+        (selected)="onSelectedComponentsConnectorDepartmentTable($event)"
+      ></app-components-connector-department-table>
+      <div>
+        <button mat-button matStepperNext [disabled]="!connectorFormValid">
+          다음
+        </button>
+      </div>
+    </mat-step>
+
+    <!-- select scene -->
+    <mat-step
+      [stepControl]="sceneForm"
+      [editable]="!isProcess"
+      *ngIf="isEmergency"
+    >
+      <ng-template matStepLabel>긴급 씬 선택</ng-template>
+      <app-components-scenes-v2
+        class="components-scenes"
+        [minHeight]="298"
+        [canCreate]="false"
+        (selected)="onSelectedComponentsScenesV2($event)"
+      ></app-components-scenes-v2>
+
+      <div>
+        <button mat-button matStepperPrevious>이전</button>
+        <button mat-button matStepperNext [disabled]="!sceneFormValid">
+          다음
+        </button>
+      </div>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>확인</ng-template>
+      <span fxLayout="row" fxLayoutAlign="center center">
+        <ul class="connectors-container">
+          <li class="connectors">
+            <div class="connectors__name">
+              <span>디바이스 이름</span>
+            </div>
+            <div class="connectors__department">
+              <span>조직 이름</span>
+            </div>
+            <div class="connectors_emergency">
+              <span>긴급 상태</span>
+            </div>
+            <div class="connectors_process">
+              <span>적용 상태</span>
+            </div>
+          </li>
+
+          <li class="connectors" *ngFor="let item of elements">
+            <div class="connectors__name">
+              {{ item?.connector?.connectorName }}
+            </div>
+            <div class="connectors__department">
+              {{ item?.connector?.departmentName }}
+            </div>
+            <div class="connectors__emergency">
+              <mat-icon [color]="item?.connector?.isemergency ? 'warn' : ''">
+                {{ item?.connector?.isemergency ? 'report' : 'report_off' }}
+              </mat-icon>
+            </div>
+            <div class="connectors_process">
+              <ng-template [ngIf]="isProcessWait(item)"> 대기 중 </ng-template>
+              <ng-template [ngIf]="isProcessStarted(item)"> 시작 </ng-template>
+              <ng-template [ngIf]="isProcessCompleted(item)">
+                완료
+              </ng-template>
+            </div>
+          </li>
+        </ul>
+      </span>
+      <div>
+        <button
+          mat-button
+          color="primary"
+          [disabled]="isProcess"
+          matStepperPrevious
+        >
+          Back
+        </button>
+        <button
+          mat-button
+          (click)="onClickedEmergencyScene()"
+          [disabled]="isProcess"
+        >
+          {{ isEmergency ? '긴급 버튼' : '긴급 종료' }}
+        </button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

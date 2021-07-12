@@ -1,0 +1,25 @@
+@import 'src/scss/custom_theme';
+
+.connector_table {
+  width: 100%;
+}
+
+.mat-column {
+  &-select {
+    min-width: 32px;
+  }
+  &-connector_name {
+    flex: 0.4;
+  }
+
+  &-department_name {
+    flex: 0.4;
+  }
+}
+.mat-row {
+  transition: all 0.3s;
+  &:hover {
+    background-color: $color-accent;
+    cursor: pointer;
+  }
+}

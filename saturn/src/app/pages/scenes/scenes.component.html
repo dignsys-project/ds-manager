@@ -1,0 +1,7 @@
+<div class="container" [ngClass]="{ 'no-padding': !(isShowTitle$ | async) }">
+  <div *ngIf="isShowTitle$ | async" class="container__name">
+    {{ title$ | async }}
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

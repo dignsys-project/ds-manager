@@ -1,0 +1,10 @@
+<div class="container" *ngIf="!isScene">
+  <div
+    class="container__background"
+    *ngIf="havePreviewResource"
+    [style.background-image]="'url(' + getPreviewLocation() + ')'"
+  ></div>
+</div>
+<video #VIDEO_PLAYER class="container__background" [autoplay]="element.played">
+  <source [src]="getLocation()" />
+</video>

@@ -1,0 +1,25 @@
+<section class="container">
+  <div class="container__menus">씬 네비게이션</div>
+  <div class="container__content content" *ngIf="element">
+    <div class="content__sources">
+      <div>씬으로 이동 하는 씬 목록</div>
+      <app-scenes-navigation-item
+        [element]="item"
+        *ngFor="let item of element.sourceSceneBases"
+      ></app-scenes-navigation-item>
+    </div>
+    <div class="content__scene">
+      <div>현재 씬</div>
+      <app-scenes-navigation-item
+        [element]="element.scene"
+      ></app-scenes-navigation-item>
+    </div>
+    <div class="content__connections">
+      <div>이동할 수 있는 씬 목록</div>
+      <app-scenes-navigation-item
+        [element]="item"
+        *ngFor="let item of element.connections"
+      ></app-scenes-navigation-item>
+    </div>
+  </div>
+</section>

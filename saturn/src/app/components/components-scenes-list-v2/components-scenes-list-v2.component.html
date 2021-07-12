@@ -1,0 +1,87 @@
+<div class="scenes-container">
+  <div class="scenes-container__menus menus">
+    <div class="menus__search">
+      <mat-form-field appearance="outline" class="menus__search_field">
+        <mat-label>검색어를 입력하세요.</mat-label>
+        <input
+          matInput
+          [formControl]="searchControl"
+          [matAutocomplete]="auto"
+          maxlength="100"
+        />
+        <mat-error *ngIf="searchControl.hasError('max-length')">
+          검색어는 최대 50자 입니다.
+        </mat-error>
+      </mat-form-field>
+      <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+        <mat-option
+          *ngFor="let option of filteredSceneNames$ | async"
+          [value]="option"
+        >
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </div>
+
+    <div class="menus__show">
+      <button
+        mat-icon-button
+        [disabled]="!isNormal"
+        (click)="onClickedListNormal()"
+      >
+        <mat-icon>view_list</mat-icon>
+      </button>
+      <button
+        mat-icon-button
+        [disabled]="!isDetail"
+        (click)="onClickedListDetail()"
+      >
+        <mat-icon>apps</mat-icon>
+      </button>
+    </div>
+  </div>
+  <ul class="scene-list" #SCENE_LIST class="d-items">
+    <li
+      *ngFor="let item of filteredScenes$ | async"
+      (mouseenter)="onMouseEnter(item)"
+      (mouseleave)="onMouseLeave(item)"
+      class="item"
+      [ngClass]="{ 'item-active': isHoverItem(item) || isSelectedItem(item) }"
+      (click)="onClickedSceneItem(item)"
+      cdkDrag
+      [cdkDragData]="selectedElements"
+      [cdkDragDisabled]="dragDisabled || selectedItemCount <= 0"
+    >
+      <div *cdkDragPreview>
+        <mat-icon [matBadge]="selectedItemCount">collections</mat-icon>
+      </div>
+      <div *cdkDragPlaceholder class="place_holder"></div>
+
+      <!-- {{ item.name }} -->
+
+      <div class="item-preview">
+        <img
+          *ngIf="havePreviewResource(item)"
+          [src]="getPreviewResourceLocation(item.resource)"
+        />
+      </div>
+      <div class="item-content">
+        <div class="item-content__name">
+          {{ item.name }}
+        </div>
+        <div class="item-content__size">
+          <!-- <label *ngIf="!item.isValified; else TEMPORARY_SCENE"
+            >{{ item.width }} x {{ item.height }}</label
+          >
+          <ng-template #TEMPORARY_SCENE>
+            <label class="item-content__temporary">임시</label>
+          </ng-template> -->
+          <label>{{ item.width }} x {{ item.height }}</label>
+        </div>
+        <div class="item-content__detail" *ngIf="isDetail">
+          {{ item.createdSeconds | saturnDate }}
+        </div>
+      </div>
+    </li>
+  </ul>
+</div>

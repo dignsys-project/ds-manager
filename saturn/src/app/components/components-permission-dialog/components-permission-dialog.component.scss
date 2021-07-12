@@ -1,0 +1,28 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  &__permission {
+    display: inherit;
+
+    padding: 1rem 1rem;
+    border-bottom: 1px solid #232323;
+    border-left: 1px solid #232323;
+    border-right: 1px solid #232323;
+
+    &:first-child {
+      border-top: 1px solid #232323;
+    }
+
+    &-checkbox {
+      padding: 0rem 1rem 0rem 1rem;
+    }
+
+    &-icon {
+      margin-top: 0.9rem;
+    }
+  }
+}
+
+.menus {
+  padding-right: 1rem;
+}

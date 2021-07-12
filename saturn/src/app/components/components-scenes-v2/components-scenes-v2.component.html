@@ -1,0 +1,93 @@
+<div class="container" *ngIf="isReceived" cdkDropListGroup #CONTAINER>
+  <!-- department scene folders -->
+  <app-components-department-folder-tree
+    class="container__tree"
+    [elements]="elements"
+    [isProcess]="isProcess"
+    (created)="onCreatedComponentsDepartmentFolderTree($event)"
+    (deleted)="onDeletedComponentsDepartmentFolderTree($event)"
+    (selected)="onSelectedComponentsDepartmentFolderTree($event)"
+    (changed)="onChangedComponentsDepartmentFolderTree($event)"
+    (moved)="onMovedComponentsDepartmentFolderTree($event)"
+  ></app-components-department-folder-tree>
+  <!-- scene menus -->
+  <div
+    class="container__menus"
+    fxLayout="row"
+    fxLayoutAlign="start start"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-icon-button
+      matTooltip="미리보기"
+      [disabled]="!isPossibleMenu"
+      (click)="onClickedPreview()"
+    >
+      <mat-icon>play_circle_outline</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      *ngIf="canCreate"
+      color="accent"
+      (click)="onClickedSceneModified()"
+      [disabled]="!isPossibleMenu"
+      matTooltip="수정"
+    >
+      <mat-icon>arrow_circle_down</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      *ngIf="canCreate"
+      color="accent"
+      (click)="onClickedSceneDuplicate()"
+      [disabled]="!isPossibleMenu"
+      matTooltip="복사"
+      matTooltipPosition="above"
+    >
+      <mat-icon>content_copy</mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="onClickedNavigation()"
+      [disabled]="!isPossibleMenu"
+    >
+      <mat-icon>navigation</mat-icon>
+    </button>
+
+    <button
+      *ngIf="canCreate"
+      mat-icon-button
+      [disabled]="!isPossibleMenu"
+      color="warn"
+      (click)="onClickedScenesDelete()"
+      matTooltip="삭제"
+    >
+      <mat-icon>delete_outline</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="onClickedSceneCreateTemporyry()"
+      [disabled]="!isSelectedFolder || isProcess"
+      matTooltip="임시 씬 생성"
+      matTooltipPosition="above"
+    >
+      <mat-icon>note_add</mat-icon>
+    </button>
+  </div>
+  <!-- scene list -->
+  <app-components-scenes-list-v2
+    cdkDropList
+    cdkDropListSortingDisabled
+    [dragDisabled]="false"
+    class="container__content"
+    [elements]="scenes"
+    [isProcess]="isProcess"
+    (selected)="onSelectedComponentsScenesList($event)"
+  >
+  </app-components-scenes-list-v2>
+</div>

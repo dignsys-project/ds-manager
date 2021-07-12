@@ -1,0 +1,55 @@
+<h1 mat-dialog-title>Hi Dialog</h1>
+<div mat-dialog-content class="container">
+  <!-- rss address menus start -->
+  <div class="container__menus" *ngIf="isRss">
+    <!-- rss address -->
+    <mat-form-field appearance="outline" class="rss_address">
+      <mat-label>RSS URL</mat-label>
+      <input matInput [formControl]="addressForm" />
+      <mat-error *ngIf="addressForm.hasError('required')"
+        >주소가 입력되어야 합니다.</mat-error
+      >
+      <mat-error *ngIf="addressForm.hasError('pattern')"
+        >올바른 주소를 입력해야 합니다.</mat-error
+      >
+    </mat-form-field>
+  </div>
+  <!-- rss address menus end -->
+  <div class="container__contents" *ngIf="haveFeed">
+    <div class="contents__menus">
+      <div>{{ feedElement.title }}</div>
+      <div>{{ feedElement.copyright }}</div>
+      <div>{{ feedElement.lastBuildDate | saturnDate: 'short' }}</div>
+      <form class="example-section" [formGroup]="rssKindForm">
+        <span class="example-list-section"> 컨텐츠 타입 : </span>
+        <mat-checkbox color="accent" formControlName="title">
+          Title
+        </mat-checkbox>
+        <mat-checkbox color="accent" formControlName="description">
+          Description
+        </mat-checkbox>
+      </form>
+    </div>
+    <ul class="contents__content">
+      <li *ngFor="let content of contents">
+        <div>{{ content }}</div>
+      </li>
+    </ul>
+  </div>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign="flex-end center"
+  fxLayoutGap="16px"
+>
+  <button
+    mat-button
+    (click)="onClickedConfirm()"
+    color="accent"
+    [disabled]="!isValid"
+  >
+    확인
+  </button>
+  <button mat-button (click)="onClickedCancel()" cdkFocusInitial>취소</button>
+</div>

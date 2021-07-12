@@ -1,0 +1,20 @@
+<h1 mat-dialog-title class="title">씬 선택</h1>
+<div mat-dialog-content>
+  <app-components-scenes-v2
+    [canCreate]="false"
+    (selected)="onSelectedComponentsScenesV2($event)"
+  ></app-components-scenes-v2>
+</div>
+<div class="menus" fxLayout="row" fxLayoutAlign="flex-end" fxLayoutGap="16px">
+  <button mat-raised-button cdkFocusInitial (click)="onClickedCancel()">
+    취소
+  </button>
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="onClickedSubmit()"
+    [disabled]="!isSelected"
+  >
+    추가
+  </button>
+</div>

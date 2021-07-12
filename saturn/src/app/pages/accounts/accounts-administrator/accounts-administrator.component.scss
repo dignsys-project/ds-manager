@@ -1,0 +1,19 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  min-height: 100vh;
+}
+.container {
+  @media screen and (max-width: 600px) {
+    padding: 0rem 2rem;
+  }
+
+  &__name {
+    color: $color-primary;
+  }
+}

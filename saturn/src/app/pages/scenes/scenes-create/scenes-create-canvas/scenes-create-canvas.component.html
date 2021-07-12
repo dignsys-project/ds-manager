@@ -1,0 +1,121 @@
+<section
+  class="canvas-menu"
+  *ngIf="canvas"
+  fxLayout="column"
+  fxLayoutAlign="center start"
+  fxLayoutGap="10px"
+>
+  <mat-form-field class="canvas-menu__resolution" appearance="outline">
+    <mat-label>해상도</mat-label>
+    <mat-select
+      (selectionChange)="onResolutionSelectChanged($event)"
+      [(ngModel)]="selectedResolutionId"
+    >
+      <mat-option *ngFor="let item of resolutions" [value]="item.id">
+        {{ item.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div
+    class="canvas-menu__resolution"
+    fxLayout="row"
+    fxLayoutGap="10px"
+    fxLayoutAlign="end center"
+    [formGroup]="resolutionForms"
+  >
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="가로"
+        formControlName="width"
+        type="number"
+      />
+    </mat-form-field>
+    <div>X</div>
+    <mat-form-field>
+      <input
+        matInput
+        placeholder="세로"
+        formControlName="height"
+        type="number"
+      />
+    </mat-form-field>
+  </div>
+
+  <div
+    class="background-menu"
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+  >
+    <div>배경 색상</div>
+    <input
+      [ngStyle]="{ width: '100px' }"
+      [style.background]="canvas.backgroundColor"
+      [(colorPicker)]="canvas.backgroundColor"
+      [cpPosition]="'top-left'"
+    />
+  </div>
+
+  <div
+    class="container__dispatch_scene"
+    fxLayout="column"
+    fxLayoutAlign="center stretch"
+    *ngIf="createdDispatchSceneForms"
+    [formGroup]="dispatchSceneForms"
+  >
+    <div
+      class="dispatch_scene__name"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <label class="dispatch_scene">이동 씬 설정</label>
+      <!-- <button mat-icon-button color="accent" [disabled]="!isUseDispatch">
+        <mat-icon>refresh</mat-icon>
+      </button> -->
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px">
+      <mat-slide-toggle formControlName="is_used" class="dispatch_scene__used">
+        <label>사용</label></mat-slide-toggle
+      >
+      <mat-checkbox
+        class="dispatch_scene__touch"
+        formControlName="is_touch"
+        *ngIf="isUseDispatch"
+        >반응 시 이동</mat-checkbox
+      >
+    </div>
+
+    <div class="dispatch_scene__seconds" *ngIf="isUseDispatch">
+      <mat-form-field
+        appearance="outline"
+        style="width: 100%"
+        *ngIf="haveCanvas"
+      >
+        <mat-label>시간 설정 ( 초단위 )</mat-label>
+        <input matInput formControlName="seconds" max="86400" type="number" />
+
+        <mat-hint align="end">초단위를 계산 예정</mat-hint>
+      </mat-form-field>
+    </div>
+
+    <div
+      class="dispatch_scene__scene"
+      *ngIf="isUseDispatch"
+      fxLayout="row"
+      fxLayoutAlign="space-between center"
+    >
+      <div class="key">
+        <div>씬</div>
+      </div>
+      <div class="value">
+        <app-components-scene-item
+          [element]="dispatchScene"
+          [preview]="false"
+          (change)="onChangedComponentsSceneItem($event)"
+        ></app-components-scene-item>
+      </div>
+    </div>
+  </div>
+</section>

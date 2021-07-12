@@ -1,0 +1,20 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  height: calc(100vh - 160px);
+  // display: flex;
+  // align-items: center;
+}
+
+#container-scene {
+  width: 100%;
+  // margin: 0 auto;
+  position: relative;
+}
+
+.container-size {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: red;
+}

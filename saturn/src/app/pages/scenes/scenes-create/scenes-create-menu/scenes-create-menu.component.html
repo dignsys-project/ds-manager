@@ -1,0 +1,50 @@
+<h1
+  mat-dialog-title
+  fxLayout="row"
+  fxLayoutAlign="start center"
+  fxLayoutGap="20px"
+>
+  <div class="title">씬 컴포넌트 생성 메뉴</div>
+</h1>
+
+<div mat-dialog-content class="container-contents">
+  <mat-selection-list #COMPONENTS [multiple]="false">
+    <mat-list-option *ngFor="let item of items" [value]="item">
+      <div
+        class="component"
+        [ngClass]="{ component__selected: isSelected(item.kind) }"
+      >
+        <div class="component__icon">
+          <mat-icon>{{ item.iconName }}</mat-icon>
+        </div>
+        <div class="component__name">
+          {{ item.name }}
+        </div>
+        <div class="component__desc">
+          {{ item.desc }}
+        </div>
+      </div>
+    </mat-list-option>
+  </mat-selection-list>
+</div>
+<div
+  mat-dialog-actions
+  fxLayout="row"
+  fxLayoutAlign.lt-sm="space-between center"
+  fxLayoutAlign.gt-xs="end center"
+  fxLayoutGap.gt-xs="20px"
+>
+  <button
+    fxFlex.lt-sm="48%"
+    mat-raised-button
+    color="accent"
+    [disabled]="!isDecide"
+    (click)="onClickedComfirm()"
+  >
+    확인
+  </button>
+
+  <button mat-raised-button (click)="onClickedCancel()" fxFlex.lt-sm="48%">
+    취소
+  </button>
+</div>

@@ -1,0 +1,50 @@
+@import 'src/scss/custom_theme';
+
+.title {
+  color: $color-primary;
+}
+.component {
+  display: grid;
+  grid-template-areas: 'icon name desc';
+  grid-template-columns: 20% 22% 1fr;
+  grid-auto-rows: auto;
+  row-gap: 16px;
+  // align-items: center;
+  border-bottom: 1px solid #555555;
+  padding-bottom: 1rem !important;
+
+  @media screen and (max-width: 960px) {
+    grid-template-areas: 'icon desc';
+    grid-template-columns: 20% 1fr;
+  }
+
+  &__icon {
+    grid-area: icon;
+  }
+
+  &__name {
+    grid-area: name;
+    @media screen and (max-width: 959.9px) {
+      display: none;
+    }
+  }
+
+  &__desc {
+    grid-area: desc;
+    font-size: 1.5rem;
+
+    @media screen and (max-width: 599.9px) {
+      font-size: 1.3rem;
+    }
+  }
+
+  &__selected .component__icon {
+    color: $color-accent;
+  }
+  &__selected .component__name {
+    color: $color-accent;
+  }
+  &__selected .component__desc {
+    color: $color-accent;
+  }
+}

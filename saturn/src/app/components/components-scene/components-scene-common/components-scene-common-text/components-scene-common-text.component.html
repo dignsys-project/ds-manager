@@ -1,0 +1,14 @@
+<span
+  class="text"
+  *ngIf="haveElement"
+  [style.color]="element.textColor"
+  [style.font-size]="element.textSize + 'px'"
+  [ngStyle]="{
+    'font-style': element.isItalic ? 'italic' : 'inherit',
+    'font-weight': element.isBold ? 'bold' : 'inherit'
+  }"
+  [style.justify-content]="verticalAlign"
+  [style.align-items]="horizontalAlign"
+>
+  {{ element.text }}
+</span>

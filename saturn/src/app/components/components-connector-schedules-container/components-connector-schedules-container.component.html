@@ -1,0 +1,49 @@
+<mat-radio-group
+  aria-label="Select an option"
+  (change)="onRadioGroupChanged($event)"
+>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        선택
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-radio-button [value]="row"></mat-radio-button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Schedule Column -->
+    <ng-container matColumnDef="schedule">
+      <mat-header-cell *matHeaderCellDef> 스케줄 씬 이름 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.scheduleScene.name }}
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="scene">
+      <mat-header-cell *matHeaderCellDef> 씬 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        <app-components-scene-item
+          [element]="element.sceneBase"
+          [read]="true"
+        ></app-components-scene-item>
+      </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="created">
+      <mat-header-cell *matHeaderCellDef> 생성일 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.created | saturnDate }}
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="updated">
+      <mat-header-cell *matHeaderCellDef> 수정일 </mat-header-cell>
+      <mat-cell *matCellDef="let element">
+        {{ element.updated | saturnDate: 'short' }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+</mat-radio-group>

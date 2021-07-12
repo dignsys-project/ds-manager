@@ -1,0 +1,134 @@
+<section class="sub-menu" *ngIf="isOpenMenu" @flyInOut>
+  <div class="sub-menu__close">
+    <button mat-icon-button (click)="onClickedSubmenu()">
+      <mat-icon>menu_open</mat-icon>
+    </button>
+  </div>
+  <div class="sub-menu__content">
+    <ul>
+      <li *ngFor="let item of menus$ | async" class="sub-menu__content-items">
+        <a
+          mat-button
+          color="accent"
+          [routerLink]="item.route"
+          routerLinkActive="router-link__active"
+          (click)="onClickedRouted()"
+        >
+          {{ item.name }}
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section
+  class="header"
+  fxLayout="row"
+  fxLayoutAlign="space-between center"
+  *ngIf="isHeader$ | async"
+>
+  <nav class="container-menu" fxLayout="row" fxLayoutAlign="start center">
+    <button mat-icon-button (click)="onClickedSubmenu()" fxHide.gt-sm>
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div fxHide.gt-xs fxLayoutGap="10px">
+      <a
+        mat-icon-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['connects']"
+        routerLinkActive="router-link__active"
+      >
+        <mat-icon>devices</mat-icon>
+      </a>
+      <a
+        mat-icon-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['scenes']"
+        routerLinkActive="router-link__active"
+      >
+        <mat-icon>view_quilt</mat-icon>
+      </a>
+
+      <a
+        mat-icon-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['schedules']"
+        routerLinkActive="router-link__active"
+      >
+        <mat-icon>event</mat-icon>
+      </a>
+
+      <a
+        mat-icon-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['departments']"
+        routerLinkActive="router-link__active"
+      >
+        <mat-icon>assignment_ind</mat-icon>
+      </a>
+    </div>
+
+    <div *ngIf="isHeader$ | async" fxHide.xs fxLayoutGap="16px">
+      <a
+        mat-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['connects']"
+        routerLinkActive="router-link__active"
+      >
+        <div>모니터링</div>
+      </a>
+
+      <a
+        mat-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['scenes']"
+        routerLinkActive="router-link__active"
+        *ngIf="haveScenePermission | async"
+      >
+        <div>씬 관리</div>
+      </a>
+
+      <a
+        mat-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['schedules']"
+        routerLinkActive="router-link__active"
+      >
+        <div>스케줄 관리</div>
+      </a>
+
+      <a
+        mat-button
+        class="router-link__item"
+        color="accent"
+        [routerLink]="['departments']"
+        routerLinkActive="router-link__active"
+      >
+        <div>조직 관리</div>
+      </a>
+      <mat-icon>icon</mat-icon>
+    </div>
+  </nav>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      *ngIf="isAuthorized$ | async"
+    >
+      <mat-icon>account_circle</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="onChangedToggleDarkMode()">
+        {{ (isDarkMode$ | async) ? '라이트 모드' : '다크 모드' }}
+      </button>
+      <button mat-menu-item (click)="onClickedRouteAccount()">계정 관리</button>
+      <button mat-menu-item (click)="onClickedUnAuthorize()">로그 아웃</button>
+    </mat-menu>
+  </div>
+</section>

@@ -1,0 +1,29 @@
+<div class="container" *ngIf="element">
+  <div class="container__schedule-scene">
+    <app-components-schedule-scene
+      [element]="element"
+      [read]="isReadScheduleScene"
+    ></app-components-schedule-scene>
+  </div>
+
+  <div
+    class="container__menus"
+    fxLayout="row"
+    fxLayoutAlign.lt-sm="space-between center"
+    fxLayoutAlign.gt-xs="end center"
+    fxLayoutGap.gt-xs="20px"
+  >
+    <button
+      mat-raised-button
+      color="accent"
+      fxFlex.lt-sm="48%"
+      (click)="onClickedCreateScheduleScene()"
+      [disabled]="!element.isValidate || isProcess"
+    >
+      {{ isUpdateMode ? '스케줄 씬 수정' : '스케줄 씬 추가' }}
+    </button>
+    <button mat-raised-button fxFlex.lt-sm="48%" (click)="onClickedCancel()">
+      취소
+    </button>
+  </div>
+</div>

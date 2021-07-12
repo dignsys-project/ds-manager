@@ -1,0 +1,80 @@
+<section class="container" *ngIf="element">
+  <div class="container__department">
+    <app-components-department-base-item
+      *ngIf="element"
+      [base]="element"
+    ></app-components-department-base-item>
+  </div>
+
+  <div class="container__lowers" *ngIf="element">
+    <h3 class="container__lowers-title">하위 조직</h3>
+    <div class="container__lowers-items" fxLayout="column" fxLayoutGap="16px">
+      <app-components-department-base-item
+        [disabled]="false"
+        (selected)="onSelectedComponentsDepartmentBaseItem($event)"
+        *ngFor="let lowerDepartment of element.lowers"
+        [base]="lowerDepartment"
+      ></app-components-department-base-item>
+    </div>
+  </div>
+  <div
+    class="container__menus"
+    fxLayout="column"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-raised-button
+      color="accent"
+      style="width: 100%"
+      [disabled]="!hasConnectors"
+      (click)="onClickedDepartmentScene()"
+    >
+      씬 변경
+    </button>
+
+    <button
+      mat-raised-button
+      color="primary"
+      style="width: 100%"
+      [disabled]="!hasConnectors"
+      (click)="onClickedDepartmentSchedule()"
+    >
+      스케줄 추가
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      style="width: 100%"
+      *ngIf="!hasEmergencyConnectors"
+      (click)="onClickedDepartmentEmergency(true)"
+    >
+      긴급 버튼
+    </button>
+
+    <button
+      mat-raised-button
+      color="warn"
+      style="width: 100%"
+      *ngIf="hasEmergencyConnectors"
+      (click)="onClickedDepartmentEmergency(false)"
+    >
+      긴급 종료
+    </button>
+  </div>
+  <div class="container__members">
+    <app-components-member-table
+      [disabled]="true"
+      [elements]="element.memberBases"
+      (clicked)="onSelectedComponentsMemberTable($event)"
+    ></app-components-member-table>
+  </div>
+  <div class="container__connectors">
+    <app-components-connector-table
+      [disabled]="true"
+      [elements]="element.connectorBases"
+      (selected)="onSelectedComponentsConnectorTable($event)"
+    ></app-components-connector-table>
+  </div>
+</section>

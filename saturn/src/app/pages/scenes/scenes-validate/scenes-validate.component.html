@@ -1,0 +1,86 @@
+<section class="validate_container">
+  <div class="validate_container__menus">
+    <mat-checkbox
+      [checked]="showDispatch"
+      (change)="onChangedShowChange($event)"
+    >
+      <span>씬 이동 씬 설정 문제 표시</span>
+    </mat-checkbox>
+
+    <mat-checkbox
+      [checked]="showComponents"
+      (change)="onChangedShowComponents($event)"
+    >
+      <span>씬 버튼의 씬 설정 문제 표시</span>
+    </mat-checkbox>
+  </div>
+
+  <div class="progress_container">
+    <mat-progress-bar
+      class="scene-progress"
+      [bufferValue]="bufferSize"
+      [value]="progressSize"
+      [mode]="'buffer'"
+    ></mat-progress-bar>
+
+    <div class="scenes_message">
+      전체 {{ validateScenesCount }} 개의 씬에서 {{ scenesCount }} 개의 씬 검증
+    </div>
+  </div>
+
+  <ul class="validate_container__scenes">
+    <li>
+      <div class="problems">
+        <div class="problems__blueprint">씬 컨텐츠</div>
+        <div class="problems__dispatch">씬 이동 설정</div>
+        <div class="problems__components">씬 버튼 설정</div>
+      </div>
+    </li>
+    <li *ngFor="let item of elements">
+      <div class="scene">
+        <div
+          class="scene__name"
+          *ngIf="item.haveProblem && (showComponents || showDispatch)"
+        >
+          <app-components-scene-item
+            [element]="item.element"
+            [disabledRemove]="true"
+          ></app-components-scene-item>
+        </div>
+        <div class="problems">
+          <div class="problems__blueprint">
+            <div *ngIf="HaveBlueprint(item)">씬 내용이 없습니다.</div>
+          </div>
+          <div
+            class="problems__dispatch"
+            *ngIf="showDispatch && item.haveProblemDispatch"
+          >
+            <div
+              class="problems__dispatch_scene"
+              *ngIf="item.haveProblemDispatchScene"
+            >
+              이동 설정 씬이 설정되지 않았습니다.
+            </div>
+            <div
+              class="problems__dispatch_seconds"
+              *ngIf="item.haveProblemDispatchSecond"
+            >
+              이동 설정 시간이 0입니다.
+            </div>
+          </div>
+          <div class="problems__components">
+            <div *ngFor="let component of item.sceneButtons">
+              <div
+                class="problems__components_scene_button"
+                *ngIf="showComponents"
+              >
+                <!-- <div>{{ component.uuid }}</div> -->
+                <div>{{ component.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
+</section>

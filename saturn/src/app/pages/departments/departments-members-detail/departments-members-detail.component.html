@@ -1,0 +1,27 @@
+<div class="container-menus">
+  <button mat-icon-button (click)="onClickedArrowBack()">
+    <mat-icon>arrow_back</mat-icon>
+  </button>
+</div>
+<div class="container" *ngIf="element">
+  <div class="container__member">
+    <app-components-member-item
+      [element]="element"
+    ></app-components-member-item>
+  </div>
+  <div class="container__department">
+    <div *ngIf="!element.hasDepartments; else HAS_DEPARTMENT_BLOCK">
+      <app-components-department-base-item></app-components-department-base-item>
+    </div>
+    <ng-template #HAS_DEPARTMENT_BLOCK>
+      <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="16px">
+        <app-components-department-base-item
+          *ngFor="let item of element.departmentBases"
+          [base]="item"
+          [disabled]="false"
+          (selected)="onSelectedComponentsDepartmentBaseItem($event)"
+        ></app-components-department-base-item>
+      </div>
+    </ng-template>
+  </div>
+</div>

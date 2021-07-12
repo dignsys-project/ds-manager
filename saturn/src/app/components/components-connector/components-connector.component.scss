@@ -1,0 +1,65 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  display: grid;
+
+  column-gap: 20px;
+  row-gap: 20px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'member department' 'schedules schedules';
+
+  @media screen and (max-width: 1280px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      'member'
+      'department'
+      'schedules';
+  }
+
+  &__member {
+    grid-area: member;
+  }
+  &__department {
+    grid-area: department;
+  }
+  &__schedules {
+    grid-area: schedules;
+  }
+
+  &__connector-schedules {
+    max-width: $container-max-width;
+  }
+}
+
+.connector__name {
+  min-height: 36px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.key {
+  font-weight: bold;
+}
+
+.content {
+  padding: 0rem 1.6rem;
+
+  & > * {
+    padding-bottom: 0.5em;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #cdcdcd;
+  }
+  &__email {
+    border-bottom: 1px solid #cdcdcd;
+  }
+
+  &__password-reset {
+    border-bottom: initial !important;
+  }
+}
+
+.container__menus {
+  padding: 0rem 2.4rem 1rem 2.4rem;
+}

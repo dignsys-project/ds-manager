@@ -1,0 +1,26 @@
+@import '~@angular/material/theming';
+@import 'src/scss/custom_theme';
+
+.container-grid {
+  // padding: 1.6rem;
+  display: grid;
+  column-gap: 20px;
+
+  grid-template-columns: 4fr 1fr;
+  grid-template-areas: 'department menu';
+
+  @media screen and (max-width: 599.9px) {
+    grid-template-columns: initial;
+    grid-template-areas:
+      'menu'
+      'department';
+  }
+
+  &__departments {
+    grid-area: department;
+  }
+
+  &__menu {
+    grid-area: menu;
+  }
+}

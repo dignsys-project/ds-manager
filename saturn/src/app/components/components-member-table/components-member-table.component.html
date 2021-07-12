@@ -1,0 +1,122 @@
+<div class="container mat-elevation-z4">
+  <mat-table [dataSource]="dataSource">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          [disabled]="disabled"
+          (change)="onChangeCheckboxSelectAllItems($event)"
+          [checked]="selection.hasValue() && selection.isAllSelected()"
+          [indeterminate]="selection.hasValue() && !selection.isAllSelected()"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row">
+        <mat-checkbox
+          [disabled]="disabled"
+          (click)="$event.stopPropagation()"
+          (change)="onChangeCheckboxSelectItem($event, row)"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>ID</mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let element">
+        {{ element.id }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="email">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>EMAIL</mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        {{ element.email }}
+      </mat-cell>
+    </ng-container>
+    <!-- Member Kind Column -->
+    <ng-container matColumnDef="member_kind">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        멤버 타입
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        <app-components-member-kind
+          [memberKind]="element.kind"
+        ></app-components-member-kind>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Register Column -->
+    <ng-container matColumnDef="register">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        가입 타입
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        {{ element.registerKind }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Permission Column -->
+    <ng-container matColumnDef="permission">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>권한</mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        {{ element.permissionKind }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="created">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        생성 일자
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        {{ element.createdSeconds | saturnDate: 'short' }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Register Column -->
+    <ng-container matColumnDef="last_connected">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        최근 접속
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedMemberItem(element)"
+      >
+        {{ element.lastConnectedSeconds | saturnDate: 'short' }}
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      [ngClass]="{ 'mat-row-dark-barkground': isDarkMode }"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" showFirstLastButtons> </mat-paginator>
+</div>

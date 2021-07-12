@@ -1,0 +1,47 @@
+@import 'src/scss/custom_theme';
+
+.common-container {
+  border: 1px solid $color-border;
+  border-radius: 6px;
+
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.common__content {
+  resize: vertical;
+  height: 180px;
+}
+
+.common__seconds {
+  & > * {
+    width: 100%;
+  }
+}
+
+.common__animations {
+  & > * {
+    width: 100%;
+
+    margin-bottom: 1rem;
+  }
+}
+
+.common__text-decorator {
+  padding: 0rem 0.5rem 1rem 0.5rem;
+}
+
+.mat-expansion-panel-body {
+  padding: 0rem 1.6rem;
+}
+
+.text-load-button {
+  margin-bottom: 1rem;
+  width: 100%;
+}
+
+.text-align {
+  & > * {
+    width: 100%;
+  }
+}

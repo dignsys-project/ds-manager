@@ -1,0 +1,115 @@
+<div class="container mat-elevation-z4">
+  <mat-table [dataSource]="dataSource">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+          [disabled]="disabled"
+          (change)="onChangeCheckboxSelectAllItems($event)"
+          [checked]="selection.hasValue() && selection.isAllSelected()"
+          [indeterminate]="selection.hasValue() && !selection.isAllSelected()"
+        >
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell mat-cell *matCellDef="let row">
+        <mat-checkbox
+          [disabled]="disabled"
+          (click)="$event.stopPropagation()"
+          (change)="onChangeCheckboxSelectItem($event, row)"
+          [checked]="selection.isSelected(row)"
+        >
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>이름</mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedRow(element)"
+      >
+        {{ element.name | uppercase }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Device Id -->
+    <ng-container matColumnDef="device_id">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        디바이스 ID
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedRow(element)"
+      >
+        {{ element.deviceId | uppercase }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="kind">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        타입
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedRow(element)"
+      >
+        <app-components-connector-kind
+          [kind]="element.kind"
+        ></app-components-connector-kind>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="created">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        생성 일자
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedRow(element)"
+      >
+        {{ element.created | saturnDate: 'short' }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="updated">
+      <mat-header-cell mat-header-cell *matHeaderCellDef>
+        최근 접속 일자
+      </mat-header-cell>
+      <mat-cell
+        mat-cell
+        *matCellDef="let element"
+        (click)="onClickedRow(element)"
+      >
+        {{ element.updated | saturnDate }}
+      </mat-cell>
+    </ng-container>
+
+    <!-- Emergency Name Column -->
+    <ng-container matColumnDef="emergency_saturn">
+      <mat-header-cell mat-header-cell *matHeaderCellDef
+        >긴급 상태</mat-header-cell
+      >
+      <mat-cell mat-cell *matCellDef="let element">
+        <mat-icon [color]="element.isEmergency ? 'warn' : ''">
+          {{ element.isEmergency ? 'report' : 'report_off' }}
+        </mat-icon>
+      </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row
+      [ngClass]="{ 'mat-row-dark-barkground': isDarkMode }"
+      *matRowDef="let row; columns: displayedColumns"
+    ></mat-row>
+  </mat-table>
+
+  <mat-paginator [pageSize]="10" showFirstLastButtons> </mat-paginator>
+</div>

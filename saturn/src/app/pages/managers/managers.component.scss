@@ -1,0 +1,57 @@
+@import 'src/scss/custom_theme';
+
+:host {
+  display: inline-block;
+  width: 100%;
+  color: $color-primary;
+}
+
+.container-title {
+  margin: 1.6rem;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+.container {
+  padding: 1.6rem;
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'member saturn';
+  column-gap: 1.6em;
+
+  @media screen and (max-width: 960px) {
+    grid-template-columns: 1fr;
+    grid-template-areas: 'member' 'saturn';
+    row-gap: 1.6em;
+  }
+
+  &__header {
+    grid-area: header;
+  }
+  &__member {
+    grid-area: member;
+  }
+
+  &__saturn {
+    grid-area: saturn;
+  }
+}
+
+.container-name {
+  color: $color-primary-light;
+}
+
+.content {
+  & > * {
+    padding: 0rem 1.6rem 0.5rem 1.6rem;
+    margin-bottom: 1rem;
+    border-bottom: 1px solid #cdcdcd;
+  }
+  &__email {
+    border-bottom: 1px solid #cdcdcd;
+  }
+
+  &__password-reset {
+    border-bottom: initial !important;
+  }
+}

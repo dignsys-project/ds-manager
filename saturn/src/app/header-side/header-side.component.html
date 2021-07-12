@@ -1,0 +1,22 @@
+<div class="container-home" fxLayout="column" fxLayoutAlign="center center">
+  <img
+    src="/assets/logo.png"
+    class="container__logo"
+    (click)="onClickedMoveDashboard()"
+  />
+</div>
+<div
+  class="container-menu"
+  fxLayout="column"
+  fxLayoutGap="10px"
+  fxLayoutAlign="center stretch"
+>
+  <a
+    mat-button
+    class="menu__items"
+    [routerLink]="item.route"
+    routerLinkActive="router-link-active"
+    *ngFor="let item of menus$ | async"
+    >{{ item.name }}
+  </a>
+</div>

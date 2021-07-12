@@ -1,0 +1,20 @@
+.mat-column {
+  &-select {
+    flex: 15%;
+  }
+  &-schedule {
+    flex: 45%;
+  }
+  &-scene {
+    overflow: visible;
+    flex: 20%;
+  }
+
+  &-updated {
+    flex: 20%;
+  }
+}
+
+.row-selected {
+  background-color: red;
+}

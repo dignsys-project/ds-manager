@@ -1,0 +1,23 @@
+<div class="container-menu" fxLayout="row" fxLayoutAlign="space-between center">
+  <div class="container">
+    <div class="items" *ngIf="hasElements; else ELSE_BLOCK">
+      <div
+        #ITEM
+        *ngFor="let item of elements; let i = index"
+        class="item"
+        fxLayout="row"
+      >
+        <app-connects-components-connector
+          [element]="item"
+        ></app-connects-components-connector>
+      </div>
+    </div>
+    <ng-template #ELSE_BLOCK>
+      <div fxLayout="row" fxLayoutAlign="center center" class="elements-create">
+        <div fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="10px">
+          <div class="elements-create__message">디바이스가 없습니다.</div>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</div>

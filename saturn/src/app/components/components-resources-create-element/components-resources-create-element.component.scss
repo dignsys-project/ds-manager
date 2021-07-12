@@ -1,0 +1,49 @@
+@import 'src/scss/custom_theme';
+
+.element {
+  border: 1px solid $color-border;
+  padding: 1rem;
+
+  transition: all 1s;
+  margin-bottom: 1rem;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+
+    &__thumbnail {
+      width: 100% !important;
+    }
+  }
+
+  & > * {
+    &:not(:last-child) {
+      padding-right: 1.6rem;
+    }
+  }
+  &__thumbnail {
+    width: 100%;
+    max-width: 256px;
+    // height: 128px;
+    object-fit: cover;
+
+    transition: all 1s;
+
+    & > img {
+      width: 100%;
+    }
+    &:hover {
+      height: initial;
+    }
+
+    &-defined {
+      & > img {
+        width: 50%;
+      }
+    }
+  }
+}
+
+.key {
+  font-weight: bold;
+  min-width: 4em;
+}

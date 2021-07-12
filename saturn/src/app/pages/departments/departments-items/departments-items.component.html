@@ -1,0 +1,98 @@
+<div class="container">
+  <div
+    fxLayout="row"
+    fxLayoutAlign="space-between center"
+    fxLayoutGap="10px"
+    class="container__common-menus"
+    *ngIf="hasItems"
+  >
+    <div fxLayout="row" fxLayoutAlign="end center" fxLayoutGap="10px">
+      <button mat-icon-button (click)="onClickedCollapseItems()">
+        <mat-icon>expand_less</mat-icon>
+      </button>
+      <button mat-icon-button (click)="onClickedExpandItems()">
+        <mat-icon>expand_more</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <mat-tree
+    [dataSource]="dataSource"
+    [treeControl]="treeControl"
+    class="container__departments"
+    *ngIf="hasItems; else NO_CONTENT"
+  >
+    <!-- This is the tree node template for leaf nodes -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+      <!-- use a disabled button to provide padding for tree leaf -->
+      <button mat-icon-button disabled></button>
+      <div
+        class="item"
+        [ngClass]="{
+          item__connector: isConnector(node.kind),
+          item__member: isMember(node.kind),
+          item__department: isDepartment(node.kind)
+        }"
+        (click)="onClickedElement(node)"
+      >
+        <mat-icon
+          *ngIf="!isDepartment(node.kind)"
+          class="item__icon"
+          [color]="getIconColor(node.kind)"
+          >{{ getIconName(node.kind) }}
+        </mat-icon>
+        <div [ngClass]="{ item__name: !isDepartment(node.kind) }">
+          {{ node.name }}
+        </div>
+      </div>
+    </mat-tree-node>
+
+    <!-- This is the tree node template for expandable nodes -->
+    <mat-tree-node
+      *matTreeNodeDef="let node; when: hasChild"
+      matTreeNodePadding
+    >
+      <button
+        mat-icon-button
+        matTreeNodeToggle
+        [attr.aria-label]="'toggle ' + node.name"
+      >
+        <mat-icon class="mat-icon-rtl-mirror">
+          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+        </mat-icon>
+      </button>
+      <div
+        class="item"
+        [ngClass]="{
+          item__connector: isConnector(node.kind),
+          item__member: isMember(node.kind),
+          item__department: isDepartment(node.kind)
+        }"
+        (click)="onClickedElement(node)"
+      >
+        <div>{{ node.name }}</div>
+      </div>
+    </mat-tree-node>
+  </mat-tree>
+
+  <ng-template #NO_CONTENT>
+    <section
+      class="container__nocontent"
+      fxLayout="column"
+      fxLayoutAlign="center center"
+      fxLayoutGap="20px"
+    >
+      <p class="container__nocontent-message">
+        현재 조직이 없습니다 <br />
+        조직을 추가하세요
+      </p>
+      <a
+        style="width: 80%"
+        mat-raised-button
+        color="primary"
+        [routerLink]="['/departments/list/create']"
+        >조직 관리 이동</a
+      >
+    </section>
+  </ng-template>
+</div>

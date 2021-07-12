@@ -1,0 +1,163 @@
+<section class="container" *ngIf="department">
+  <section
+    class="container-department"
+    fxLayout="row"
+    fxLayoutGap="20px"
+    fxLayoutAlign="start center"
+    fxLayout.lt-sm="column"
+    fxLayoutAlign.lt-sm="center end"
+  >
+    <div
+      class="department__created"
+      *ngIf="department"
+      fxLayout="row"
+      fxLayoutGap="10px"
+    >
+      <div class="text">생성 일자 :</div>
+      <div class="value">{{ department.created | saturnDate }}</div>
+    </div>
+
+    <div class="department__members" fxLayout="row" fxLayoutGap="10px">
+      <div class="text">디바이스 수 :</div>
+      <div class="value">{{ department.connectorsCount }} 개</div>
+    </div>
+  </section>
+  <div
+    class="container-menus"
+    fxLayout="row"
+    fxLayoutAlign="start center"
+    fxLayoutGap="10px"
+  >
+    <button
+      mat-icon-button
+      color="accent"
+      (click)="onClickedAddDeadbeats()"
+      *ngIf="!isDeadbeatsMode"
+      @live
+    >
+      <mat-icon>add_circle_outline</mat-icon>
+    </button>
+    <button
+      mat-icon-button
+      (click)="onClickedCancleDeadbeats()"
+      *ngIf="isDeadbeatsMode"
+      @live
+    >
+      <mat-icon>highlight_off</mat-icon>
+    </button>
+  </div>
+
+  <div class="department" *ngIf="!isDeadbeatsMode">
+    <div class="connector-kind-message primary-color">등록된 디바이스 목록</div>
+    <div
+      class="container-department-connectors"
+      *ngIf="department.hasConnectors; else DEPARTMENT_CONNECTORS_ELSEBLOCK"
+    >
+      <div class="container-department-connectors__list">
+        <app-components-connector-table
+          [elements]="department.connectorBases"
+        ></app-components-connector-table>
+      </div>
+      <div
+        class="container-department-connectors__menus"
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        fxLayoutGap="10px"
+      >
+        <button
+          mat-raised-button
+          color="warn"
+          *ngIf="haveSelectConnectors"
+          (click)="onClickedConnectorsDelete()"
+          @appear
+        >
+          디바이스 제거
+        </button>
+      </div>
+    </div>
+    <ng-template #DEPARTMENT_CONNECTORS_ELSEBLOCK>
+      <div
+        class="department__no-content"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <div
+          class="no-content-box"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <h3>조직에 소속된 디바이스들이 없습니다.</h3>
+          <h4 class="sub-title">추가하시겠습니까?</h4>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="onClickedAddDeadbeats()"
+          >
+            디바이스 추가
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="deadbeats" *ngIf="isDeadbeatsMode">
+    <div class="connector-kind-message accent-color">
+      등록 가능한 디바이스 목록
+    </div>
+    <div
+      class="deadbeats__connectors container-connectors"
+      *ngIf="connectors?.length > 0; else CONNECTORS_ELSE_BLOCK"
+    >
+      <div class="connector-connectors__list">
+        <app-components-connector-select
+          [elements]="connectors"
+          (selected)="onOutputDeadbeatConnectorSelected($event)"
+        ></app-components-connector-select>
+      </div>
+      <div
+        class="connector-connectors__menus"
+        fxLayout="column"
+        fxLayoutAlign="start stretch"
+        fxLayoutGap="10px"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="onClickedAddConnectorToDepartment()"
+          *ngIf="selectedDeadbeatElement"
+          @appear
+        >
+          추가
+        </button>
+        <button mat-raised-button (click)="onClickedCancleDeadbeats()" @appear>
+          취소
+        </button>
+      </div>
+    </div>
+    <ng-template #CONNECTORS_ELSE_BLOCK>
+      <div
+        class="deadbeats__no-content"
+        fxLayout="column"
+        fxLayoutAlign="center center"
+      >
+        <div
+          class="no-content-box"
+          fxLayout="column"
+          fxLayoutAlign="center center"
+        >
+          <h3>승인된 디바이스들이 없습니다.</h3>
+          <h4 class="sub-title">
+            디바이스는 하나의 조직에만 소속 될 수 있습니다.
+          </h4>
+          <button
+            mat-raised-button
+            color="accent"
+            (click)="onClickedMoveConnectors()"
+          >
+            디바이스 관리
+          </button>
+        </div>
+      </div>
+    </ng-template>
+  </div>
+</section>

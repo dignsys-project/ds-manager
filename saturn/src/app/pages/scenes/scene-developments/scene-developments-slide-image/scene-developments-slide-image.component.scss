@@ -1,0 +1,29 @@
+@import 'src/scss/custom_theme';
+
+.container {
+  display: grid;
+  grid-template-columns: 5fr minmax(250px, 1fr);
+  grid-template-areas: 'viewer create';
+  column-gap: 16px;
+
+  & > * {
+    border: 1px solid $color-border;
+    box-sizing: border-box;
+    padding: 1rem;
+    height: 75vh;
+  }
+
+  &__create {
+    grid-area: create;
+    overflow: auto;
+  }
+
+  &__viewer {
+    grid-area: viewer;
+  }
+}
+
+.slide-image {
+  width: 50%;
+  height: 50%;
+}
