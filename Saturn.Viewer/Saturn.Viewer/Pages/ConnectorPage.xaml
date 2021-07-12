@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="Saturn.Viewer.Pages.ConnectorPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+    xmlns:local="clr-namespace:Saturn.Viewer.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="ConnectorPage"
+    d:DesignHeight="800"
+    d:DesignWidth="500"
+    Background="Transparent"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Border Background="{StaticResource WordBlueBrush}">
+        <Grid>
+            <materialDesign:Card Margin="16" Padding="32">
+                <StackPanel
+                    Width="350"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <Button
+                        Margin="16,0,16,16"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsProcess}"
+                        materialDesign:ButtonProgressAssist.Value="-1"
+                        Command="{Binding OfflineModeCommand}"
+                        Content="오프라인 맵 이동"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}"
+                        Visibility="{Binding IsDevelopmentMode}" />
+
+                    <StackPanel Margin="0,0,0,16">
+                        <TextBlock
+                            Margin="16,0,16,0"
+                            Foreground="{StaticResource WordBlueBrush}"
+                            Style="{StaticResource MaterialDesignTextBlock}">
+                            연결할 서버 정보를 입력해주세요
+                        </TextBlock>
+                        <TextBlock
+                            Margin="16,0,8,0"
+                            Foreground="#222222"
+                            Style="{StaticResource MaterialDesignCaptionTextBlock}">
+                            연결 정보는 관리자에게 문의해야 합니다.
+                        </TextBlock>
+                    </StackPanel>
+                    <TextBox
+                        Margin="16,0,16,8"
+                        materialDesign:HintAssist.Hint="접속 서버 주소"
+                        IsEnabled="{Binding IsEnabledAddressBox}"
+                        MaxLength="100"
+                        Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        Text="{Binding PrometheusAddress, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                    <Button
+                        Margin="16,0,16,16"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsProcess}"
+                        materialDesign:ButtonProgressAssist.Value="-1"
+                        Command="{Binding VersionCommand}"
+                        Content="연결"
+                        IsEnabled="{Binding IsEnabledCheckedVersion}"
+                        Style="{StaticResource MaterialDesignRaisedDarkButton}" />
+
+                    <TextBlock
+                        Margin="16,0"
+                        Text="{Binding ConnectedMessage}"
+                        Visibility="{Binding IsShowConnectedMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                </StackPanel>
+
+
+            </materialDesign:Card>
+
+
+        </Grid>
+    </Border>
+
+</Page>

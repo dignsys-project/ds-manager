@@ -1,0 +1,195 @@
+﻿<Page
+    x:Class="Saturn.Viewer.Pages.ResourcePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Saturn.Viewer.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="800"
+    d:DesignWidth="500"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+
+    <Border Background="{StaticResource WordBlueBrush}">
+        <Grid>
+            <materialDesign:Card Margin="16" Padding="32">
+                <StackPanel VerticalAlignment="Center">
+
+                    <!--  Page Name  -->
+                    <TextBlock
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                        Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                        Text="리소스 업데이트"
+                        TextAlignment="Center" />
+
+                    <!--  Parse Scene Grid  -->
+                    <Grid Visibility="{Binding IsParseSceneVisibility}">
+                        <Grid.RowDefinitions>
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                            <RowDefinition />
+                        </Grid.RowDefinitions>
+
+                        <Label HorizontalContentAlignment="Center">씬과 연결된 씬 정보를 분석 중입니다.</Label>
+                        <Label Grid.Row="1" HorizontalContentAlignment="Center">씬과 연결된 모든 씬과 와 리소스를 검사 중입니다.</Label>
+                        <ProgressBar
+                            Grid.Row="3"
+                            Width="50"
+                            Height="50"
+                            Foreground="{DynamicResource SecondaryAccentBrush}"
+                            IsIndeterminate="True"
+                            Style="{StaticResource MaterialDesignCircularProgressBar}"
+                            Value="50" />
+                    </Grid>
+
+                    <!--  Scene Base Count  -->
+                    <Grid Margin="20,10,20,10" Visibility="{Binding IsSceneBaseVisibility}">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition />
+                            <ColumnDefinition />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource SecondaryAccentBrush}"
+                            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                            Text="연결 된 씬 갯수: " />
+                        <TextBlock
+                            Grid.Column="1"
+                            HorizontalAlignment="Right"
+                            FontWeight="Bold"
+                            Foreground="{DynamicResource SecondaryAccentBrush}"
+                            Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                            Text="{Binding SceneBasesCount, Mode=TwoWay}" />
+                    </Grid>
+                    <StackPanel
+                        Margin="0,0,0,10"
+                        Orientation="Vertical"
+                        Visibility="{Binding IsShowScene}">
+                        <StackPanel.Resources>
+                            <Style TargetType="{x:Type TextBlock}">
+                                <Setter Property="Margin" Value="0,50,0,0" />
+                            </Style>
+                        </StackPanel.Resources>
+
+                        <!--  현재 디바이스에 설정된 씬 정보  -->
+                        <Grid Margin="20,0,20,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition />
+                                <ColumnDefinition />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                Grid.Column="0"
+                                FontWeight="Bold"
+                                Foreground="{DynamicResource SecondaryAccentBrush}"
+                                Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                Text="씬 이름 : " />
+                            <TextBlock
+                                Grid.Column="1"
+                                HorizontalAlignment="Right"
+                                Foreground="{DynamicResource SecondaryAccentBrush}"
+                                Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                Text="{Binding SceneName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+                        </Grid>
+
+
+                        <StackPanel Margin="16" Visibility="{Binding IsUpdated, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                            <ProgressBar
+                                Margin="0,0,0,16"
+                                IsIndeterminate="True"
+                                Style="{StaticResource MaterialDesignCircularProgressBar}"
+                                Value="0" />
+
+                            <!--  should disable on 2nd transition...  -->
+                            <ProgressBar Value="{Binding DownloadPercent}" />
+
+                            <!--  Download Informations  -->
+                            <Grid Margin="0,10,0,10">
+
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition />
+                                </Grid.RowDefinitions>
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="0"
+                                    Style="{DynamicResource MaterialDesignHeadline5TextBlock}">
+                                    다운로드 사이즈 :
+                                </TextBlock>
+
+
+                                <TextBlock
+                                    Grid.Row="0"
+                                    Grid.Column="1"
+                                    Margin="0,0,10,0"
+                                    Padding="0,0,0,5"
+                                    HorizontalAlignment="Right"
+                                    Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                                    Text="{Binding DownloadTotalSize, Mode=TwoWay}" />
+                                <Border
+                                    Grid.Row="1"
+                                    Grid.ColumnSpan="2"
+                                    BorderBrush="#FDFDFD"
+                                    BorderThickness="0.5" />
+                            </Grid>
+
+
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                <TextBlock
+                                    Margin="0,0,10,0"
+                                    Padding="0,0,0,5"
+                                    Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                                    Text="남은 시간 : " />
+                                <Label
+                                    Grid.Column="1"
+                                    Margin="0,0,10,0"
+                                    Padding="0,0,0,5"
+                                    HorizontalContentAlignment="Right"
+                                    Content="{Binding RemainSeconds, Mode=TwoWay}" />
+
+                            </Grid>
+
+                            <!--  남은 시간 크기  -->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+                                    <Label Grid.Column="1" HorizontalContentAlignment="Right" Content="{Binding CurrentDownloadSpeed, Mode=TwoWay}" />
+
+                            </Grid>
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel Visibility="{Binding IsNoContent}">
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                            Text="현재 할당된 씬이 없습니다." />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            Foreground="{DynamicResource ForegroundMainBrush}"
+                            Style="{DynamicResource MaterialDesignSubtitle1TextBlock}"
+                            Text="씬할당은 관리자에게 문의해야 합니다." />
+                    </StackPanel>
+
+
+
+                </StackPanel>
+            </materialDesign:Card>
+        </Grid>
+    </Border>
+</Page>

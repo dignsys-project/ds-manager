@@ -1,0 +1,70 @@
+﻿<Page
+    x:Class="Saturn.Viewer.Pages.DevicePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Saturn.Viewer.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="DevicePage"
+    d:DesignHeight="800"
+    d:DesignWidth="500"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Border Background="{StaticResource WordBlueBrush}">
+        <Grid>
+            <materialDesign:Card Margin="16" Padding="32">
+                <StackPanel
+                    Width="350"
+                    Margin="0,16"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Orientation="Vertical">
+                    <TextBlock
+                        Margin="0,0,0,16"
+                        HorizontalAlignment="Center"
+                        Foreground="{StaticResource PrimaryHueMidBrush}"
+                        Style="{StaticResource MaterialDesignHeadline5TextBlock}"
+                        Text="디바이스 정보" />
+
+                    <TextBox
+                        Margin="16,0,16,16"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.HelperText="글자수는 5글자이상 25자이하여야합니다."
+                        materialDesign:HintAssist.Hint="디바이스의 고유 이름"
+                        MaxLength="25"
+                        Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        Text="{Binding Name, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" />
+
+                    <TextBox
+                        Margin="16,16"
+                        VerticalAlignment="Top"
+                        materialDesign:HintAssist.HelperText="디바이스이름은 컴퓨터의 고유 정보입니다."
+                        materialDesign:HintAssist.Hint="디바이스 ID"
+                        IsEnabled="False"
+                        MaxLength="100"
+                        Style="{StaticResource MaterialDesignOutlinedTextFieldTextBox}"
+                        Text="{Binding DeviceId}" />
+
+                    <Button
+                        Margin="16,16"
+                        materialDesign:ButtonProgressAssist.IsIndeterminate="True"
+                        materialDesign:ButtonProgressAssist.IsIndicatorVisible="{Binding IsProcess}"
+                        materialDesign:ButtonProgressAssist.Value="-1"
+                        Command="{Binding RegisterCommand}"
+                        Content="디바이스 등록"
+                        IsEnabled="{Binding CanRegister}"
+                        Style="{StaticResource MaterialDesignRaisedButton}" />
+
+                    <TextBlock
+                        Margin="16"
+                        Style="{DynamicResource MaterialDesignCaptionTextBlock}"
+                        Text="{Binding StatusMessage}"
+                        Visibility="{Binding IsShowStatus}" />
+                </StackPanel>
+
+            </materialDesign:Card>
+        </Grid>
+    </Border>
+</Page>

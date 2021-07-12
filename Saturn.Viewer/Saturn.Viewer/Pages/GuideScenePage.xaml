@@ -1,0 +1,94 @@
+﻿<Page
+    x:Class="Saturn.Viewer.Pages.GuideScenePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Saturn.Viewer.Pages"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="GuideScenePage"
+    d:DesignHeight="1080"
+    d:DesignWidth="1920"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Grid>
+        <Image Source="/Saturn.Viewer;component/Images/GuideScenes/map_zoom.jpg" Stretch="Fill" />
+        <Image
+            x:Name="Route01"
+            Source="/Saturn.Viewer;component/Images/GuideScenes/route01.png"
+            Stretch="Fill"
+            Visibility="Hidden" />
+        <Image
+            x:Name="Route02"
+            Source="/Saturn.Viewer;component/Images/GuideScenes/route02.png"
+            Stretch="Fill"
+            Visibility="Hidden" />
+        <Image
+            x:Name="Route03"
+            Source="/Saturn.Viewer;component/Images/GuideScenes/route03.png"
+            Stretch="Fill"
+            Visibility="Hidden" />
+        <Image
+            x:Name="Route04"
+            Source="/Saturn.Viewer;component/Images/GuideScenes/route04.png"
+            Stretch="Fill"
+            Visibility="Hidden" />
+        <Grid
+            x:Name="AreaA"
+            Margin="10,18,1239,617"
+            Background="{StaticResource ForegroundMainBrush}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    FontSize="40"
+                    Text="영역 A" />
+                <TextBlock FontSize="40" Text="화장실 및 기타 편의 시설 존재 여부" />
+
+            </StackPanel>
+
+        </Grid>
+
+        <Grid
+            x:Name="AreaB"
+            Margin="0,756,1239,10"
+            Background="{StaticResource ForegroundMainBrush}">
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock FontSize="40" Text="B 영역" />
+                <TextBlock FontSize="40" Text="A, B 영역 중 선택" />
+            </StackPanel>
+
+        </Grid>
+
+        <Canvas>
+
+            <Button
+                Canvas.Top="10"
+                Canvas.Right="10"
+                MinWidth="200"
+                MinHeight="80"
+                Command="{Binding RouteCommand01}"
+                Content="A 경로" />
+            <Button
+                Canvas.Top="100"
+                Canvas.Right="10"
+                MinWidth="200"
+                MinHeight="80"
+                Command="{Binding RouteCommand02}"
+                Content="B 경로" />
+            <Button
+                Canvas.Top="190"
+                Canvas.Right="10"
+                MinWidth="200"
+                MinHeight="80"
+                Command="{Binding RouteCommand03}"
+                Content="C 경로" />
+            <Button
+                Canvas.Top="280"
+                Canvas.Right="10"
+                MinWidth="200"
+                MinHeight="80"
+                Command="{Binding RouteCommand04}"
+                Content="D 경로" />
+        </Canvas>
+    </Grid>
+</Page>

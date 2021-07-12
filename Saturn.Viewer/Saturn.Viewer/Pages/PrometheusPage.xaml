@@ -1,0 +1,48 @@
+﻿<Page
+    x:Class="Saturn.Viewer.Pages.PrometheusPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="clr-namespace:Saturn.Viewer.Pages"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    Title="PrometheusPage"
+    d:DesignHeight="800"
+    d:DesignWidth="500"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Border Background="{StaticResource WordBlueBrush}">
+        <Grid>
+            <materialDesign:Card Margin="16" Padding="32">
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock
+                        Margin="0,0,0,16"
+                        HorizontalAlignment="Center"
+                        FontWeight="Bold"
+                        Foreground="{DynamicResource PrimaryHueDarkBrush}"
+                        Style="{DynamicResource MaterialDesignHeadline5TextBlock}"
+                        Text="버전 확인" />
+
+
+                    <TextBlock
+                        Margin="10"
+                        Foreground="DarkGray"
+                        Style="{DynamicResource MaterialDesignHeadline6TextBlock}"
+                        Text="{Binding VersionMessage, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        TextAlignment="Center" />
+                    <ProgressBar
+                        Width="50"
+                        Height="50"
+                        Foreground="{DynamicResource SecondaryAccentBrush}"
+                        IsIndeterminate="True"
+                        Style="{StaticResource MaterialDesignCircularProgressBar}"
+                        Value="50" />
+
+
+                </StackPanel>
+
+            </materialDesign:Card>
+        </Grid>
+    </Border>
+</Page>
